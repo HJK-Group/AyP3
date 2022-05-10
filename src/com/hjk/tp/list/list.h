@@ -8,6 +8,8 @@ typedef struct list {
     void *data;
 } list;
 
+list *new_empty_list();
+
 list *new_list(void *data, size_t data_size);
 
 void list_add(list *list, void *data, size_t data_size);
