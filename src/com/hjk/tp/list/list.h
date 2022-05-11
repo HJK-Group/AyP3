@@ -3,9 +3,14 @@
 
 #include <stdio.h>
 
-typedef struct list {
-    struct list *next;
+typedef struct node {
+    struct node *next;
     void *data;
+} node;
+
+typedef struct list {
+    node* head;
+    int length;
 } list;
 
 list *new_empty_list();
@@ -16,7 +21,7 @@ void list_add(list *list, void *data, size_t data_size);
 
 int list_length(list *list);
 
-void* list_get(list* list_parameter, int index);
+void* list_get_value(list* list_parameter, int index);
 
 void list_remove(list *list, int index);
 

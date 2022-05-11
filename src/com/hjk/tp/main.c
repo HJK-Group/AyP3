@@ -34,8 +34,8 @@ int main()
     carta otra = {1, ESPADA};
     list_add(lista, &algo, sizeof(carta));
     list_add(lista, &otra, sizeof(carta));
-
-    carta *element = list_get(lista, 1);
+    carta *element = list_get(lista, 0);
+    list* dato = list_get_item(lista,1);
     list_print(lista);
     return 0;
 }
