@@ -16,10 +16,10 @@ void list_add(list *list, void *data, size_t data_size);
 
 int list_length(list *list);
 
-void *list_get(list* list, int index);
+void* list_get(list* list_parameter, int index);
 
 void list_remove(list *list, int index);
 
-void list_print(list *);
+void list_print(list *list);
 
 #endif //AYP3_LIST_H
