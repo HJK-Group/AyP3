@@ -53,7 +53,7 @@ int list_length(list *list) {
 
 
 void *list_get_value(list *list_parameter, int index) {
-    return list_get(list_parameter, index);
+    return list_get(list_parameter, index)->data;
 }
 
 void list_remove(list *list, int index) {
