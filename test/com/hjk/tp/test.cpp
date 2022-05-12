@@ -39,10 +39,7 @@ TEST(PruebasLista, inicializada_con_item) {
 TEST(PruebasLista, agregar_datos_a_la_lista) {
     list *lista = new_empty_list();
 
-    const char *item = "item";
-    const char *otro_item = "otro";
-
-    list_add(lista, (void*)item, sizeof("item"));
+    list_add(lista, (void*)"item", sizeof("item"));
     ASSERT_NE(lista->head->next, nullptr);
     ASSERT_NE(lista->head->data, nullptr);
     ASSERT_EQ(list_length(lista), 1);
@@ -53,7 +50,7 @@ TEST(PruebasLista, agregar_datos_a_la_lista) {
     ASSERT_EQ('e', *(item_en_lista + 2));
     ASSERT_EQ('m', *(item_en_lista + 3));
 
-    list_add(lista, (void*)otro_item, sizeof("otro"));
+    list_add(lista, (void*)"otro", sizeof("otro"));
     ASSERT_NE(lista->head->next->next, nullptr);
     ASSERT_NE(lista->head->next->data, nullptr);
     ASSERT_EQ(list_length(lista), 2);
@@ -66,7 +63,6 @@ TEST(PruebasLista, agregar_datos_a_la_lista) {
 
     assert_ultimo_nodo_es_nulo(lista->head->next->next);
 
-    free(lista->head->next->next->next);
     free(lista->head->next->next);
     free(lista->head->next);
     free(lista->head);
