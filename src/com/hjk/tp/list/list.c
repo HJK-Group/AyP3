@@ -52,6 +52,7 @@ void list_add(list *lista, void *data, size_t data_size) {
     aux->data = item;
     aux->next->next = NULL;
     aux->next->data = NULL;
+    lista->length += 1;
 }
 
 int list_length(list *list) {
