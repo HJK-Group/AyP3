@@ -23,7 +23,7 @@ int list_length(list *list);
 
 void* list_get_value(list* list_parameter, int index);
 
-void list_remove(list *list, int index);
+int list_remove(list *list, int index);
 
 void list_print(list *list);
 

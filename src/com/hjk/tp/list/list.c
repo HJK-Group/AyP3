@@ -51,14 +51,28 @@ int list_length(list *list) {
     return list->length;
 }
 
-
 void *list_get_value(list *list_parameter, int index) {
     return list_get(list_parameter, index)->data;
 }
 
-void list_remove(list *list, int index) {
-}
+int list_remove(list *lista, int index) {
+    if (index < 0 || index > lista->length - 1) {
+        return -1;
+    }
+    if (index == 0){
+        node* head_node = lista->head->next;
+        lista->head = head_node;
+        return 0;
+    }
+    node* change_prev_node = list_get(lista, index -1);
+    node* node_remove = change_prev_node->next;
+    node* change_next_node = node_remove->next;
 
+    change_prev_node->next = change_next_node;
+    free(node_remove);
+    
+    return 0;
+}
 
 void list_print(list *list_parameter) {
     node *list_pointer = list_parameter;
