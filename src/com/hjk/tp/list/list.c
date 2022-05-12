@@ -65,18 +65,19 @@ int list_remove(list *lista, int index) {
     if (index < 0 || index > lista->length - 1) {
         return -1;
     }
-    if (index == 0){
-        node* head_node = lista->head->next;
-        lista->head = head_node;
-        return 0;
-    }
-    node* change_prev_node = list_get(lista, index -1);
-    node* node_remove = change_prev_node->next;
-    node* change_next_node = node_remove->next;
 
-    change_prev_node->next = change_next_node;
+    node *node_remove;
+    if (index == 0) {
+        node_remove = lista->head;
+        lista->head = lista->head->next;
+    } else {
+        node *change_prev_node = list_get(lista, index - 1);
+        node_remove = change_prev_node->next;
+        change_prev_node->next = node_remove->next;
+    }
+
     free(node_remove);
-    
+    lista->length -= 1;
     return 0;
 }
 
