@@ -12,7 +12,7 @@ void assert_ultimo_nodo_es_nulo(node *nodo) {
 TEST(PruebasLista, inicalmente_vacia) {
     list *lista = new_empty_list();
     ASSERT_NE(lista, nullptr);
-    ASSERT_EQ(lista->length, 0);
+    ASSERT_EQ(list_length(lista), 0);
     assert_ultimo_nodo_es_nulo(lista->head);
 
     free(lista);
@@ -45,7 +45,7 @@ TEST(PruebasLista, agregar_datos_a_la_lista) {
     list_add(lista, (void*)item, sizeof("item"));
     ASSERT_NE(lista->head->next, nullptr);
     ASSERT_NE(lista->head->data, nullptr);
-    ASSERT_EQ(lista->length, 1);
+    ASSERT_EQ(list_length(lista), 1);
 
     const char *item_en_lista = (char*)lista->head->data;
     ASSERT_EQ('i', *item_en_lista);
@@ -56,7 +56,7 @@ TEST(PruebasLista, agregar_datos_a_la_lista) {
     list_add(lista, (void*)otro_item, sizeof("otro"));
     ASSERT_NE(lista->head->next->next, nullptr);
     ASSERT_NE(lista->head->next->data, nullptr);
-    ASSERT_EQ(lista->length, 2);
+    ASSERT_EQ(list_length(lista), 2);
 
     const char *otro_item_en_lista = (char*)lista->head->next->data;
     ASSERT_EQ('o', *otro_item_en_lista);
