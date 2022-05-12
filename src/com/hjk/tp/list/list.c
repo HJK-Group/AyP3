@@ -82,7 +82,7 @@ int list_remove(list *lista, int index) {
 }
 
 void list_print(list *list_parameter) {
-    node *list_pointer = list_parameter;
+    node *list_pointer = list_parameter->head;
 
     while (list_pointer->next != NULL) {
         // Complicado imprimir un genérico.
