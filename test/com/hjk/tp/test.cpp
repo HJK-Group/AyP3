@@ -1,6 +1,7 @@
 #include <gtest/gtest.h>
+
 extern "C" {
-    #include <com/hjk/tp/list/list.h>
+#include <com/hjk/tp/list/list.h>
 }
 
 void assert_ultimo_nodo_es_nulo(node *nodo) {
@@ -19,11 +20,10 @@ TEST(PruebasLista, inicalmente_vacia) {
 }
 
 TEST(PruebasLista, inicializada_con_item) {
-    const char *item = "item";
-    list *lista = new_list((void*)item, sizeof("item"));
+    list *lista = new_list((void *) "item", sizeof("item"));
     ASSERT_TRUE(lista != nullptr);
 
-    const char *item_en_lista = (char*)lista->head->data;
+    const char *item_en_lista = (char *) list_get_value(lista, 0);
     ASSERT_EQ('i', *item_en_lista);
     ASSERT_EQ('t', *(item_en_lista + 1));
     ASSERT_EQ('e', *(item_en_lista + 2));
@@ -39,23 +39,23 @@ TEST(PruebasLista, inicializada_con_item) {
 TEST(PruebasLista, agregar_datos_a_la_lista) {
     list *lista = new_empty_list();
 
-    list_add(lista, (void*)"item", sizeof("item"));
+    list_add(lista, (void *) "item", sizeof("item"));
     ASSERT_NE(lista->head->next, nullptr);
     ASSERT_NE(lista->head->data, nullptr);
     ASSERT_EQ(list_length(lista), 1);
 
-    const char *item_en_lista = (char*)lista->head->data;
+    const char *item_en_lista = (char *) list_get_value(lista, 0);
     ASSERT_EQ('i', *item_en_lista);
     ASSERT_EQ('t', *(item_en_lista + 1));
     ASSERT_EQ('e', *(item_en_lista + 2));
     ASSERT_EQ('m', *(item_en_lista + 3));
 
-    list_add(lista, (void*)"otro", sizeof("otro"));
+    list_add(lista, (void *) "otro", sizeof("otro"));
     ASSERT_NE(lista->head->next->next, nullptr);
     ASSERT_NE(lista->head->next->data, nullptr);
     ASSERT_EQ(list_length(lista), 2);
 
-    const char *otro_item_en_lista = (char*)lista->head->next->data;
+    const char *otro_item_en_lista = (char *) list_get_value(lista, 1);
     ASSERT_EQ('o', *otro_item_en_lista);
     ASSERT_EQ('t', *(otro_item_en_lista + 1));
     ASSERT_EQ('r', *(otro_item_en_lista + 2));
