@@ -48,10 +48,8 @@ void list_add(list *lista, void *data, size_t data_size) {
         aux = aux->next;
     }
 
-    aux->next = malloc(sizeof(list));
+    aux->next = new_empty_node();
     aux->data = item;
-    aux->next->next = NULL;
-    aux->next->data = NULL;
     lista->length += 1;
 }
 
