@@ -4,10 +4,17 @@
 
 node *list_get(list *lista, int index);
 
+node *new_empty_node() {
+    node *nodo = malloc(sizeof(node));
+    nodo->data = NULL;
+    nodo->next = NULL;
+    return nodo;
+}
+
 list *new_empty_list() {
     list *lista = malloc(sizeof(list));
-    lista->data = NULL;
-    lista->next = NULL;
+    lista->head = new_empty_node();
+    lista->length = 0;
     return lista;
 }
 
