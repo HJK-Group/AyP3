@@ -16,17 +16,6 @@ list *new_empty_list() {
     return lista;
 }
 
-node *list_get(list *lista, int index) {
-    node *aux = lista->head;
-    if (index > lista->length) {
-        return NULL;
-    }
-    for (int i = 0; i < index && aux->next != NULL; ++i) {
-        aux = aux->next;
-    }
-    return aux;
-}
-
 node *new_empty_node() {
     node *nodo = malloc(sizeof(node));
     if (nodo != NULL) {
@@ -67,6 +56,17 @@ int list_length(list *list) {
 
 void *list_get_value(list *list_parameter, int index) {
     return list_get(list_parameter, index)->data;
+}
+
+node *list_get(list *lista, int index) {
+    node *aux = lista->head;
+    if (index > lista->length) {
+        return NULL;
+    }
+    for (int i = 0; i < index && aux->next != NULL; ++i) {
+        aux = aux->next;
+    }
+    return aux;
 }
 
 int list_remove(list *lista, int index) {
