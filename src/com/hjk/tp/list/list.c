@@ -1,6 +1,7 @@
 #include "list.h"
 #include <stdlib.h>
 #include <stdio.h>
+#include <memory.h>
 
 node *list_get(list *lista, int index);
 
@@ -37,11 +38,11 @@ list *new_list(void *data, size_t data_size) {
 
 void list_add(list *lista, void *data, size_t data_size) {
 
+    if (lista == NULL || data == NULL || data_size <= 0)
+        return;
+
     void *item = malloc(data_size);
-    for (int i = 0; i < data_size; i++) {
-        // char *mi_variable = (char*)item + 1;
-        *((char *) item + i) = *((char *) data + i);
-    }
+    memcpy(item, data, data_size);
 
     node *aux = lista->head;
     while (aux->next != NULL) {
