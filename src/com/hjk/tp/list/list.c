@@ -5,7 +5,6 @@
 
 node *new_empty_node();
 node *list_get(list *lista, int index);
-void node_chain_destroy(node *node);
 
 list *new_empty_list() {
     list *lista = malloc(sizeof(list));
@@ -101,19 +100,14 @@ void list_print(list *list_parameter) {
 
 }
 
-void node_chain_destroy(node *node) {
-    if (node == NULL)
-        return;
-
-    if (node->next == NULL) {
-        free(node);
-        return;
-    }
-
-    node_chain_destroy(node->next);
-}
-
 void list_destroy(list *list) {
-    node_chain_destroy(list->head);
+    node *nodo = list->head;
     free(list);
+
+    node *aux;
+    while(nodo != NULL) {
+        aux = nodo->next;
+        free(nodo);
+        nodo = aux;
+    }
 }
