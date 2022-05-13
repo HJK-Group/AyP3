@@ -50,12 +50,12 @@ void list_add(list *lista, void *data, size_t data_size) {
     lista->length += 1;
 }
 
-int list_length(list *list) {
-    return list->length;
+int list_length(list *lista) {
+    return lista->length;
 }
 
-void *list_get_value(list *list_parameter, int index) {
-    return list_get(list_parameter, index)->data;
+void *list_get_value(list *lista, int index) {
+    return list_get(lista, index)->data;
 }
 
 node *list_get(list *lista, int index) {
@@ -100,9 +100,9 @@ void list_print(list *list_parameter) {
 
 }
 
-void list_destroy(list *list) {
-    node *nodo = list->head;
-    free(list);
+void list_destroy(list *lista) {
+    node *nodo = lista->head;
+    free(lista);
 
     node *aux;
     while(nodo != NULL) {
