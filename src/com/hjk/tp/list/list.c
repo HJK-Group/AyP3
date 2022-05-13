@@ -3,21 +3,17 @@
 #include <stdio.h>
 #include <memory.h>
 
+node *new_empty_node();
 node *list_get(list *lista, int index);
-
-node *new_empty_node() {
-    node *nodo = malloc(sizeof(node));
-    nodo->data = NULL;
-    nodo->next = NULL;
-    return nodo;
-}
-
 void node_chain_destroy(node *node);
 
 list *new_empty_list() {
     list *lista = malloc(sizeof(list));
-    lista->head = new_empty_node();
-    lista->length = 0;
+    if (lista != NULL) {
+        lista->head = new_empty_node();
+        lista->length = 0;
+    }
+
     return lista;
 }
 
@@ -30,6 +26,16 @@ node *list_get(list *lista, int index) {
         aux = aux->next;
     }
     return aux;
+}
+
+node *new_empty_node() {
+    node *nodo = malloc(sizeof(node));
+    if (nodo != NULL) {
+        nodo->data = NULL;
+        nodo->next = NULL;
+    }
+
+    return nodo;
 }
 
 list *new_list(void *data, size_t data_size) {
