@@ -27,4 +27,6 @@ int list_remove(list *list, int index);
 
 void list_print(list *list);
 
+void list_destroy(list *list);
+
 #endif //AYP3_LIST_H

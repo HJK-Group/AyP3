@@ -12,6 +12,8 @@ node *new_empty_node() {
     return nodo;
 }
 
+void node_chain_destroy(node *node);
+
 list *new_empty_list() {
     list *lista = malloc(sizeof(list));
     lista->head = new_empty_node();
@@ -90,4 +92,22 @@ void list_print(list *list_parameter) {
         printf("%s", "Data.");
         list_pointer = list_pointer->next;
     }
+
+}
+
+void node_chain_destroy(node *node) {
+    if (node == NULL)
+        return;
+
+    if (node->next == NULL) {
+        free(node);
+        return;
+    }
+
+    node_chain_destroy(node->next);
+}
+
+void list_destroy(list *list) {
+    node_chain_destroy(list->head);
+    free(list);
 }

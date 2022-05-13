@@ -4,11 +4,7 @@ extern "C" {
 #include <com/hjk/tp/list/list.h>
 }
 
-void assert_ultimo_nodo_es_nulo(node *nodo) {
-    ASSERT_NE(nodo, nullptr);
-    ASSERT_EQ(nodo->data, nullptr);
-    ASSERT_EQ(nodo->next, nullptr);
-}
+void assert_ultimo_nodo_es_nulo(node *nodo);
 
 TEST(PruebasLista, inicalmente_vacia) {
     list *lista = new_empty_list();
@@ -16,7 +12,7 @@ TEST(PruebasLista, inicalmente_vacia) {
     ASSERT_EQ(list_length(lista), 0);
     assert_ultimo_nodo_es_nulo(lista->head);
 
-    free(lista);
+    list_destroy(lista);
 }
 
 TEST(PruebasLista, inicializada_con_item) {
@@ -31,9 +27,7 @@ TEST(PruebasLista, inicializada_con_item) {
 
     assert_ultimo_nodo_es_nulo(lista->head->next);
 
-    free(lista->head->next);
-    free(lista->head);
-    free(lista);
+    list_destroy(lista);
 }
 
 TEST(PruebasLista, agregar_datos_a_la_lista) {
@@ -63,8 +57,11 @@ TEST(PruebasLista, agregar_datos_a_la_lista) {
 
     assert_ultimo_nodo_es_nulo(lista->head->next->next);
 
-    free(lista->head->next->next);
-    free(lista->head->next);
-    free(lista->head);
-    free(lista);
+    list_destroy(lista);
+}
+
+void assert_ultimo_nodo_es_nulo(node *nodo) {
+    ASSERT_NE(nodo, nullptr);
+    ASSERT_EQ(nodo->data, nullptr);
+    ASSERT_EQ(nodo->next, nullptr);
 }
