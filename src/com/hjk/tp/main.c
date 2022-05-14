@@ -4,8 +4,8 @@
 typedef enum { ORO, ESPADA, COPA, BASTO } palo;
 
 typedef struct carta {
-    palo palo;
     int valor;
+    palo palo;
 } carta;
 
 char *get_palo(carta *carta) {
@@ -23,19 +23,17 @@ char *get_palo(carta *carta) {
     }
 }
 
-void print_carta(carta *carta) {
-    printf("%d de %s", carta->valor, get_palo(carta));
+void print_carta(void *data) {
+    carta *cart = (carta*) data;
+    printf("%d de %s\n", cart->valor, get_palo(cart));
 }
 
-int main()
-{
+int main() {
     list *lista = new_empty_list();
     carta algo = {10, COPA};
     carta otra = {1, ESPADA};
     list_add(lista, &algo, sizeof(carta));
     list_add(lista, &otra, sizeof(carta));
-    carta *element = list_get(lista, 0);
-    list* dato = list_get_item(lista,1);
-    list_print(lista);
+    list_print(lista, &print_carta);
     return 0;
 }

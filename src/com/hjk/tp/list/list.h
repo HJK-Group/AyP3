@@ -1,5 +1,5 @@
-#ifndef AYP3_LIST_H
-#define AYP3_LIST_H
+#ifndef core_LIST_H
+#define core_LIST_H
 
 #include <stdio.h>
 
@@ -25,8 +25,8 @@ void *list_get_value(list *lista, int index);
 
 int list_remove(list *lista, int index);
 
-void list_print(list *lista);
+void list_print(list *lista, void (*print_function)(void *data));
 
 void list_destroy(list *lista);
 
-#endif //AYP3_LIST_H
+#endif //core_LIST_H

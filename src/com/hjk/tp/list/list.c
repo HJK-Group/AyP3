@@ -89,24 +89,20 @@ int list_remove(list *lista, int index) {
     return 0;
 }
 
-void list_print(list *list_parameter) {
-    node *list_pointer = list_parameter->head;
-
-    while (list_pointer->next != NULL) {
-        // Complicado imprimir un genérico.
-        printf("%s", "Data.");
-        list_pointer = list_pointer->next;
+void list_print(list *lista, void (*print_function)(void *data)) {
+    node *nodo = lista->head;
+    while(nodo->next != NULL){
+        print_function(nodo->data);
+        nodo = nodo->next;
     }
-
 }
 
 void list_destroy(list *lista) {
     node *nodo = lista->head;
     free(lista);
 
-    node *aux;
     while(nodo != NULL) {
-        aux = nodo->next;
+        node *aux = nodo->next;
         free(nodo);
         nodo = aux;
     }
