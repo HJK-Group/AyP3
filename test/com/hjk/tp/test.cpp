@@ -6,7 +6,8 @@ extern "C" {
 
 void assert_ultimo_nodo_es_nulo(node *nodo);
 
-TEST(PruebasLista, inicalmente_vacia) {
+TEST(PruebasLista, inicalmente_vacia)
+{
     list *lista = new_empty_list();
     ASSERT_NE(lista, nullptr);
     ASSERT_EQ(list_length(lista), 0);
@@ -15,7 +16,8 @@ TEST(PruebasLista, inicalmente_vacia) {
     list_destroy(lista);
 }
 
-TEST(PruebasLista, inicializada_con_item) {
+TEST(PruebasLista, inicializada_con_item)
+{
     list *lista = new_list((void *) "item", sizeof("item"));
     ASSERT_TRUE(lista != nullptr);
 
@@ -30,7 +32,8 @@ TEST(PruebasLista, inicializada_con_item) {
     list_destroy(lista);
 }
 
-TEST(PruebasLista, agregar_datos_a_la_lista) {
+TEST(PruebasLista, agregar_datos_a_la_lista)
+{
     list *lista = new_empty_list();
 
     list_add(lista, (void *) "item", sizeof("item"));
@@ -60,7 +63,36 @@ TEST(PruebasLista, agregar_datos_a_la_lista) {
     list_destroy(lista);
 }
 
-void assert_ultimo_nodo_es_nulo(node *nodo) {
+TEST(PruebasLista, obtener_primer_elemento_de_lista)
+{
+    list *test_list = new_empty_list();
+    int my_data = 2022;
+
+    list_add(test_list, &my_data, sizeof(my_data));
+    int *data_returned = (int *) list_get_value(test_list, 0);
+
+    ASSERT_EQ(my_data, 2022);
+}
+
+TEST(PruebaLista, obtener_dos_elementos_de_lista)
+{
+    list *test_list = new_empty_list();
+    int my_first_data = 2022;
+    int my_second_data = 2001;
+
+    list_add(test_list, &my_first_data, sizeof(my_first_data));
+    list_add(test_list, &my_second_data, sizeof(my_second_data));
+
+    int first_data_returned = *(int *) list_get_value(test_list, 0);
+    ASSERT_EQ(my_first_data, 2022);
+
+    int second_data_returned = *(int *) list_get_value(test_list, 1);
+    ASSERT_EQ(my_second_data, 2001);
+
+}
+
+void assert_ultimo_nodo_es_nulo(node *nodo)
+{
     ASSERT_NE(nodo, nullptr);
     ASSERT_EQ(nodo->data, nullptr);
     ASSERT_EQ(nodo->next, nullptr);
