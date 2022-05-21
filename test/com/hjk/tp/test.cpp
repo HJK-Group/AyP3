@@ -74,7 +74,7 @@ TEST(PruebasLista, obtener_primer_elemento_de_lista)
     ASSERT_EQ(my_data, 2022);
 }
 
-TEST(PruebaLista, obtener_dos_elementos_de_lista)
+TEST(PruebasLista, obtener_dos_elementos_de_lista)
 {
     list *test_list = new_empty_list();
     int my_first_data = 2022;
