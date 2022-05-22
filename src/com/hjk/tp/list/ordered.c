@@ -23,18 +23,18 @@ void ordered_list_add(ordered_list *lista, void *data, size_t data_size) {
     if (data == NULL)
         return;
 
-    node *actual = lista->generic_list->head;
-    while (actual->next != NULL && es_menor(lista, actual, data)) {
-        actual = actual->next;
+    node *itr_node = lista->generic_list->head;
+    while (itr_node->next != NULL && es_menor(lista, itr_node, data)) {
+        itr_node = itr_node->next;
     }
 
-    node *siguiente = malloc(sizeof(node));
-    siguiente->next = actual->next;
-    siguiente->data = actual->data;
+    node *insert_node = malloc(sizeof(node));
+    insert_node->next = itr_node->next;
+    insert_node->data = itr_node->data;
 
-    actual->next = siguiente;
-    actual->data = malloc(data_size);
-    memcpy(actual->data, data, data_size);
+    itr_node->next = insert_node;
+    itr_node->data = malloc(data_size);
+    memcpy(itr_node->data, data, data_size);
     lista->generic_list->length++;
 }
 
