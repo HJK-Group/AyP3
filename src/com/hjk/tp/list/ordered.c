@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include <memory.h>
 #include "ordered.h"
 
 ordered_list *new_empty_ordered_list(int (*comparator)(void *data, void *other_data)) {
@@ -14,8 +15,24 @@ ordered_list *new_ordered_list(void *data, size_t data_size, int (*comparator)(v
     return lista;
 }
 
+int es_menor(ordered_list *lista, node *actual, void *data) {
+    return lista->comparador(actual->data, data) <= 0;
+}
+
 void ordered_list_add(ordered_list *lista, void *data, size_t data_size) {
- //TODO implemetar
+    node *actual = lista->generic_list->head;
+    while (actual->next != NULL && es_menor(lista, actual, data)) {
+        actual = actual->next;
+    }
+
+    node *siguiente = malloc(sizeof(node));
+    siguiente->next = actual->next;
+    siguiente->data = actual->data;
+
+    actual->next = siguiente;
+    actual->data = malloc(data_size);
+    memcpy(actual->data, data, data_size);
+    lista->generic_list->length++;
 }
 
 int ordered_list_length(ordered_list *lista) {
