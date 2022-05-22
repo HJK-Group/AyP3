@@ -1,7 +1,7 @@
 #include <gtest/gtest.h>
 
 extern "C" {
-#include <com/hjk/tp/list/list.h>
+#include <com/hjk/tp/list/numerica.h>
 }
 
 void assert_ultimo_nodo_es_nulo(node *nodo);
@@ -89,6 +89,20 @@ TEST(PruebasLista, obtener_dos_elementos_de_lista)
     int second_data_returned = *(int *) list_get_value(test_list, 1);
     ASSERT_EQ(my_second_data, 2001);
 
+}
+
+TEST(PruebasListaNumerica, agregar_numeros) {
+    numeric_list *lista = new_empty_numeric_list();
+
+    numeric_list_add(lista, 0);
+    numeric_list_add(lista, 20);
+    numeric_list_add(lista, 234);
+    numeric_list_add(lista, -2);
+
+    ASSERT_EQ(-2, numeric_list_get(lista, 0));
+    ASSERT_EQ(0, numeric_list_get(lista, 1));
+    ASSERT_EQ(20, numeric_list_get(lista, 2));
+    ASSERT_EQ(234, numeric_list_get(lista, 3));
 }
 
 void assert_ultimo_nodo_es_nulo(node *nodo)
