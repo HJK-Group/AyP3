@@ -1,14 +1,14 @@
 #include <stdlib.h>
 #include "ordered.h"
 
-ordered_list *new_empty_ordered_list(void (*comparator)(void *data, void *other_data)) {
+ordered_list *new_empty_ordered_list(int (*comparator)(void *data, void *other_data)) {
     ordered_list *lista = malloc(sizeof(ordered_list));
     lista->generic_list = new_empty_list();
     lista->comparador = comparator;
     return lista;
 }
 
-ordered_list *new_ordered_list(void *data, size_t data_size, void (*comparator)(void *data, void *other_data)) {
+ordered_list *new_ordered_list(void *data, size_t data_size, int (*comparator)(void *data, void *other_data)) {
     ordered_list *lista = new_empty_ordered_list(comparator);
     ordered_list_add(lista, data, data_size);
     return lista;

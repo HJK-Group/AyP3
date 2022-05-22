@@ -4,13 +4,13 @@
 #include "list.h"
 
 typedef struct ordered_list {
-    void (*comparador)(void *data, void *other_data);
+    int (*comparador)(void *data, void *other_data);
     list *generic_list;
 } ordered_list;
 
-ordered_list *new_empty_ordered_list(void (*comparator)(void *data, void *other_data));
+ordered_list *new_empty_ordered_list(int (*comparator)(void *data, void *other_data));
 
-ordered_list *new_ordered_list(void *data, size_t data_size, void (*comparator)(void *data, void *other_data));
+ordered_list *new_ordered_list(void *data, size_t data_size, int (*comparator)(void *data, void *other_data));
 
 void ordered_list_add(ordered_list *lista, void *data, size_t data_size);
 

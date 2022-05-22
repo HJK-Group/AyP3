@@ -1,15 +1,17 @@
 #ifndef core_NUMERICA_H
 #define core_NUMERICA_H
 
-#include "list.h"
+#include "ordered.h"
 
-typedef struct list numeric_list;
+typedef struct numeric_list {
+    ordered_list *generic_ordered_list;
+} numeric_list;
 
 numeric_list *new_empty_numeric_list();
 
 numeric_list *new_numeric_list(int number);
 
-void numeric_list_add(numeric_list *lista, void *data, size_t data_size);
+void numeric_list_add(numeric_list *lista, int number);
 
 int numeric_list_length(numeric_list *lista);
 
