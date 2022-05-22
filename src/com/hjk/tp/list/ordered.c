@@ -20,6 +20,9 @@ int es_menor(ordered_list *lista, node *actual, void *data) {
 }
 
 void ordered_list_add(ordered_list *lista, void *data, size_t data_size) {
+    if (data == NULL)
+        return;
+
     node *actual = lista->generic_list->head;
     while (actual->next != NULL && es_menor(lista, actual, data)) {
         actual = actual->next;
