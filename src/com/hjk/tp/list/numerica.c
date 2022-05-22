@@ -19,11 +19,11 @@ numeric_list *new_numeric_list(int number) {
 
 int number_comparator(void *number, void *other_number) {
     if (*((int *)number) < *((int *)other_number)) {
-        return 1;
+        return -1;
     }
 
     if (*((int *)number) > *((int *)other_number)) {
-        return -1;
+        return 1;
     }
 
     return 0;
