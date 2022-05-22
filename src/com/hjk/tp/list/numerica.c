@@ -46,7 +46,7 @@ int numeric_list_remove(numeric_list *lista, int index) {
 }
 
 void print_number(void *data) {
-    printf(" %d,", (int *) data);
+    printf(" %d,", *((int *) data));
 }
 
 void numeric_list_print(numeric_list *lista) {

@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include <com/hjk/tp/list/list.h>
+#include <com/hjk/tp/list/numerica.h>
 
 typedef enum { ORO, ESPADA, COPA, BASTO } palo;
 
@@ -35,5 +35,16 @@ int main() {
     list_add(lista, &algo, sizeof(carta));
     list_add(lista, &otra, sizeof(carta));
     list_print(lista, &print_carta);
+
+    numeric_list *listaNumerica = new_empty_numeric_list();
+    numeric_list_add(listaNumerica, -3);
+    numeric_list_add(listaNumerica, -2);
+    numeric_list_add(listaNumerica, -1);
+    numeric_list_add(listaNumerica, 0);
+    numeric_list_add(listaNumerica, 1);
+    numeric_list_add(listaNumerica, 2);
+    numeric_list_add(listaNumerica, 3);
+
+    numeric_list_print(listaNumerica);
     return 0;
 }
