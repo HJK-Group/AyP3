@@ -43,6 +43,8 @@ Además cada estudiante puede anotarse en N materias.
   Utilizar la creatividad para que el manejo del sistema sea lo más práctico posible. \
   Si los requerimientos planteados son cumplidos, el ejercicio está aprobado. Puede pasar que en situaciones en la que la cantidad de datos sea muy grande, el sistema sea inmanejable. En ese caso, detallar las limitaciones de la solución propuesta (si las limitaciones son reconocidas no se considera desaprobado el punto).
 
+### Puntos Extra
+
 * Ideas no-obligatorias de implementar pero que suman puntos: 
   * [ ] Utilizar paginado 
   * [ ] Poder elegir el estudiante/materia de un listado reducido

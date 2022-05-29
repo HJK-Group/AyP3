@@ -37,3 +37,5 @@ int main() {
     list_print(lista, &print_carta);
     return 0;
 }
+
+// TODO Interfaz grafica - anotar materia (Hernan)
