@@ -1,9 +1,15 @@
+#ifndef MAIN_MATERIA_H
+#define MAIN_MATERIA_H
+
 #include <stdlib.h>
 #include <memory.h>
 
+#define TAMANIO_ID_MATERIA 10
+#define TAMANIO_NOMBRE_MATERIA 25
+
 typedef struct materia{
-    char id[10];
-    char nombre[25];
+    char id[TAMANIO_ID_MATERIA];
+    char nombre[TAMANIO_NOMBRE_MATERIA];
 //    int cupo;
 //    lista_correlativas
 //    short habilitada
@@ -11,4 +17,4 @@ typedef struct materia{
 
 materia* crear_materia(char id[10], char nombre[25]); // TODO Hernan
 
-
+#endif
