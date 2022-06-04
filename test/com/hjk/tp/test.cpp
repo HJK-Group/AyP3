@@ -1,7 +1,7 @@
 #include <gtest/gtest.h>
 
 extern "C" {
-#include <com/hjk/tp/list/list.h>
+#include <com/hjk/tp/list/numerica.h>
 }
 
 void assert_ultimo_nodo_es_nulo(node *nodo);
@@ -69,9 +69,10 @@ TEST(PruebasLista, obtener_primer_elemento_de_lista)
     int my_data = 2022;
 
     list_add(test_list, &my_data, sizeof(my_data));
-    int *data_returned = (int *) list_get_value(test_list, 0);
+    int data_returned = *((int *) list_get_value(test_list, 0));
+    ASSERT_EQ(data_returned, my_data);
 
-    ASSERT_EQ(my_data, 2022);
+    list_destroy(test_list);
 }
 
 TEST(PruebasLista, obtener_dos_elementos_de_lista)
@@ -83,12 +84,62 @@ TEST(PruebasLista, obtener_dos_elementos_de_lista)
     list_add(test_list, &my_first_data, sizeof(my_first_data));
     list_add(test_list, &my_second_data, sizeof(my_second_data));
 
-    int first_data_returned = *(int *) list_get_value(test_list, 0);
-    ASSERT_EQ(my_first_data, 2022);
+    int first_data_returned = *((int *) list_get_value(test_list, 0));
+    ASSERT_EQ(first_data_returned, my_first_data);
 
-    int second_data_returned = *(int *) list_get_value(test_list, 1);
-    ASSERT_EQ(my_second_data, 2001);
+    int second_data_returned = *((int *) list_get_value(test_list, 1));
+    ASSERT_EQ(second_data_returned, my_second_data);
 
+    list_destroy(test_list);
+}
+
+TEST(PruebasListaNumerica, agregar_numeros) {
+    numeric_list *lista = new_empty_numeric_list();
+
+    numeric_list_add(lista, 0);
+    ASSERT_EQ(0, numeric_list_get(lista, 0));
+
+    numeric_list_add(lista, 20);
+    ASSERT_EQ(0, numeric_list_get(lista, 0));
+    ASSERT_EQ(20, numeric_list_get(lista, 1));
+
+    numeric_list_add(lista, 234);
+    ASSERT_EQ(0, numeric_list_get(lista, 0));
+    ASSERT_EQ(20, numeric_list_get(lista, 1));
+    ASSERT_EQ(234, numeric_list_get(lista, 2));
+
+    numeric_list_add(lista, -2);
+    ASSERT_EQ(-2, numeric_list_get(lista, 0));
+    ASSERT_EQ(0, numeric_list_get(lista, 1));
+    ASSERT_EQ(20, numeric_list_get(lista, 2));
+    ASSERT_EQ(234, numeric_list_get(lista, 3));
+
+    numeric_list_destroy(lista);
+}
+
+TEST(PruebasListaNumerica, agregar_numeros2) {
+    numeric_list *lista = new_empty_numeric_list();
+    numeric_list_add(lista, 0);
+    numeric_list_add(lista, -20);
+    numeric_list_add(lista, -234);
+    numeric_list_add(lista, -2);
+    numeric_list_add(lista, 10);
+    numeric_list_add(lista, 20);
+    numeric_list_add(lista, 50);
+    numeric_list_add(lista, 0);
+    numeric_list_add(lista, -2);
+
+    ASSERT_EQ(-234, numeric_list_get(lista, 0));
+    ASSERT_EQ(-20, numeric_list_get(lista, 1));
+    ASSERT_EQ(-2, numeric_list_get(lista, 2));
+    ASSERT_EQ(-2, numeric_list_get(lista, 3));
+    ASSERT_EQ(0, numeric_list_get(lista, 4));
+    ASSERT_EQ(0, numeric_list_get(lista, 5));
+    ASSERT_EQ(10, numeric_list_get(lista, 6));
+    ASSERT_EQ(20, numeric_list_get(lista, 7));
+    ASSERT_EQ(50, numeric_list_get(lista, 8));
+
+    numeric_list_destroy(lista);
 }
 
 void assert_ultimo_nodo_es_nulo(node *nodo)

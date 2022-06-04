@@ -4,9 +4,13 @@ set(THIS core)
 
 set(HEADERS
         com/hjk/tp/list/list.h
+        com/hjk/tp/list/numerica.h
+        com/hjk/tp/list/ordered.h
 )
 set(SOURCES
         com/hjk/tp/list/list.c
+        com/hjk/tp/list/numerica.c
+        com/hjk/tp/list/ordered.c
 )
 add_library(${THIS} ${HEADERS} ${SOURCES})
 
