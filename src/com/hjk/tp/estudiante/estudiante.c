@@ -9,9 +9,11 @@ estudiante *crear_estudiante(long long legajo, char nombre[], char apellido[], s
     add_str(entidad->nombre, nombre, TAMANIO_NOMBRE_ESTUDIANTE);
     add_str(entidad->apellido, apellido, TAMANIO_APELLIDO_ESTUDIANTE);
     add_edad(entidad, edad);
-    entidad->lista_materias = new_empty_list();
+    //TODO agregra cursada
     return entidad;
 }
+
+
 
 int add_str(char *dest, char *src, int dest_size) {
     int src_size = strlen(src);
