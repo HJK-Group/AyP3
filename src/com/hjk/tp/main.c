@@ -1,7 +1,8 @@
 #include <stdio.h>
-#include <com/hjk/tp/list/numerica.h>
 #include <com/hjk/tp/list/list.h>
 #include "materia/materia.h"
+
+// TODO revisar gui
 
 int main() {
 
@@ -36,7 +37,7 @@ int main() {
             printf("Ahora indique un codigo unico para identificar la materia: ");
             scanf("%s", &codigo_materia);
 
-            materia *materia = crear_materia(codigo_materia, nombre_materia);
+            materia *materia = new_materia(codigo_materia, nombre_materia);
 
             printf("Materia_Name: %s, Materia_Code: %s", materia->nombre, materia->id);
 
