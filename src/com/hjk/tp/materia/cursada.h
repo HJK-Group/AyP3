@@ -24,4 +24,6 @@ void *buscar_curso(void *item, void *dato);
 
 void cursada_destroy(cursada *lista_materias);
 
+// TODO revisar implementacion
+
 #endif //core_LISTADO_H

@@ -6,7 +6,7 @@
 int add_str(char *dest, char *src, int dest_size);
 int add_edad(estudiante *dest, short edad);
 
-estudiante *crear_estudiante(long legajo, char nombre[], char apellido[], short edad) {
+estudiante *new_estudiante(unsigned long legajo, char *nombre, char *apellido, unsigned char edad) {
     estudiante *entidad = (estudiante *) malloc(sizeof(estudiante));
     entidad->legajo = legajo;
     add_str(entidad->nombre, nombre, TAMANIO_NOMBRE_ESTUDIANTE);
@@ -15,8 +15,6 @@ estudiante *crear_estudiante(long legajo, char nombre[], char apellido[], short 
     entidad->lista_materias = new_empty_cursada();
     return entidad;
 }
-
-
 
 int add_str(char *dest, char *src, int dest_size) {
     int src_size = strlen(src);

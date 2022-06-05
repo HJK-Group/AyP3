@@ -48,4 +48,4 @@ int main() {
     return 0;
 }
 
-// TODO Interfaz grafica - anotar materia (Hernan)
+// TODO Interfaz grafica - anotar materia (Copilot)

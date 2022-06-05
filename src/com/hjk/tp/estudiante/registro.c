@@ -9,11 +9,11 @@ listado *buscar_estudiantes_por_edad(registro *listado_alumnos, short desde, sho
 
 }
 
-int comparar_nombre(void *estudiante1, void *estudiante2) {
+int comparar_nombre(void *estudiante1, void *estudiante2) { // TODO Hernan
 
 }
 
-int comparar_edad(void *estudiante1, void *estudiante2) {
+int comparar_edad(void *estudiante1, void *estudiante2) { // TODO Hernan
 
 }
 

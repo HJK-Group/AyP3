@@ -7,7 +7,7 @@
 #define TAMANIO_ID_MATERIA 10
 #define TAMANIO_NOMBRE_MATERIA 25
 
-typedef struct list lista_correlativas;
+typedef struct list lista_correlativas; // TODO Juan
 
 typedef struct materia {
     unsigned short id;
@@ -17,6 +17,6 @@ typedef struct materia {
 //    short habilitada
 } materia;
 
-materia* crear_materia(char id[10], char nombre[25]); // TODO Hernan
+materia* new_materia(unsigned short id, char *nombre); // TODO Hernan
 
 #endif

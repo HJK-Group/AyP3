@@ -10,4 +10,6 @@ typedef struct curso {
 
 curso *new_curso(materia *pMateria, unsigned char calificacion);
 
+// TODO funciones para liberar curso, etc.
+
 #endif //core_CURSO_H

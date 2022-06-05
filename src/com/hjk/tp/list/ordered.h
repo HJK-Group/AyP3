@@ -18,7 +18,7 @@ int ordered_list_length(ordered_list *lista);
 
 void *ordered_list_get_value(ordered_list *lista, int index);
 
-void *ordered_list_get_by_data(ordered_list * lista, void *data, size_t data_size);
+void *ordered_list_get_by_data(ordered_list * lista, void *data, size_t data_size); // TODO kevin
 
 int ordered_list_remove(ordered_list *lista, int index);
 
