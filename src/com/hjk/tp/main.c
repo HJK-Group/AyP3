@@ -1,51 +1,50 @@
 #include <stdio.h>
 #include <com/hjk/tp/list/numerica.h>
-
-typedef enum { ORO, ESPADA, COPA, BASTO } palo;
-
-typedef struct carta {
-    int valor;
-    palo palo;
-} carta;
-
-char *get_palo(carta *carta) {
-    switch(carta->palo) {
-        case ORO:
-            return "Oro";
-        case ESPADA:
-            return "Espada";
-        case COPA:
-            return "Copa";
-        case BASTO:
-            return "Basto";
-        default:
-            return "";
-    }
-}
-
-void print_carta(void *data) {
-    carta *cart = (carta*) data;
-    printf("%d de %s\n", cart->valor, get_palo(cart));
-}
+#include <com/hjk/tp/list/list.h>
+#include "materia/materia.h"
 
 int main() {
+
+/*    materia* mi_materia = crear_materia("MAT2022", "Analisis I");
+
     list *lista = new_empty_list();
     carta algo = {10, COPA};
     carta otra = {1, ESPADA};
     list_add(lista, &algo, sizeof(carta));
     list_add(lista, &otra, sizeof(carta));
-    list_print(lista, &print_carta);
+    list_print(lista, &print_carta);*/
 
-    numeric_list *listaNumerica = new_empty_numeric_list();
-    numeric_list_add(listaNumerica, -3);
-    numeric_list_add(listaNumerica, -2);
-    numeric_list_add(listaNumerica, -1);
-    numeric_list_add(listaNumerica, 0);
-    numeric_list_add(listaNumerica, 1);
-    numeric_list_add(listaNumerica, 2);
-    numeric_list_add(listaNumerica, 3);
+    printf("Bienvenida/o al Sistema de Gestion Estudiantil SIGIL\n");
 
-    numeric_list_print(listaNumerica);
+    printf("Elija una de las siguientes opciones para continuar:\n\n");
+    printf("[1] Crear nueva Materia\n\n");
+
+    printf("Tu opcion: ");
+    int option_choose = -1;
+    scanf("%i", &option_choose);
+
+//    printf("%d", option_choose);
+
+    switch (option_choose) {
+        case 1:
+            printf("Indique el nombre de la materia: ");
+            char codigo_materia[10];
+            char nombre_materia[25];
+
+            scanf("%s", &nombre_materia);
+
+            printf("Ahora indique un codigo unico para identificar la materia: ");
+            scanf("%s", &codigo_materia);
+
+            materia *materia = crear_materia(codigo_materia, nombre_materia);
+
+            printf("Materia_Name: %s, Materia_Code: %s", materia->nombre, materia->id);
+
+            break;
+        default:
+            printf("Ninguna opcion configurada para ese valor.");
+    }
+
     return 0;
 }
 

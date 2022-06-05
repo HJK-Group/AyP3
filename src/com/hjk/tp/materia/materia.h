@@ -10,9 +10,7 @@
 typedef struct materia{
     char id[TAMANIO_ID_MATERIA];
     char nombre[TAMANIO_NOMBRE_MATERIA];
-//    int cupo;
-//    lista_correlativas
-//    short habilitada
+    void* lista_correlativas; //TODO determinar dato o puntero
 } materia;
 
 materia* crear_materia(char id[10], char nombre[25]); // TODO Hernan
