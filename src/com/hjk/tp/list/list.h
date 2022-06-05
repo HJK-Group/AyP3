@@ -23,6 +23,8 @@ int list_length(list *lista);
 
 void *list_get_value(list *lista, int index);
 
+void *list_get_by_data(list *lista, void *search_function(void *, void *), void *dato);
+
 int list_remove(list *lista, int index);
 
 void list_print(list *lista, void (*print_function)(void *data));

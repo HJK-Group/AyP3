@@ -7,10 +7,14 @@
 #define TAMANIO_ID_MATERIA 10
 #define TAMANIO_NOMBRE_MATERIA 25
 
-typedef struct materia{
-    char id[TAMANIO_ID_MATERIA];
-    char nombre[TAMANIO_NOMBRE_MATERIA];
-    void* lista_correlativas; //TODO determinar dato o puntero
+typedef struct list lista_correlativas;
+
+typedef struct materia {
+    unsigned short id;
+    char *nombre;
+    lista_correlativas *pCorrelativas;
+//    int cupo;
+//    short habilitada
 } materia;
 
 materia* crear_materia(char id[10], char nombre[25]); // TODO Hernan

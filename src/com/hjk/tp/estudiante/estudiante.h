@@ -1,8 +1,7 @@
 
-#ifndef MAIN_ESTUDIANTE_H
-#define MAIN_ESTUDIANTE_H
-
-#include "../list/list.h"; // se podria llegar a crear una lista de materias dentro de materias.
+#ifndef core_ESTUDIANTE_H
+#define core_ESTUDIANTE_H
+#include "../materia/cursada.h"
 #include "../materia/materia.h"
 
 #define TAMANIO_NOMBRE_ESTUDIANTE 25
@@ -11,20 +10,17 @@
 #define EDAD_MINIMA 1
 
 typedef struct estudiante {
-    unsigned long int legajo; // El legajo debe ser unico. Se puede hacer autoincemental?
+    long legajo; // El legajo debe ser unico. Se puede hacer autoincemental?
     char nombre[TAMANIO_NOMBRE_ESTUDIANTE];
     char apellido[TAMANIO_APELLIDO_ESTUDIANTE];
-    unsigned char edad;
-    cursada_list *lista_cursada; // TODO generar el wrapper de la lista con materias (Kevin)
+    short edad;
+    cursada *lista_materias;
 } estudiante;
 
-estudiante *crear_estudiante(long long legajo, char nombre[25], char apellido[25], short edad);
+estudiante *crear_estudiante(long legajo, char nombre[25], char apellido[25], short edad); // TODO Juan
 
-void anotarse_materia(estudiante *estudiante, materia *materia); // TODO Kevin
+void anotarse_materia(estudiante *estudiante, materia *materia);
 
-void rendir_materia(estudiante *estudiante, materia *materia, unsigned char calificacion); //TODO Juan
+void rendir_materia(estudiante *estudiante, materia *materia, char calificacion);
 
-#endif //MAIN_ESTUDIANTE_H
-
-
-
+#endif //core_ESTUDIANTE_H

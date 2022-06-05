@@ -1,15 +1,18 @@
+#include <string.h>
 #include "estudiante.h"
+#include "com/hjk/tp/materia/cursada.h"
+#include "com/hjk/tp/materia/curso.h"
 
 int add_str(char *dest, char *src, int dest_size);
-int add_edad(estudiante *dest, int edad);
+int add_edad(estudiante *dest, short edad);
 
-estudiante *crear_estudiante(long long legajo, char nombre[], char apellido[], short edad) {
+estudiante *crear_estudiante(long legajo, char nombre[], char apellido[], short edad) {
     estudiante *entidad = (estudiante *) malloc(sizeof(estudiante));
     entidad->legajo = legajo;
     add_str(entidad->nombre, nombre, TAMANIO_NOMBRE_ESTUDIANTE);
     add_str(entidad->apellido, apellido, TAMANIO_APELLIDO_ESTUDIANTE);
     add_edad(entidad, edad);
-    //TODO agregra cursada
+    entidad->lista_materias = new_empty_cursada();
     return entidad;
 }
 
@@ -26,11 +29,23 @@ int add_str(char *dest, char *src, int dest_size) {
     return 0;
 }
 
-int add_edad(estudiante *dest, int edad) {
-    if (edad < EDAD_MINIMA || edad > EDAD_MAXIMA) {
+int add_edad(estudiante *dest, short edad) {
+    if (edad < EDAD_MINIMA || edad > EDAD_MAXIMA)
         return -1;
-    }
+
     dest->edad = edad;
     return 0;
 }
 
+void anotarse_materia(estudiante *estudiante, materia *materia ) {
+    cursada_add(estudiante->lista_materias, materia);
+}
+
+void rendir_materia(estudiante *alumno, materia *materia, char calificacion) {
+    curso *actual = (curso *) list_get_by_data(alumno->lista_materias, &buscar_curso, materia);
+    if (actual == NULL) {
+        return;
+    }
+
+    actual->calificacion = calificacion;
+}

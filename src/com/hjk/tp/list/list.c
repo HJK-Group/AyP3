@@ -58,6 +58,25 @@ void *list_get_value(list *lista, int index) {
     return list_get(lista, index)->data;
 }
 
+void *list_get_by_data(list *lista, void *search_function(void *, void *), void *dato) {
+    if (lista == NULL || lista->head == NULL) {
+        return NULL;
+    }
+
+    node *pNode = NULL;
+    node *actual = lista->head;
+    while (pNode == NULL && actual != NULL) {
+        pNode = search_function(actual->data, dato);
+        actual = actual->next;
+    }
+
+    if (pNode != NULL) {
+        return pNode->data;
+    }
+
+    return NULL;
+}
+
 node *list_get(list *lista, int index) {
     node *aux = lista->head;
     if (index > lista->length) {
