@@ -58,15 +58,19 @@ void *list_get_value(list *lista, int index) {
     return list_get(lista, index)->data;
 }
 
-void *list_get_by_data(list *lista, void *search_function(void *, void *), void *dato) {
-    if (lista == NULL || lista->head == NULL) {
+void *list_get_by_data(list *lista, void *dato, size_t data_size) {
+    if (lista == NULL || lista->head == NULL || lista->length == 0 || dato == NULL || data_size <= 0) {
         return NULL;
     }
 
     node *pNode = NULL;
     node *actual = lista->head;
-    while (pNode == NULL && actual != NULL) {
-        pNode = search_function(actual->data, dato);
+    while (actual != NULL && actual->data != NULL) {
+        if (memcmp(actual->data, dato, data_size) == 0) {
+            pNode = actual;
+            break;
+        }
+
         actual = actual->next;
     }
 
@@ -78,6 +82,10 @@ void *list_get_by_data(list *lista, void *search_function(void *, void *), void 
 }
 
 node *list_get(list *lista, int index) {
+    if (lista == NULL || lista->head == NULL || lista->length == 0 || index < 0 || index >= lista->length) {
+        return NULL;
+    }
+
     node *aux = lista->head;
     if (index > lista->length) {
         return NULL;
@@ -89,7 +97,7 @@ node *list_get(list *lista, int index) {
 }
 
 int list_remove(list *lista, int index) {
-    if (index < 0 || index > lista->length - 1) {
+    if (lista == NULL || lista->head == NULL || lista->length == 0 || index < 0 || index >= lista->length) {
         return -1;
     }
 
