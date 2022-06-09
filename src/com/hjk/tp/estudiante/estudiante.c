@@ -9,8 +9,10 @@ int add_edad(estudiante *dest, short edad);
 estudiante *new_estudiante(unsigned long legajo, char *nombre, char *apellido, unsigned char edad) {
     estudiante *entidad = (estudiante *) malloc(sizeof(estudiante));
     entidad->legajo = legajo;
-    add_str(entidad->nombre, nombre, TAMANIO_NOMBRE_ESTUDIANTE);
-    add_str(entidad->apellido, apellido, TAMANIO_APELLIDO_ESTUDIANTE);
+    entidad->nombre = (char *) malloc(sizeof(char) * (strlen(nombre) + 1));
+    strcpy(entidad->nombre, nombre);
+    entidad->apellido = (char *) malloc(sizeof(char) * (strlen(apellido) + 1));
+    strcpy(entidad->apellido, apellido);
     add_edad(entidad, edad);
     entidad->lista_materias = new_empty_cursada();
     return entidad;
@@ -28,9 +30,9 @@ int add_str(char *dest, char *src, int dest_size) {
 }
 
 int add_edad(estudiante *dest, short edad) {
-    if (edad < EDAD_MINIMA || edad > EDAD_MAXIMA)
+    if (edad < EDAD_MINIMA || edad > EDAD_MAXIMA){
         return -1;
-
+    }
     dest->edad = edad;
     return 0;
 }
