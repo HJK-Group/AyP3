@@ -18,7 +18,7 @@ int cantidad_de_materias(cursada *lista_materias) {
 }
 
 unsigned char cursada_get_calificacion(cursada *lista_materias, materia *pMateria) {
-    return ((curso *) list_get_by_data(lista_materias, &buscar_curso, pMateria))->calificacion;
+    return ((curso *) list_get_data(lista_materias, &buscar_curso, pMateria))->calificacion;
 }
 
 void *buscar_curso(void *item, void *dato) {

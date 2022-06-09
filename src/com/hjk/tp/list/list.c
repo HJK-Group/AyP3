@@ -4,6 +4,7 @@
 #include <memory.h>
 
 node *new_empty_node();
+
 node *list_get(list *lista, int index);
 
 list *new_empty_list() {
@@ -58,15 +59,15 @@ void *list_get_value(list *lista, int index) {
     return list_get(lista, index)->data;
 }
 
-void *list_get_by_data(list *lista, void *dato, size_t data_size) {
-    if (lista == NULL || lista->head == NULL || lista->length == 0 || dato == NULL || data_size <= 0) {
+void *list_get_data(list *lista, void *data, size_t data_size) {
+    if (lista == NULL || lista->head == NULL || lista->length == 0 || data == NULL || data_size <= 0) {
         return NULL;
     }
 
     node *pNode = NULL;
     node *actual = lista->head;
     while (actual != NULL && actual->data != NULL) {
-        if (memcmp(actual->data, dato, data_size) == 0) {
+        if (memcmp(actual->data, data, data_size) == 0) {
             pNode = actual;
             break;
         }
@@ -87,9 +88,6 @@ node *list_get(list *lista, int index) {
     }
 
     node *aux = lista->head;
-    if (index > lista->length) {
-        return NULL;
-    }
     for (int i = 0; i < index && aux->next != NULL; ++i) {
         aux = aux->next;
     }

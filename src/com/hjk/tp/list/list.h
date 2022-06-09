@@ -23,7 +23,7 @@ int list_length(list *lista);
 
 void *list_get_value(list *lista, int index);
 
-void *list_get_by_data(list *lista, void *dato, size_t data_size);
+void *list_get_data(list *lista, void *data, size_t data_size);
 
 int list_remove(list *lista, int index);
 

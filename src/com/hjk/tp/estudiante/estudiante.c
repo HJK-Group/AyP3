@@ -41,8 +41,8 @@ void anotarse_materia(estudiante *estudiante, materia *materia ) {
     cursada_add(estudiante->lista_materias, materia);
 }
 
-void rendir_materia(estudiante *alumno, materia *materia, char calificacion) {
-    curso *actual = (curso *) list_get_by_data(alumno->lista_materias, &buscar_curso, materia);
+void rendir_materia(estudiante *alumno, materia *pMateria, char calificacion) {
+    curso *actual = (curso *) list_get_data(alumno->lista_materias, &buscar_curso, sizeof(materia));
     if (actual == NULL) {
         return;
     }

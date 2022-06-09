@@ -46,8 +46,8 @@ void *ordered_list_get_value(ordered_list *lista, int index) {
     return list_get_value(lista->generic_list, index);
 }
 
-void *ordered_list_get_by_data(ordered_list * lista, void *data, size_t data_size) {
-    return list_get_by_data(lista->generic_list, data, data_size);
+void *ordered_list_get_data(ordered_list *lista, void *data, size_t data_size) {
+    return list_get_data(lista->generic_list, data, data_size);
 }
 
 int ordered_list_remove(ordered_list *lista, int index) {

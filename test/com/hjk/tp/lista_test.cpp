@@ -79,7 +79,7 @@ TEST(PruebasLista, obtener_dos_elementos_de_lista) {
     list_destroy(test_list);
 }
 
-TEST(PruebasLista, obtener_elemento_por_puntero) {
+TEST(PruebasLista, obtener_elemento_por_data) {
     list *lista = new_empty_list();
     list_add(lista, (void *) "primer_item", sizeof("primer_item"));
     list_add(lista, (void *) "segundo_item", sizeof("segundo_item"));
@@ -87,13 +87,13 @@ TEST(PruebasLista, obtener_elemento_por_puntero) {
     list_add(lista, (void *) "cuarto_item", sizeof("cuarto_item"));
     list_add(lista, (void *) "quinto_item", sizeof("quinto_item"));
 
-    char *primero = (char *) list_get_by_data(lista, (void *) "primer_item", sizeof("primer_item"));
-    ASSERT_NE(memcmp(primero, "segundo_item", sizeof("segundo_item")), 0);
+    char *primero = (char *) list_get_data(lista, (void *) "primer_item", sizeof("primer_item"));
+    ASSERT_EQ(memcmp(primero, "primer_item", sizeof("primer_item")), 0);
 
-    char *segundo = (char *) list_get_by_data(lista, (void *) "segundo_item", sizeof("segundo_item"));
+    char *segundo = (char *) list_get_data(lista, (void *) "segundo_item", sizeof("segundo_item"));
     ASSERT_EQ(memcmp(segundo, "segundo_item", sizeof("segundo_item")), 0);
 
-    char *quinto = (char *) list_get_by_data(lista, (void *) "quinto_item", sizeof("quinto_item"));
+    char *quinto = (char *) list_get_data(lista, (void *) "quinto_item", sizeof("quinto_item"));
     ASSERT_EQ(memcmp(quinto, "quinto_item", sizeof("quinto_item")), 0);
 
     list_destroy(lista);
@@ -103,7 +103,7 @@ TEST(PruebasLista, obtener_elemento_inexistente) {
     list *lista = new_empty_list();
     list_add(lista, (void *) "primer_item", sizeof("primer_item"));
 
-    char *segundo = (char *) list_get_by_data(lista, (void *) "segundo_item", sizeof("segundo_item"));
+    char *segundo = (char *) list_get_data(lista, (void *) "segundo_item", sizeof("segundo_item"));
     ASSERT_EQ(segundo, nullptr);
 
     list_destroy(lista);
@@ -114,7 +114,7 @@ TEST(PruebasLista, obtener_elemento_inexistente2) {
     list_add(lista, (void *) "primer_item", sizeof("primer_item"));
     list_add(lista, (void *) "tercer_item", sizeof("tercer_item"));
 
-    char *segundo = (char *) list_get_by_data(lista, (void *) "segundo_item", sizeof("segundo_item"));
+    char *segundo = (char *) list_get_data(lista, (void *) "segundo_item", sizeof("segundo_item"));
     ASSERT_EQ(segundo, nullptr);
 
     list_destroy(lista);
@@ -123,7 +123,7 @@ TEST(PruebasLista, obtener_elemento_inexistente2) {
 TEST(PruebasLista, obtener_elemento_inexistente3) {
     list *lista = new_empty_list();
 
-    char *segundo = (char *) list_get_by_data(lista, (void *) "segundo_item", sizeof("segundo_item"));
+    char *segundo = (char *) list_get_data(lista, (void *) "segundo_item", sizeof("segundo_item"));
     ASSERT_EQ(segundo, nullptr);
 
     list_destroy(lista);
