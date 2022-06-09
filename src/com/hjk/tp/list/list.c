@@ -56,7 +56,11 @@ int list_length(list *lista) {
 }
 
 void *list_get_value(list *lista, int index) {
-    return list_get(lista, index)->data;
+    node *pNode = list_get(lista, index);
+    if (pNode == NULL)
+        return NULL;
+
+    return pNode->data;
 }
 
 void *list_get_data(list *lista, void *data, size_t data_size) {
