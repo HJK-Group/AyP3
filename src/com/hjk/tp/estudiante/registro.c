@@ -41,7 +41,7 @@ listado *registro_buscar_por_edad(registro *listado_alumnos, short desde, short 
 } //TODO TERMINAR!
 
 int registro_remover_estudiante(registro *listado_alumnos, estudiante *alumno) {
-    ordered_list_remove((ordered_list *) listado_alumnos->listado_por_nombre, index);
+    ordered_list_remove_data((ordered_list*) listado_alumnos->listado_por_nombre, alumno, sizeof(estudiante));
 }
 
 void listar_registro(registro *listado_alumnos) {

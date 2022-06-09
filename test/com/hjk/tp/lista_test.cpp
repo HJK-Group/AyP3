@@ -129,6 +129,44 @@ TEST(PruebasLista, obtener_elemento_inexistente3) {
     list_destroy(lista);
 }
 
+TEST(PruebasLista, remover_elemento_por_data) {
+    list *lista = new_empty_list();
+    list_add(lista, (void *) "primer_item", sizeof("primer_item"));
+    list_add(lista, (void *) "segundo_item", sizeof("segundo_item"));
+    list_add(lista, (void *) "tercer_item", sizeof("tercer_item"));
+
+    list_remove_data(lista, (void *) "segundo_item", sizeof("segundo_item"));
+    list_remove_data(lista, (void *) "tercer_item", sizeof("tercer_item"));
+
+    ASSERT_EQ(list_length(lista), 1);
+    ASSERT_NE(list_get_value(lista, 0), nullptr);
+    ASSERT_EQ(list_get_value(lista, 1), nullptr);
+    ASSERT_EQ(list_get_value(lista, 2), nullptr);
+
+    list_destroy(lista);
+}
+
+TEST(PruebasLista, remover_elemento_por_data2) {
+    list *lista = new_empty_list();
+    list_add(lista, (void *) "primer_item", sizeof("primer_item"));
+    list_add(lista, (void *) "segundo_item", sizeof("segundo_item"));
+    list_add(lista, (void *) "tercer_item", sizeof("tercer_item"));
+    list_add(lista, (void *) "cuarto_item", sizeof("cuarto_item"));
+
+    list_remove_data(lista, (void *) "segundo_item", sizeof("segundo_item"));
+    list_remove_data(lista, (void *) "tercer_item", sizeof("tercer_item"));
+
+    ASSERT_EQ(list_length(lista), 2);
+    ASSERT_NE(list_get_value(lista, 0), nullptr);
+    ASSERT_NE(list_get_value(lista, 1), nullptr);
+    ASSERT_EQ(memcmp(list_get_value(lista, 0), "primer_item", sizeof("primer_item")), 0);
+    ASSERT_EQ(memcmp(list_get_value(lista, 1), "cuarto_item", sizeof("cuarto_item")), 0);
+    ASSERT_EQ(list_get_value(lista, 2), nullptr);
+    ASSERT_EQ(list_get_value(lista, 3), nullptr);
+
+    list_destroy(lista);
+}
+
 TEST(PruebasListaNumerica, agregar_numeros) {
     numeric_list *lista = new_empty_numeric_list();
     numeric_list_add(lista, 0);

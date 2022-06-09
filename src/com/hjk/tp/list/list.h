@@ -4,8 +4,8 @@
 #include <stdio.h>
 
 typedef struct node {
-    struct node *next;
     void *data;
+    struct node *next;
 } node;
 
 typedef struct list {
@@ -26,6 +26,8 @@ void *list_get_value(list *lista, int index);
 void *list_get_data(list *lista, void *data, size_t data_size);
 
 int list_remove(list *lista, int index);
+
+int list_remove_data(list *lista, void *data, size_t data_size);
 
 void list_print(list *lista, void (*print_function)(void *data));
 

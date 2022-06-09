@@ -114,9 +114,26 @@ int list_remove(list *lista, int index) {
     return 0;
 }
 
+int list_remove_data(list *lista, void *data, size_t data_size) {
+    if (lista == NULL || lista->head == NULL || lista->length == 0 || data == NULL || data_size <= 0) {
+        return -1;
+    }
+
+    node **pNode = &lista->head;
+    while ((*pNode)->next != NULL && memcmp((*pNode)->data, data, data_size) != 0) {
+        pNode = &(*pNode)->next;
+    }
+
+    node *node_remove = *pNode;
+    *pNode = (*pNode)->next;
+    free(node_remove);
+    lista->length -= 1;
+    return 0;
+}
+
 void list_print(list *lista, void (*print_function)(void *data)) {
     node *nodo = lista->head;
-    while(nodo->next != NULL){
+    while (nodo->next != NULL) {
         print_function(nodo->data);
         nodo = nodo->next;
     }
@@ -126,7 +143,7 @@ void list_destroy(list *lista) {
     node *nodo = lista->head;
     free(lista);
 
-    while(nodo != NULL) {
+    while (nodo != NULL) {
         node *aux = nodo->next;
         free(nodo);
         nodo = aux;

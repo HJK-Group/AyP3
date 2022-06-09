@@ -22,6 +22,8 @@ void *ordered_list_get_data(ordered_list *lista, void *data, size_t data_size);
 
 int ordered_list_remove(ordered_list *lista, int index);
 
+int ordered_list_remove_data(ordered_list *lista, void *data, size_t data_size);
+
 void ordered_list_print(ordered_list *lista, void (*print_function)(void *data));
 
 void ordered_list_destroy(ordered_list *lista);
