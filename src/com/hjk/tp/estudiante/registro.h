@@ -23,6 +23,8 @@ int registro_remover_estudiante(registro *registro, estudiante *alumno); // TODO
 
 void listar_registro(registro *registro);  // TODO Hernan
 
+void function_print_registro(void *data);
+
 void borrar_registro(registro *registro);  // TODO Juan
 
 #endif //core_REGISTRO_H
