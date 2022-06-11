@@ -1,12 +1,25 @@
 #include "materia.h"
 #include "../estudiante/estudiante.c"
 
+lista_correlativas *new_empty_lista_correlativas();
+
 materia* new_materia(unsigned short id, char *nombre) {
-    materia* entidad_materia = (materia*) malloc(sizeof(materia));
+    if (nombre == NULL) {
+        return NULL;
+    }
 
-    add_str(entidad_materia->id, id, TAMANIO_ID_MATERIA);
-    add_str(entidad_materia->nombre, nombre, TAMANIO_NOMBRE_MATERIA);
-    //TODO agregar lista de correlativas
+    materia *pMateria = (materia*) malloc(sizeof(materia));
+    pMateria->id = id;
+    pMateria->nombre = (char*) malloc(sizeof(char) * (strlen(nombre) + 1));
+    strcpy(pMateria->nombre, nombre);
+    pMateria->pCorrelativas = new_empty_lista_correlativas();
+    return pMateria;
+}
 
-    return entidad_materia;
+lista_correlativas *new_empty_lista_correlativas() {
+    return (lista_correlativas *) new_empty_list();
+}
+
+void materia_add_correlativas(materia *pMateria, materia *pCorrelativa) {
+    list_add(pMateria->pCorrelativas, pCorrelativa, sizeof(materia));
 }
