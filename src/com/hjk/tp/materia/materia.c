@@ -10,8 +10,7 @@ materia* new_materia(unsigned short id, char *nombre) {
 
     materia *pMateria = (materia*) malloc(sizeof(materia));
     pMateria->id = id;
-    pMateria->nombre = (char *) malloc(sizeof(char) * (strlen(nombre) + 1));
-    strcpy(pMateria->nombre, nombre);
+    pMateria->nombre = new_string(nombre);
     pMateria->pCorrelativas = new_empty_lista_correlativas();
     return pMateria;
 }

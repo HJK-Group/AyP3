@@ -45,8 +45,22 @@ void *ordered_list_get_value(ordered_list *lista, int index) {
     return list_get_value(lista->generic_list, index);
 }
 
-void *ordered_list_get_data(ordered_list *lista, void *data, size_t data_size) {
-    return list_get_data(lista->generic_list, data, data_size);
+void *ordered_list_get_data(ordered_list *lista, int (*search_function)(void *data, void *other_data), void *other_data) {
+    if (lista == NULL || search_function == NULL || other_data == NULL)
+        return NULL;
+
+    if (lista->generic_list == NULL || lista->generic_list->head == NULL)
+        return NULL;
+
+    node *itr_node = lista->generic_list->head;
+    while (itr_node != NULL && itr_node->data != NULL && search_function(itr_node->data, other_data)) {
+        itr_node = itr_node->next;
+    }
+
+    if (itr_node != NULL && itr_node->data != NULL && !search_function(itr_node->data, other_data))
+        return itr_node->data;
+
+    return NULL;
 }
 
 int ordered_list_remove(ordered_list *lista, int index) {

@@ -2,26 +2,25 @@
 #include "registro.h"
 #include "string.h"
 
-estudiante *buscar_estudiante_por_nombre(char *nombre) {
-
+int buscar_nombre(void *data, void *other_data) {
+    estudiante *alumno = (estudiante *) data;
+    char *nombre = (char *) other_data;
+    return strcmp(alumno->nombre, nombre);
 }
 
-listado *buscar_estudiantes_por_edad(registro *listado_alumnos, short desde, short hasta) {
+estudiante *registro_buscar_por_nombre(registro *listado_alumnos, char *nombre) {
+    if (listado_alumnos == NULL || nombre == NULL)
+        return NULL;
 
+    return (estudiante *) ordered_list_get_data(listado_alumnos->listado_por_nombre, &buscar_nombre, (void *) nombre);
 }
 
-int comparar_nombre(void *estudiante1, void *estudiante2) { // TODO Hernan
-    estudiante* primer_estudiante = (estudiante*) estudiante1;
-    estudiante* segundo_estudiante = (estudiante*) estudiante2;
-
-    return strcmp(primer_estudiante->nombre, segundo_estudiante->nombre);
+int comparar_nombre(void *primer_estudiante, void *segundo_estudiante) {
+    return strcmp(((estudiante *) primer_estudiante)->nombre, ((estudiante *) segundo_estudiante)->nombre);
 }
 
-int comparar_edad(void *estudiante1, void *estudiante2) { // TODO Hernan
-    estudiante* primer_estudiante = (estudiante*) estudiante1;
-    estudiante* segundo_estudiante = (estudiante*) estudiante2;
-
-    return (primer_estudiante->edad > segundo_estudiante->edad);
+int comparar_edad(void *primer_estudiante, void *segundo_estudiante) {
+    return (((estudiante *) primer_estudiante)->edad > ((estudiante *) segundo_estudiante)->edad);
 }
 
 registro *new_registro() {
@@ -34,10 +33,6 @@ registro *new_registro() {
 void registro_agregar_alumno(registro *listado_alumnos, estudiante *alumno) {
     ordered_list_add((ordered_list *) listado_alumnos->listado_por_nombre, alumno);
     ordered_list_add((ordered_list *) listado_alumnos->listado_por_edad, alumno);
-}
-
-estudiante *registro_buscar_por_nombre(registro *listado_alumnos, char *nombre) {
-    return (estudiante *) ordered_list_get_data((ordered_list *) listado_alumnos, nombre, sizeof(char) * (strlen(nombre) + 1));
 }
 
 listado *registro_buscar_por_edad(registro *listado_alumnos, short desde, short hasta) {
