@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.22)
+cmake_minimum_required(VERSION 3.21)
 
 set(THIS MAIN)
 project(${THIS} C CXX)
@@ -16,7 +16,8 @@ FetchContent_Declare(
 set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 FetchContent_MakeAvailable(googletest)
 
-add_executable(${THIS} src/com/hjk/tp/main.c)
+add_executable(${THIS}
+        src/com/hjk/tp/print_tester.c)
 
 add_subdirectory(src)
 add_subdirectory(test)

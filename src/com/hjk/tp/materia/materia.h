@@ -5,6 +5,8 @@
 #include <memory.h>
 
 typedef struct list lista_correlativas; // TODO Juan
+// ToDo Lista de Materias unívocas.
+// Todo Método para añadir Materia a la Lista.
 
 typedef struct materia {
     unsigned short id;
@@ -17,5 +19,7 @@ materia* new_materia(unsigned short id, char *nombre);
 void materia_add_correlativas(materia *pMateria, materia *pCorrelativa);
 
 int materia_equals(materia *pMateria, materia *pOtherMateria);
+
+void materia_destroy(materia* pMateria); // ToDo
 
 #endif //core_MATERIA_H

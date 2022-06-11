@@ -27,6 +27,8 @@ TEST(PruebasRegistro, elementos_de_ambas_son_identicos) {
     ASSERT_EQ(data_list_ordered_by_name->edad, data_list_ordered_by_age->edad);
     ASSERT_EQ(data_list_ordered_by_name->legajo, data_list_ordered_by_age->legajo);
 
+    ASSERT_EQ(data_list_ordered_by_name, data_list_ordered_by_age);
+
     free(un_registro);
 }
 
@@ -62,5 +64,5 @@ TEST(PruebasRegistro, obtener_estudiante_registro_por_nombre) {
     ASSERT_STREQ(estudiante_buscado->apellido, "Perez");
     ASSERT_EQ(estudiante_buscado->edad, 20);
 
-    borrar_registro(pRegistro);
+    registro_destroy(pRegistro);
 }

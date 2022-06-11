@@ -3,16 +3,10 @@
 #include "materia/materia.h"
 #include "estudiante/registro.h"
 
-// TODO revisar gui
+// ToDo TODOS Terminar GUI
 
 int main() {
 
-//    registro* un_registro = new_registro();
-//    estudiante* un_estudiante = new_estudiante(1, "Hernan", "Rubio", 18);
-//
-//    registro_agregar_alumno(un_registro, un_estudiante);
-//
-//    listar_registro(un_registro);
 //
 //    ---------------------------
 

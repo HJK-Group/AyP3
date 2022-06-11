@@ -31,3 +31,5 @@ int materia_equals(materia *pMateria, materia *pOtherMateria) {
     int equals = pMateria->id == pOtherMateria->id;
     return equals && strcmp(pMateria->nombre, pOtherMateria->nombre) == 0;
 }
+
+void materia_destroy(materia* pMateria);
