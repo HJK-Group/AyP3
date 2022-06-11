@@ -41,7 +41,7 @@ int cursada_remove(cursada *lista_materias, int index) {
 }
 
 void print_materia(void *data) {
-
+    // ToDo
 }
 
 void curada_print(cursada *lista_materias) {

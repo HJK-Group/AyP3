@@ -21,10 +21,10 @@ listado *registro_buscar_por_edad(registro *registro, short desde, short hasta);
 
 int registro_remover_estudiante(registro *registro, estudiante *alumno);
 
-void listar_registro(registro *registro);  // TODO Hernan
+void listar_registro(registro *registro);  // ToDo Imprimir por nombre o por edad para paginado.
 
 void function_print_registro(void *data);
 
-void borrar_registro(registro *registro);  // TODO Juan
+void registro_destroy(registro *registro);  // TODO Juan
 
 #endif //core_REGISTRO_H

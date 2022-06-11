@@ -19,6 +19,8 @@ estudiante *new_estudiante(unsigned long legajo, char *nombre, char* apellido, u
 
 void anotarse_materia(estudiante *pEstudiante, materia *pMateria); // TODO testear
 
-void rendir_materia(estudiante *pEstudiante, materia *pMateria, char calificacion);
+void rendir_materia(estudiante *pEstudiante, materia *pMateria, char calificacion); // ToDo Recrear método.
+
+void estudiante_destroy(estudiante *pEstudiante); // ToDo
 
 #endif //core_ESTUDIANTE_H
