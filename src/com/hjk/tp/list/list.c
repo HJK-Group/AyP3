@@ -83,6 +83,21 @@ void *list_get_data(list *lista, void *data, size_t data_size) {
     return NULL;
 }
 
+void *list_search_data(list *lista, int (*search_function)(void *data, void *other_data), void *other_data) {
+    if (lista == NULL || lista->head == NULL || search_function == NULL || other_data == NULL)
+        return NULL;
+
+    node *itr_node = lista->head;
+    while (itr_node != NULL && itr_node->data != NULL && search_function(itr_node->data, other_data)) {
+        itr_node = itr_node->next;
+    }
+
+    if (itr_node != NULL && itr_node->data != NULL && !search_function(itr_node->data, other_data))
+        return itr_node->data;
+
+    return NULL;
+}
+
 node *list_get(list *lista, int index) {
     if (lista == NULL || lista->head == NULL || lista->length == 0 || index < 0 || index >= lista->length) {
         return NULL;
@@ -93,6 +108,14 @@ node *list_get(list *lista, int index) {
         aux = aux->next;
     }
     return aux;
+}
+
+int list_contains(list *lista, int (*search_function)(void *data, void *other_data), void *other_data) {
+    if (lista == NULL || lista->head == NULL || lista->length == 0 || search_function == NULL || other_data == NULL) {
+        return 0;
+    }
+
+    return list_search_data(lista, search_function, other_data) != NULL;
 }
 
 int list_remove(list *lista, int index) {

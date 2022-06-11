@@ -18,7 +18,7 @@ int ordered_list_length(ordered_list *lista);
 
 void *ordered_list_get_value(ordered_list *lista, int index);
 
-void *ordered_list_get_data(ordered_list *lista, int (*search_function)(void *data, void *other_data), void *other_data);
+void *ordered_list_search_data(ordered_list *lista, int (*search_function)(void *data, void *other_data), void *other_data);
 
 int ordered_list_remove(ordered_list *lista, int index);
 

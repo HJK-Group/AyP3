@@ -25,12 +25,29 @@ int add_edad(estudiante *dest, short edad) {
     return 0;
 }
 
-void anotarse_materia(estudiante *estudiante, materia *materia ) {
-    cursada_add(estudiante->lista_materias, materia);
+void anotarse_materia(estudiante *pEstudiante, materia *pMateria ) {
+    if (pEstudiante == NULL || pEstudiante->lista_materias == NULL || pMateria == NULL) {
+        return;
+    }
+
+    int cantidad_correlativas = list_length(pMateria->pCorrelativas);
+    while ( cantidad_correlativas != 0 ) {
+        materia *pCorrelativa = list_get_value(pMateria->pCorrelativas, cantidad_correlativas - 1);
+        if (cursada_get_curso(pEstudiante->lista_materias, pCorrelativa) == NULL) {
+            break;
+        }
+        cantidad_correlativas--;
+    }
+
+    if (cantidad_correlativas != 0 || cursada_contains(pEstudiante->lista_materias, pMateria)) {
+        return;
+    }
+
+    cursada_add(pEstudiante->lista_materias, pMateria);
 }
 
-void rendir_materia(estudiante *alumno, materia *pMateria, char calificacion) {
-    curso *actual = (curso *) list_get_data(alumno->lista_materias, pMateria, sizeof(materia));
+void rendir_materia(estudiante *pEstudiante, materia *pMateria, char calificacion) {
+    curso *actual = (curso *) list_get_data(pEstudiante->lista_materias, pMateria, sizeof(materia));
     if (actual == NULL) {
         return;
     }

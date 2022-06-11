@@ -22,3 +22,12 @@ lista_correlativas *new_empty_lista_correlativas() {
 void materia_add_correlativas(materia *pMateria, materia *pCorrelativa) {
     list_add(pMateria->pCorrelativas, pCorrelativa);
 }
+
+int materia_equals(materia *pMateria, materia *pOtherMateria) {
+    if (pMateria == NULL || pOtherMateria == NULL) {
+        return 1;
+    }
+
+    int equals = pMateria->id == pOtherMateria->id;
+    return equals && strcmp(pMateria->nombre, pOtherMateria->nombre) == 0;
+}

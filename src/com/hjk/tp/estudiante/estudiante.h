@@ -17,8 +17,8 @@ typedef struct estudiante {
 
 estudiante *new_estudiante(unsigned long legajo, char *nombre, char* apellido, unsigned char edad);
 
-void anotarse_materia(estudiante *estudiante, materia *materia);
+void anotarse_materia(estudiante *pEstudiante, materia *pMateria); // TODO testear
 
-void rendir_materia(estudiante *estudiante, materia *materia, char calificacion);
+void rendir_materia(estudiante *pEstudiante, materia *pMateria, char calificacion);
 
 #endif //core_ESTUDIANTE_H

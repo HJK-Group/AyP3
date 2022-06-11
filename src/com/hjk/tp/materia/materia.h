@@ -12,8 +12,10 @@ typedef struct materia {
     lista_correlativas *pCorrelativas;
 } materia;
 
-materia* new_materia(unsigned short id, char *nombre); // TODO Hernan
+materia* new_materia(unsigned short id, char *nombre);
 
 void materia_add_correlativas(materia *pMateria, materia *pCorrelativa);
+
+int materia_equals(materia *pMateria, materia *pOtherMateria);
 
 #endif //core_MATERIA_H

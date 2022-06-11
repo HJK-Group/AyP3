@@ -12,7 +12,7 @@ estudiante *registro_buscar_por_nombre(registro *listado_alumnos, char *nombre) 
     if (listado_alumnos == NULL || nombre == NULL)
         return NULL;
 
-    return (estudiante *) ordered_list_get_data(listado_alumnos->listado_por_nombre, &buscar_nombre, (void *) nombre);
+    return (estudiante *) ordered_list_search_data(listado_alumnos->listado_por_nombre, &buscar_nombre, (void *) nombre);
 }
 
 int comparar_nombre(void *primer_estudiante, void *segundo_estudiante) {

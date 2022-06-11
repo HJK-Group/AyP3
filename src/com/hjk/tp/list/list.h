@@ -25,6 +25,10 @@ void *list_get_value(list *lista, int index);
 
 void *list_get_data(list *lista, void *data, size_t data_size);
 
+void *list_search_data(list *lista, int (*search_function)(void *data, void *other_data), void *other_data);
+
+int list_contains(list *lista, int (*search_function)(void *data, void *other_data), void *other_data);
+
 int list_remove(list *lista, int index);
 
 int list_remove_data(list *lista, void *data, size_t data_size);
