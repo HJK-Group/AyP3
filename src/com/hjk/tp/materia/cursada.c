@@ -13,22 +13,15 @@ void cursada_add(cursada *lista_materias, materia *pMateria) {
     list_add((list *) lista_materias, new_curso(pMateria, 0), sizeof(curso));
 }
 
-int cantidad_de_materias(cursada *lista_materias) {
+int cursada_length(cursada *lista_materias) {
     return list_length((list *) lista_materias);
 }
 
 unsigned char cursada_get_calificacion(cursada *lista_materias, materia *pMateria) {
-    return ((curso *) list_get_data(lista_materias, &buscar_curso, pMateria))->calificacion;
-}
-
-void *buscar_curso(void *item, void *dato) {
-    curso *pCurso = (curso*) item;
-    materia *pMateria = (materia*) dato;
-
-    if (pCurso->pMateria == pMateria || pCurso->pMateria->id == pMateria->id)
-        return pCurso;
-
-    return NULL;
+    curso *pCurso = (curso *) list_get_data(lista_materias, pMateria, sizeof(materia));
+    if (pCurso == NULL)
+        return 0;
+    return pCurso->calificacion;
 }
 
 int cursada_remove(cursada *lista_materias, int index) {
