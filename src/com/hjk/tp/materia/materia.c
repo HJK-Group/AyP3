@@ -21,5 +21,5 @@ lista_correlativas *new_empty_lista_correlativas() {
 }
 
 void materia_add_correlativas(materia *pMateria, materia *pCorrelativa) {
-    list_add(pMateria->pCorrelativas, pCorrelativa, sizeof(materia));
+    list_add(pMateria->pCorrelativas, pCorrelativa);
 }

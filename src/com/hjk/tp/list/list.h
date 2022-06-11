@@ -15,9 +15,9 @@ typedef struct list {
 
 list *new_empty_list();
 
-list *new_list(void *data, size_t data_size);
+list *new_list(void *data);
 
-void list_add(list *lista, void *data, size_t data_size);
+void list_add(list *lista, void *data);
 
 int list_length(list *lista);
 

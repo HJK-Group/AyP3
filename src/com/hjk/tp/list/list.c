@@ -27,19 +27,16 @@ node *new_empty_node() {
     return nodo;
 }
 
-list *new_list(void *data, size_t data_size) {
+list *new_list(void *data) {
     list *lista = new_empty_list();
-    list_add(lista, data, data_size);
+    list_add(lista, data);
     return lista;
 }
 
-void list_add(list *lista, void *data, size_t data_size) {
+void list_add(list *lista, void *data) {
 
-    if (lista == NULL || data == NULL || data_size <= 0)
+    if (lista == NULL || data == NULL)
         return;
-
-    void *item = malloc(data_size);
-    memcpy(item, data, data_size);
 
     node *aux = lista->head;
     while (aux->next != NULL) {
@@ -47,7 +44,7 @@ void list_add(list *lista, void *data, size_t data_size) {
     }
 
     aux->next = new_empty_node();
-    aux->data = item;
+    aux->data = data;
     lista->length += 1;
 }
 

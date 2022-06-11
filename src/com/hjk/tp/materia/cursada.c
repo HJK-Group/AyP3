@@ -6,11 +6,11 @@ cursada *new_empty_cursada() {
 }
 
 cursada *new_cursada(materia *pMateria) {
-    return (cursada *) new_list(new_curso(pMateria, 0), sizeof(curso));
+    return (cursada *) new_list(new_curso(pMateria, 0));
 }
 
 void cursada_add(cursada *lista_materias, materia *pMateria) {
-    list_add((list *) lista_materias, new_curso(pMateria, 0), sizeof(curso));
+    list_add((list *) lista_materias, new_curso(pMateria, 0));
 }
 
 int cursada_length(cursada *lista_materias) {

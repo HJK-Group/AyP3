@@ -2,6 +2,7 @@
 
 extern "C" {
 #include <com/hjk/tp/list/numerica.h>
+#include <com/hjk/tp/utils/utils.h>
 }
 
 void assert_ultimo_nodo_es_nulo(node *nodo);
@@ -16,7 +17,7 @@ TEST(PruebasLista, inicalmente_vacia) {
 }
 
 TEST(PruebasLista, inicializada_con_item) {
-    list *lista = new_list((void *) "item", sizeof("item"));
+    list *lista = new_list(new_string((char *) "item"));
     ASSERT_TRUE(lista != nullptr);
 
     ASSERT_STREQ((char *) list_get_value(lista, 0), "item");
@@ -29,14 +30,14 @@ TEST(PruebasLista, inicializada_con_item) {
 TEST(PruebasLista, agregar_datos_a_la_lista) {
     list *lista = new_empty_list();
 
-    list_add(lista, (void *) "item", sizeof("item"));
+    list_add(lista, new_string((char *) "item"));
     ASSERT_NE(lista->head->next, nullptr);
     ASSERT_NE(list_get_value(lista, 0), nullptr);
     ASSERT_EQ(list_length(lista), 1);
 
     ASSERT_STREQ((char *) list_get_value(lista, 0), "item");
 
-    list_add(lista, (void *) "otro", sizeof("otro"));
+    list_add(lista, new_string((char *) "otro"));
     ASSERT_NE(lista->head->next->next, nullptr);
     ASSERT_NE(list_get_value(lista, 1), nullptr);
     ASSERT_EQ(list_length(lista), 2);
@@ -50,39 +51,33 @@ TEST(PruebasLista, agregar_datos_a_la_lista) {
 
 TEST(PruebasLista, obtener_primer_elemento_de_lista) {
     list *test_list = new_empty_list();
-    int my_data = 2022;
-
-    list_add(test_list, &my_data, sizeof(my_data));
+    list_add(test_list, new_integer(2022));
     int data_returned = *((int *) list_get_value(test_list, 0));
-    ASSERT_EQ(data_returned, my_data);
+    ASSERT_EQ(data_returned, 2022);
 
     list_destroy(test_list);
 }
 
 TEST(PruebasLista, obtener_dos_elementos_de_lista) {
     list *test_list = new_empty_list();
-    int my_first_data = 2022;
-    int my_second_data = 2001;
 
-    list_add(test_list, &my_first_data, sizeof(my_first_data));
-    list_add(test_list, &my_second_data, sizeof(my_second_data));
+    list_add(test_list, new_integer(2022));
+    list_add(test_list, new_integer(2001));
 
-    int first_data_returned = *((int *) list_get_value(test_list, 0));
-    ASSERT_EQ(first_data_returned, my_first_data);
-
-    int second_data_returned = *((int *) list_get_value(test_list, 1));
-    ASSERT_EQ(second_data_returned, my_second_data);
+    ASSERT_EQ(*((int *) list_get_value(test_list, 0)), 2022);
+    ASSERT_EQ(*((int *) list_get_value(test_list, 1)), 2001);
 
     list_destroy(test_list);
 }
 
 TEST(PruebasLista, obtener_elemento_por_data) {
     list *lista = new_empty_list();
-    list_add(lista, (void *) "primer_item", sizeof("primer_item"));
-    list_add(lista, (void *) "segundo_item", sizeof("segundo_item"));
-    list_add(lista, (void *) "tercer_item", sizeof("tercer_item"));
-    list_add(lista, (void *) "cuarto_item", sizeof("cuarto_item"));
-    list_add(lista, (void *) "quinto_item", sizeof("quinto_item"));
+
+    list_add(lista, new_string((char *) "primer_item"));
+    list_add(lista, new_string((char *) "segundo_item"));
+    list_add(lista, new_string((char *) "tercer_item"));
+    list_add(lista, new_string((char *) "cuarto_item"));
+    list_add(lista, new_string((char *) "quinto_item"));
 
     char *primero = (char *) list_get_data(lista, (void *) "primer_item", sizeof("primer_item"));
     ASSERT_STREQ(primero, "primer_item");
@@ -98,7 +93,7 @@ TEST(PruebasLista, obtener_elemento_por_data) {
 
 TEST(PruebasLista, obtener_elemento_inexistente) {
     list *lista = new_empty_list();
-    list_add(lista, (void *) "primer_item", sizeof("primer_item"));
+    list_add(lista, new_string((char *) "primer_item"));
 
     char *segundo = (char *) list_get_data(lista, (void *) "segundo_item", sizeof("segundo_item"));
     ASSERT_EQ(segundo, nullptr);
@@ -108,8 +103,8 @@ TEST(PruebasLista, obtener_elemento_inexistente) {
 
 TEST(PruebasLista, obtener_elemento_inexistente2) {
     list *lista = new_empty_list();
-    list_add(lista, (void *) "primer_item", sizeof("primer_item"));
-    list_add(lista, (void *) "tercer_item", sizeof("tercer_item"));
+    list_add(lista, new_string((char *) "primer_item"));
+    list_add(lista, new_string((char *) "tercer_item"));
 
     char *segundo = (char *) list_get_data(lista, (void *) "segundo_item", sizeof("segundo_item"));
     ASSERT_EQ(segundo, nullptr);
@@ -128,9 +123,9 @@ TEST(PruebasLista, obtener_elemento_inexistente3) {
 
 TEST(PruebasLista, remover_elemento_por_data) {
     list *lista = new_empty_list();
-    list_add(lista, (void *) "primer_item", sizeof("primer_item"));
-    list_add(lista, (void *) "segundo_item", sizeof("segundo_item"));
-    list_add(lista, (void *) "tercer_item", sizeof("tercer_item"));
+    list_add(lista, new_string((char *) "primer_item"));
+    list_add(lista, new_string((char *) "segundo_item"));
+    list_add(lista, new_string((char *) "tercer_item"));
 
     list_remove_data(lista, (void *) "segundo_item", sizeof("segundo_item"));
     list_remove_data(lista, (void *) "tercer_item", sizeof("tercer_item"));
@@ -145,10 +140,10 @@ TEST(PruebasLista, remover_elemento_por_data) {
 
 TEST(PruebasLista, remover_elemento_por_data2) {
     list *lista = new_empty_list();
-    list_add(lista, (void *) "primer_item", sizeof("primer_item"));
-    list_add(lista, (void *) "segundo_item", sizeof("segundo_item"));
-    list_add(lista, (void *) "tercer_item", sizeof("tercer_item"));
-    list_add(lista, (void *) "cuarto_item", sizeof("cuarto_item"));
+    list_add(lista, new_string((char *) "primer_item"));
+    list_add(lista, new_string((char *) "segundo_item"));
+    list_add(lista, new_string((char *) "tercer_item"));
+    list_add(lista, new_string((char *) "cuarto_item"));
 
     list_remove_data(lista, (void *) "segundo_item", sizeof("segundo_item"));
     list_remove_data(lista, (void *) "tercer_item", sizeof("tercer_item"));
