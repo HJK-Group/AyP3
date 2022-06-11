@@ -32,8 +32,8 @@ registro *new_registro() {
 }
 
 void registro_agregar_alumno(registro *listado_alumnos, estudiante *alumno) {
-    ordered_list_add((ordered_list *) listado_alumnos->listado_por_nombre, alumno, sizeof(estudiante));
-    ordered_list_add((ordered_list *) listado_alumnos->listado_por_edad, alumno, sizeof(estudiante));
+    ordered_list_add((ordered_list *) listado_alumnos->listado_por_nombre, alumno);
+    ordered_list_add((ordered_list *) listado_alumnos->listado_por_edad, alumno);
 }
 
 estudiante *registro_buscar_por_nombre(registro *listado_alumnos, char *nombre) {
