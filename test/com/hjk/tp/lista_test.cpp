@@ -19,8 +19,7 @@ TEST(PruebasLista, inicializada_con_item) {
     list *lista = new_list((void *) "item", sizeof("item"));
     ASSERT_TRUE(lista != nullptr);
 
-    const char *item_en_lista = (char *) list_get_value(lista, 0);
-    ASSERT_EQ(memcmp(item_en_lista, "item", sizeof("item")), 0);
+    ASSERT_STREQ((char *) list_get_value(lista, 0), "item");
 
     assert_ultimo_nodo_es_nulo(lista->head->next);
 
@@ -35,16 +34,14 @@ TEST(PruebasLista, agregar_datos_a_la_lista) {
     ASSERT_NE(list_get_value(lista, 0), nullptr);
     ASSERT_EQ(list_length(lista), 1);
 
-    const char *item_en_lista = (char *) list_get_value(lista, 0);
-    ASSERT_EQ(memcmp(item_en_lista, "item", sizeof("item")), 0);
+    ASSERT_STREQ((char *) list_get_value(lista, 0), "item");
 
     list_add(lista, (void *) "otro", sizeof("otro"));
     ASSERT_NE(lista->head->next->next, nullptr);
     ASSERT_NE(list_get_value(lista, 1), nullptr);
     ASSERT_EQ(list_length(lista), 2);
 
-    const char *otro_item_en_lista = (char *) list_get_value(lista, 1);
-    ASSERT_EQ(memcmp(otro_item_en_lista, "otro", sizeof("otro")), 0);
+    ASSERT_STREQ((char *) list_get_value(lista, 1), "otro");
 
     assert_ultimo_nodo_es_nulo(lista->head->next->next);
 
@@ -88,13 +85,13 @@ TEST(PruebasLista, obtener_elemento_por_data) {
     list_add(lista, (void *) "quinto_item", sizeof("quinto_item"));
 
     char *primero = (char *) list_get_data(lista, (void *) "primer_item", sizeof("primer_item"));
-    ASSERT_EQ(memcmp(primero, "primer_item", sizeof("primer_item")), 0);
+    ASSERT_STREQ(primero, "primer_item");
 
     char *segundo = (char *) list_get_data(lista, (void *) "segundo_item", sizeof("segundo_item"));
-    ASSERT_EQ(memcmp(segundo, "segundo_item", sizeof("segundo_item")), 0);
+    ASSERT_STREQ(segundo, "segundo_item");
 
     char *quinto = (char *) list_get_data(lista, (void *) "quinto_item", sizeof("quinto_item"));
-    ASSERT_EQ(memcmp(quinto, "quinto_item", sizeof("quinto_item")), 0);
+    ASSERT_STREQ(quinto, "quinto_item");
 
     list_destroy(lista);
 }
@@ -159,8 +156,8 @@ TEST(PruebasLista, remover_elemento_por_data2) {
     ASSERT_EQ(list_length(lista), 2);
     ASSERT_NE(list_get_value(lista, 0), nullptr);
     ASSERT_NE(list_get_value(lista, 1), nullptr);
-    ASSERT_EQ(memcmp(list_get_value(lista, 0), "primer_item", sizeof("primer_item")), 0);
-    ASSERT_EQ(memcmp(list_get_value(lista, 1), "cuarto_item", sizeof("cuarto_item")), 0);
+    ASSERT_STREQ((char *) list_get_value(lista, 0), "primer_item");
+    ASSERT_STREQ((char *) list_get_value(lista, 1), "cuarto_item");
     ASSERT_EQ(list_get_value(lista, 2), nullptr);
     ASSERT_EQ(list_get_value(lista, 3), nullptr);
 

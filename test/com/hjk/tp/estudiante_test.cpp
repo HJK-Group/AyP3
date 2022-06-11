@@ -4,52 +4,42 @@ extern "C" {
 #include <com/hjk/tp/estudiante/estudiante.h>
 }
 
-TEST(PruebasCrearEstudiante, crear_un_estudiante) {
-    estudiante *estudiante = new_estudiante(123456789, (char *) "Juan", (char *) "Perez", 20);
-    ASSERT_EQ(estudiante->legajo, 123456789);
-    ASSERT_STREQ(estudiante->nombre, "Juan");
-    ASSERT_STREQ(estudiante->apellido, "Perez");
-    ASSERT_EQ(estudiante->edad, 20);
-    ASSERT_NE(estudiante->lista_materias, nullptr);
-    free(estudiante);
+void comparar_datos(unsigned long legajo, char *pNombre, char *pApellido, int edad, estudiante *estudiante);
+
+TEST(PruebasEstudiante, crear_un_estudiante) {
+    estudiante *pEstudiante = new_estudiante(123456789, (char *) "Juan", (char *) "Perez", 20);
+    comparar_datos(123456789, (char *) "Juan", (char *) "Perez", 20, pEstudiante);
+    free(pEstudiante);
 }
 
-TEST(PruebasCrearEstudiante, estudiante_con_nombre_extenso) {
-    estudiante *estudiante = new_estudiante(123456789, (char *) "JuanManuelPerezGarciaOliverosDeLasFuentes", (char *) "Perez", 20);
-    ASSERT_EQ(estudiante->legajo, 123456789);
-    ASSERT_STREQ(estudiante->nombre, "JuanManuelPerezGarciaOliverosDeLasFuentes");
-    ASSERT_STREQ(estudiante->apellido, "Perez");
-    ASSERT_EQ(estudiante->edad, 20);
-    ASSERT_NE(estudiante->lista_materias, nullptr);
-    free(estudiante);
+TEST(PruebasEstudiante, estudiante_con_nombre_extenso) {
+    estudiante *pEstudiante = new_estudiante(123456789, (char *) "JuanManuelPerezGarciaOliverosDeLasFuentes", (char *) "Perez", 20);
+    comparar_datos(123456789, (char *) "JuanManuelPerezGarciaOliverosDeLasFuentes", (char *) "Perez", 20, pEstudiante);
+    free(pEstudiante);
 }
 
-TEST(PruebasCrearEstudiante, estudiante_con_apellido_extenso) {
-    estudiante *estudiante = new_estudiante(123456789, (char *) "Juan", (char *) "PerezGarciaOliverosDeLasFuentesDeMercurio", 20);
-    ASSERT_EQ(estudiante->legajo, 123456789);
-    ASSERT_STREQ(estudiante->nombre, "Juan");
-    ASSERT_STREQ(estudiante->apellido, "PerezGarciaOliverosDeLasFuentesDeMercurio");
-    ASSERT_EQ(estudiante->edad, 20);
-    ASSERT_NE(estudiante->lista_materias, nullptr);
-    free(estudiante);
+TEST(PruebasEstudiante, estudiante_con_apellido_extenso) {
+    estudiante *pEstudiante = new_estudiante(123456789, (char *) "Juan", (char *) "PerezGarciaOliverosDeLasFuentesDeMercurio", 20);
+    comparar_datos(123456789, (char *) "Juan", (char *) "PerezGarciaOliverosDeLasFuentesDeMercurio", 20, pEstudiante);
+    free(pEstudiante);
 }
 
-TEST(PruebasCrearEstudiante, nombre_con_espacios) {
-    estudiante *estudiante = new_estudiante(123456789, (char *) "Juan Marcos", (char *) "Perez", 20);
-    ASSERT_EQ(estudiante->legajo, 123456789);
-    ASSERT_STREQ(estudiante->nombre, "Juan Marcos");
-    ASSERT_STREQ(estudiante->apellido, "Perez");
-    ASSERT_EQ(estudiante->edad, 20);
-    ASSERT_NE(estudiante->lista_materias, nullptr);
-    free(estudiante);
+TEST(PruebasEstudiante, nombre_con_espacios) {
+    estudiante *pEstudiante = new_estudiante(123456789, (char *) "Juan Marcos", (char *) "Perez", 20);
+    comparar_datos(123456789, (char *) "Juan Marcos", (char *) "Perez", 20, pEstudiante);
+    free(pEstudiante);
 }
 
-TEST(PruebasCrearEstudiante, apellido_con_espacios) {
-    estudiante *estudiante = new_estudiante(123456789, (char *) "Juan", (char *) "Perez Garcia", 20);
-    ASSERT_EQ(estudiante->legajo, 123456789);
-    ASSERT_STREQ(estudiante->nombre, "Juan");
-    ASSERT_STREQ(estudiante->apellido, "Perez Garcia");
-    ASSERT_EQ(estudiante->edad, 20);
+TEST(PruebasEstudiante, apellido_con_espacios) {
+    estudiante *pEstudiante = new_estudiante(123456789, (char *) "Juan", (char *) "Perez Garcia", 20);
+    comparar_datos(123456789, (char *) "Juan", (char *) "Perez Garcia", 20, pEstudiante);
+    free(pEstudiante);
+}
+
+void comparar_datos(unsigned long legajo, char *pNombre, char *pApellido, int edad, estudiante *estudiante) {
+    ASSERT_EQ(estudiante->legajo, legajo);
+    ASSERT_STREQ(estudiante->nombre, pNombre);
+    ASSERT_STREQ(estudiante->apellido, pApellido);
+    ASSERT_EQ(estudiante->edad, edad);
     ASSERT_NE(estudiante->lista_materias, nullptr);
-    free(estudiante);
 }
