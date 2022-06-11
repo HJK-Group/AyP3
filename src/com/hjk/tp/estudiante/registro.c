@@ -37,7 +37,7 @@ void registro_agregar_alumno(registro *listado_alumnos, estudiante *alumno) {
 }
 
 estudiante *registro_buscar_por_nombre(registro *listado_alumnos, char *nombre) {
-    return ordered_list_get_data((ordered_list *) listado_alumnos, nombre, sizeof(nombre));
+    return (estudiante *) ordered_list_get_data((ordered_list *) listado_alumnos, nombre, sizeof(char) * (strlen(nombre) + 1));
 }
 
 listado *registro_buscar_por_edad(registro *listado_alumnos, short desde, short hasta) {
@@ -48,7 +48,7 @@ listado *registro_buscar_por_edad(registro *listado_alumnos, short desde, short 
 } //TODO TERMINAR!
 
 int registro_remover_estudiante(registro *listado_alumnos, estudiante *alumno) {
-    ordered_list_remove_data((ordered_list*) listado_alumnos->listado_por_nombre, alumno, sizeof(estudiante));
+    return ordered_list_remove_data((ordered_list*) listado_alumnos->listado_por_nombre, alumno, sizeof(estudiante));
 }
 
 void listar_registro(registro *listado_alumnos) {

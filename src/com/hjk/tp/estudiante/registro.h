@@ -15,11 +15,11 @@ registro *new_registro();
 
 void registro_agregar_alumno(registro *registro, estudiante *alumno);
 
-estudiante *registro_buscar_por_nombre(registro *registro, char *nombre); // TODO kevin
+estudiante *registro_buscar_por_nombre(registro *registro, char *nombre);
 
 listado *registro_buscar_por_edad(registro *registro, short desde, short hasta);  // TODO Juan
 
-int registro_remover_estudiante(registro *registro, estudiante *alumno); // TODO kevin
+int registro_remover_estudiante(registro *registro, estudiante *alumno);
 
 void listar_registro(registro *registro);  // TODO Hernan
 
