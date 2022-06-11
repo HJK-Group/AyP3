@@ -16,15 +16,6 @@ int main() {
 //
 //    ---------------------------
 
-/*    materia* mi_materia = crear_materia("MAT2022", "Analisis I");
-
-    list *lista = new_empty_list();
-    carta algo = {10, COPA};
-    carta otra = {1, ESPADA};
-    list_add(lista, &algo, sizeof(carta));
-    list_add(lista, &otra, sizeof(carta));
-    list_print(lista, &print_carta);*/
-
     printf("Bienvenida/o al Sistema de Gestion Estudiantil SIGIL\n");
 
     printf("Elija una de las siguientes opciones para continuar:\n\n");
