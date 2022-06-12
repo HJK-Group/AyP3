@@ -17,7 +17,7 @@ listado *registro_buscar_por_edad(registro *listado_alumnos, short desde, short 
     if (listado_alumnos == NULL || listado_alumnos->listado_por_edad->generic_list->length == 0) {
         return NULL;
     }
-    if (desde > hasta || desde < 0 || hasta > listado_alumnos->listado_por_edad->generic_list->length) {
+    if (desde > hasta || desde < 0) {
         return NULL;
     }
 
@@ -85,7 +85,7 @@ void function_print_registro(void *data) {
     //curada_print(un_estudiante->lista_materias);
 }
 
-void borrar_registro(registro *listado_alumnos) {
+void registro_destroy(registro *listado_alumnos) {
     ordered_list_destroy(listado_alumnos->listado_por_nombre);
     ordered_list_destroy(listado_alumnos->listado_por_edad);
     free(listado_alumnos);
