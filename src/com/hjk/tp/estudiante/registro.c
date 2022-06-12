@@ -85,6 +85,8 @@ void function_print_registro(void *data) {
     //curada_print(un_estudiante->lista_materias);
 }
 
-void registro_destroy(registro *registro) {
-
+void borrar_registro(registro *listado_alumnos) {
+    ordered_list_destroy(listado_alumnos->listado_por_nombre);
+    ordered_list_destroy(listado_alumnos->listado_por_edad);
+    free(listado_alumnos);
 }

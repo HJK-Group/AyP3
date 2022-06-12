@@ -17,7 +17,7 @@ void registro_agregar_alumno(registro *registro, estudiante *alumno);
 
 estudiante *registro_buscar_por_nombre(registro *registro, char *nombre);
 
-listado *registro_buscar_por_edad(registro *registro, short desde, short hasta);  // TODO Juan
+listado *registro_buscar_por_edad(registro *registro, short desde, short hasta);
 
 int registro_remover_estudiante(registro *registro, estudiante *alumno);
 
