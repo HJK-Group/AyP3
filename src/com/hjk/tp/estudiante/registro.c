@@ -81,6 +81,7 @@ void listar_registro(registro *listado_alumnos, int number_records, registro_ord
             listado_a_imprimir = listado_alumnos->listado_por_edad;
             break;
         default:
+            printf("No existe listado ordenado por ese tipo para imprimir por pantalla.");
             break;
     }
 
@@ -95,7 +96,7 @@ void function_print_registro(void *data) {
     printf("%s\n", un_estudiante->apellido);
     printf("Edad: %d\n", un_estudiante->edad);
     printf("Legajo: %d\n\n", un_estudiante->legajo);
-    curada_print(un_estudiante->lista_materias);
+//    curada_print(un_estudiante->lista_materias);
 }
 
 void registro_destroy(registro *listado_alumnos) {

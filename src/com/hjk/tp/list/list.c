@@ -7,7 +7,8 @@ node *new_empty_node();
 
 node *list_get(list *lista, int index);
 
-list *new_empty_list() {
+list *new_empty_list()
+{
     list *lista = malloc(sizeof(list));
     if (lista != NULL) {
         lista->head = new_empty_node();
@@ -17,7 +18,8 @@ list *new_empty_list() {
     return lista;
 }
 
-node *new_empty_node() {
+node *new_empty_node()
+{
     node *nodo = malloc(sizeof(node));
     if (nodo != NULL) {
         nodo->data = NULL;
@@ -27,13 +29,15 @@ node *new_empty_node() {
     return nodo;
 }
 
-list *new_list(void *data) {
+list *new_list(void *data)
+{
     list *lista = new_empty_list();
     list_add(lista, data);
     return lista;
 }
 
-void list_add(list *lista, void *data) {
+void list_add(list *lista, void *data)
+{
 
     if (lista == NULL || data == NULL)
         return;
@@ -48,11 +52,13 @@ void list_add(list *lista, void *data) {
     lista->length += 1;
 }
 
-int list_length(list *lista) {
+int list_length(list *lista)
+{
     return lista->length;
 }
 
-void *list_get_value(list *lista, int index) {
+void *list_get_value(list *lista, int index)
+{
     node *pNode = list_get(lista, index);
     if (pNode == NULL)
         return NULL;
@@ -60,7 +66,8 @@ void *list_get_value(list *lista, int index) {
     return pNode->data;
 }
 
-void *list_get_data(list *lista, void *data, size_t data_size) {
+void *list_get_data(list *lista, void *data, size_t data_size)
+{
     if (lista == NULL || lista->head == NULL || lista->length == 0 || data == NULL || data_size <= 0) {
         return NULL;
     }
@@ -83,7 +90,8 @@ void *list_get_data(list *lista, void *data, size_t data_size) {
     return NULL;
 }
 
-void *list_search_data(list *lista, int (*search_function)(void *data, void *other_data), void *other_data) {
+void *list_search_data(list *lista, int (*search_function)(void *data, void *other_data), void *other_data)
+{
     if (lista == NULL || lista->head == NULL || search_function == NULL || other_data == NULL)
         return NULL;
 
@@ -98,7 +106,8 @@ void *list_search_data(list *lista, int (*search_function)(void *data, void *oth
     return NULL;
 }
 
-node *list_get(list *lista, int index) {
+node *list_get(list *lista, int index)
+{
     if (lista == NULL || lista->head == NULL || lista->length == 0 || index < 0 || index >= lista->length) {
         return NULL;
     }
@@ -110,7 +119,8 @@ node *list_get(list *lista, int index) {
     return aux;
 }
 
-int list_contains(list *lista, int (*search_function)(void *data, void *other_data), void *other_data) {
+int list_contains(list *lista, int (*search_function)(void *data, void *other_data), void *other_data)
+{
     if (lista == NULL || lista->head == NULL || lista->length == 0 || search_function == NULL || other_data == NULL) {
         return 0;
     }
@@ -118,7 +128,8 @@ int list_contains(list *lista, int (*search_function)(void *data, void *other_da
     return list_search_data(lista, search_function, other_data) != NULL;
 }
 
-int list_remove(list *lista, int index) {
+int list_remove(list *lista, int index)
+{
     if (lista == NULL || lista->head == NULL || lista->length == 0 || index < 0 || index >= lista->length) {
         return -1;
     }
@@ -138,7 +149,8 @@ int list_remove(list *lista, int index) {
     return 0;
 }
 
-int list_remove_data(list *lista, void *data, size_t data_size) {
+int list_remove_data(list *lista, void *data, size_t data_size)
+{
     if (lista == NULL || lista->head == NULL || lista->length == 0 || data == NULL || data_size <= 0) {
         return -1;
     }
@@ -155,17 +167,45 @@ int list_remove_data(list *lista, void *data, size_t data_size) {
     return 0;
 }
 
+// ToDo Si el valor de number_records es 0, imprimir toda la lista (retrocompatibilidad).
 void list_print(list *lista, void (*print_function)(void *), int number_records)
 {
+    int volver_a_imprimir = 0;
     node *nodo = lista->head;
-    while (nodo->next != NULL && number_records > 0) {
-        print_function(nodo->data);
-        number_records--;
-        nodo = nodo->next;
-    }
+
+    do {
+        volver_a_imprimir = 0;
+        int decrementer = number_records;
+
+        while (nodo->next != NULL && decrementer > 0) {
+            print_function(nodo->data);
+            decrementer--;
+            nodo = nodo->next;
+        }
+
+        // ToDo NO URGENTE: Mejorar este mensaje.
+        printf("Desea continuar con la siguiente pagina? Si (1), No (0)\n\n");
+        scanf("%i", &volver_a_imprimir);
+
+        switch (volver_a_imprimir) {
+            case 0:
+                break;
+            case 1:
+                if (nodo->next == NULL) {
+                    printf("No hay mas datos.\n");
+                    volver_a_imprimir = 0;
+                }
+                break;
+            default:
+                printf("Ninguna opcion correcta elegida.");
+                volver_a_imprimir = 0;
+                break;
+        }
+    } while (volver_a_imprimir);
 }
 
-void list_destroy(list *lista) {
+void list_destroy(list *lista)
+{
     node *nodo = lista->head;
     free(lista);
 
