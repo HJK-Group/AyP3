@@ -70,19 +70,32 @@ int registro_remover_estudiante(registro *listado_alumnos, estudiante *alumno) {
     return ordered_list_remove_data((ordered_list *) listado_alumnos->listado_por_nombre, alumno, sizeof(estudiante));
 }
 
-void listar_registro(registro *listado_alumnos) {
-    ordered_list *listado_por_nombre = listado_alumnos->listado_por_nombre;
-    ordered_list_print(listado_por_nombre, function_print_registro);
+void listar_registro(registro *listado_alumnos, int number_records, registro_order_by orderBy)
+{
+    ordered_list *listado_a_imprimir = NULL;
+    switch (orderBy) {
+        case Edad:
+            listado_a_imprimir = listado_alumnos->listado_por_nombre;
+            break;
+        case Nombre:
+            listado_a_imprimir = listado_alumnos->listado_por_edad;
+            break;
+        default:
+            break;
+    }
+
+    if (listado_a_imprimir != NULL)
+        ordered_list_print(listado_a_imprimir, function_print_registro, number_records);
 }
 
 void function_print_registro(void *data) {
     estudiante *un_estudiante = data;
 
-    printf("%s\n", un_estudiante->nombre);
+    printf("%s ", un_estudiante->nombre);
     printf("%s\n", un_estudiante->apellido);
     printf("Edad: %d\n", un_estudiante->edad);
-    printf("Legajo: %d\n", un_estudiante->legajo);
-    //curada_print(un_estudiante->lista_materias);
+    printf("Legajo: %d\n\n", un_estudiante->legajo);
+    curada_print(un_estudiante->lista_materias);
 }
 
 void registro_destroy(registro *listado_alumnos) {

@@ -155,10 +155,12 @@ int list_remove_data(list *lista, void *data, size_t data_size) {
     return 0;
 }
 
-void list_print(list *lista, void (*print_function)(void *data)) {
+void list_print(list *lista, void (*print_function)(void *), int number_records)
+{
     node *nodo = lista->head;
-    while (nodo->next != NULL) {
+    while (nodo->next != NULL && number_records > 0) {
         print_function(nodo->data);
+        number_records--;
         nodo = nodo->next;
     }
 }

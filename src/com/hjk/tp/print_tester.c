@@ -11,5 +11,5 @@ int main() {
     registro_agregar_alumno(un_registro, otro_estudiante);
     registro_agregar_alumno(un_registro, tercer_estudiante);
 
-    listar_registro(un_registro);
+    listar_registro(un_registro, 2, Nombre);
 }

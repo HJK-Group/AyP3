@@ -12,12 +12,13 @@ typedef struct estudiante {
     char *nombre;
     char *apellido;
     unsigned char edad;
+    // ToDo Cambiar Nombre a lista_cursos.
     cursada *lista_materias;
 } estudiante;
 
 estudiante *new_estudiante(unsigned long legajo, char *nombre, char* apellido, unsigned char edad);
 
-void anotarse_materia(estudiante *pEstudiante, materia *pMateria); // TODO testear
+void anotarse_materia(estudiante *pEstudiante, materia *pMateria);
 
 void rendir_materia(estudiante *pEstudiante, materia *pMateria, char calificacion); // ToDo Recrear método.
 

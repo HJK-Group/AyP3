@@ -45,7 +45,7 @@ void print_materia(void *data) {
 }
 
 void curada_print(cursada *lista_materias) {
-    list_print((list *) lista_materias, &print_materia);
+    list_print((list *) lista_materias, &print_materia, 0);
 }
 
 void cursada_destroy(cursada *lista_materias) {

@@ -25,8 +25,8 @@ Cada elemento que agrego queda ordenado en la lista, de manera que al imprimirla
 Desarrollar un sistema de estudiantes en C. Debe permitir:
 
 * Crear y listar estudiantes
-* Buscar estudiantes por nombre
-* Buscar estudiantes por rango de edad
+* Buscar estudiantes por Nombre
+* Buscar estudiantes por rango de Edad
 
 Además cada estudiante puede anotarse en N materias.
 

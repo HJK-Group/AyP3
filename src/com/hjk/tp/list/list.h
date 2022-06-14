@@ -33,7 +33,7 @@ int list_remove(list *lista, int index);
 
 int list_remove_data(list *lista, void *data, size_t data_size);
 
-void list_print(list *lista, void (*print_function)(void *data));
+void list_print(list *lista, void (*print_function)(void *), int number_records);
 
 void list_destroy(list *lista);
 

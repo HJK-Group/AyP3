@@ -61,8 +61,9 @@ int ordered_list_remove_data(ordered_list *lista, void *data, size_t data_size) 
     return list_remove_data(lista->generic_list, data, data_size);
 }
 
-void ordered_list_print(ordered_list *lista, void (*print_function)(void *data)) {
-    list_print(lista->generic_list, print_function);
+void ordered_list_print(ordered_list *lista, void (*print_function)(void *), int number_records)
+{
+    list_print(lista->generic_list, print_function, number_records);
 }
 
 void ordered_list_destroy(ordered_list *lista) {

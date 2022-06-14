@@ -50,7 +50,7 @@ void print_number(void *data) {
 
 void numeric_list_print(numeric_list *lista) {
     printf("%s", "{");
-    ordered_list_print(lista->generic_ordered_list, &print_number);
+    ordered_list_print(lista->generic_ordered_list, &print_number, 0);
     printf("\b %s", "}");
 }
 
