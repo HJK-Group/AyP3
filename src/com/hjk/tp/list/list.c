@@ -3,6 +3,8 @@
 #include <stdio.h>
 #include <memory.h>
 
+#define MAX_NUMBER_RECORDS 25
+
 node *new_empty_node();
 
 node *list_get(list *lista, int index);
@@ -170,6 +172,10 @@ int list_remove_data(list *lista, void *data, size_t data_size)
 // ToDo Si el valor de number_records es 0, imprimir toda la lista (retrocompatibilidad).
 void list_print(list *lista, void (*print_function)(void *), int number_records)
 {
+    if (number_records == 0) {
+        number_records = MAX_NUMBER_RECORDS;
+    }
+
     int volver_a_imprimir = 0;
     node *nodo = lista->head;
 

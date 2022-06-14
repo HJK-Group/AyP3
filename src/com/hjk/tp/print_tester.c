@@ -11,5 +11,8 @@ int main() {
     registro_agregar_alumno(un_registro, otro_estudiante);
     registro_agregar_alumno(un_registro, tercer_estudiante);
 
-    listar_registro(un_registro, 2, Nombre);
+    //listar_registro(un_registro, 2, Order_By_Nombre);
+
+    ordered_list* listado_filtrado = registro_buscar_por_edad(un_registro, 25, 29);
+    ordered_list_print(listado_filtrado, function_print_registro, 0);
 }

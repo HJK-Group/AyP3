@@ -74,10 +74,10 @@ void listar_registro(registro *listado_alumnos, int number_records, registro_ord
 {
     ordered_list *listado_a_imprimir = NULL;
     switch (orderBy) {
-        case Edad:
+        case Order_By_Edad:
             listado_a_imprimir = listado_alumnos->listado_por_nombre;
             break;
-        case Nombre:
+        case Order_By_Nombre:
             listado_a_imprimir = listado_alumnos->listado_por_edad;
             break;
         default:
