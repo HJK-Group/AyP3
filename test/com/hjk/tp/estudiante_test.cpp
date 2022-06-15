@@ -57,11 +57,12 @@ TEST(PruebasEstudiante, estudiante_se_anota_a_dos_materias) {
     materia *pOtraMateria = new_materia(777, (char *) "Programacion I");
 
     anotarse_materia(pEstudiante, pMateria);
-    // ToDo Solucionar: no almacena la segunda materia.
+    anotarse_materia(pEstudiante, pOtraMateria);
     anotarse_materia(pEstudiante, pOtraMateria);
 
     auto *primer_curso_almacenado = (curso *) pEstudiante->lista_materias->head->data;
     auto *segundo_curso_almacenado = (curso *) pEstudiante->lista_materias->head->next->data;
+    ASSERT_EQ(pEstudiante->lista_materias->head->next->next->data, nullptr);
 
     ASSERT_STREQ("Algebra I", primer_curso_almacenado->pMateria->nombre);
     ASSERT_EQ(pMateria, primer_curso_almacenado->pMateria);

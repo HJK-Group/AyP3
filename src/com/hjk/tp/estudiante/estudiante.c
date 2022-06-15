@@ -30,20 +30,12 @@ void anotarse_materia(estudiante *pEstudiante, materia *pMateria ) {
         return;
     }
 
-    int cantidad_correlativas = list_length(pMateria->pCorrelativas);
-    while ( cantidad_correlativas != 0 ) {
-        materia *pCorrelativa = list_get_value(pMateria->pCorrelativas, cantidad_correlativas - 1);
-        if (cursada_get_curso(pEstudiante->lista_materias, pCorrelativa) == NULL) {
-            break;
-        }
-        cantidad_correlativas--;
-    }
-
-    if (cantidad_correlativas != 0 || cursada_contains(pEstudiante->lista_materias, pMateria)) {
+    if (pMateria->pCorrelativas->length == 0 && !cursada_contains(pEstudiante->lista_materias, pMateria)) {
+        cursada_add(pEstudiante->lista_materias, pMateria);
         return;
     }
 
-    cursada_add(pEstudiante->lista_materias, pMateria);
+    return;
 }
 
 void rendir_materia(estudiante *pEstudiante, materia *pMateria, char calificacion) {

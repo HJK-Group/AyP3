@@ -25,11 +25,16 @@ void materia_add_correlativas(materia *pMateria, materia *pCorrelativa) {
 
 int materia_equals(materia *pMateria, materia *pOtherMateria) {
     if (pMateria == NULL || pOtherMateria == NULL) {
+        return 0;
+    }
+
+    if (pMateria == pOtherMateria) {
         return 1;
     }
 
-    int equals = pMateria->id == pOtherMateria->id;
-    return equals && strcmp(pMateria->nombre, pOtherMateria->nombre) == 0;
+    int sameId = pMateria->id == pOtherMateria->id;
+    int sameName = strcmp(pMateria->nombre, pOtherMateria->nombre) == 0;
+    return sameId && sameName;
 }
 
 void materia_destroy(materia *pMateria) {
