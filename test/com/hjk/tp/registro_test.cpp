@@ -54,15 +54,19 @@ TEST(PruebasRegistro, dos_estudiantes_ordenados_bien_menor_a_mayor_en_ambas_list
 
 TEST(PruebasRegistro, obtener_estudiante_registro_por_nombre) {
     registro *pRegistro = new_registro();
-    estudiante *pEstudiante = new_estudiante(1, (char *) "Juan", (char *) "Perez", 20);
-    registro_agregar_alumno(pRegistro, pEstudiante);
+    estudiante *pHernan = new_estudiante(1, (char *) "Hernan", (char *) "Rubio", 21);
+    estudiante *pJuan = new_estudiante(2, (char *) "Juan", (char *) "Calviño", 29);
+    estudiante *pKevin = new_estudiante(3, (char *) "Kevin", (char *) "Tubio", 25);
+    registro_agregar_alumno(pRegistro, pHernan);
+    registro_agregar_alumno(pRegistro, pJuan);
+    registro_agregar_alumno(pRegistro, pKevin);
 
     estudiante *estudiante_buscado = registro_buscar_por_nombre(pRegistro, (char *) "Juan");
-    ASSERT_EQ(estudiante_buscado, pEstudiante);
-    ASSERT_EQ(estudiante_buscado->legajo, 1);
+    ASSERT_EQ(estudiante_buscado, pJuan);
+    ASSERT_EQ(estudiante_buscado->legajo, 2);
     ASSERT_STREQ(estudiante_buscado->nombre, "Juan");
-    ASSERT_STREQ(estudiante_buscado->apellido, "Perez");
-    ASSERT_EQ(estudiante_buscado->edad, 20);
+    ASSERT_STREQ(estudiante_buscado->apellido, "Calviño");
+    ASSERT_EQ(estudiante_buscado->edad, 29);
 
     registro_destroy(pRegistro);
 }

@@ -9,7 +9,7 @@ int comparar_nombre(void *primer_estudiante, void *segundo_estudiante);
 int buscar_nombre(void *data, void *other_data) {
     estudiante *alumno = (estudiante *) data;
     char *nombre = (char *) other_data;
-    return strcmp(alumno->nombre, nombre);
+    return strcmp(alumno->nombre, nombre) == 0;
 }
 
 listado *registro_buscar_por_edad(registro *listado_alumnos, short desde, short hasta) {

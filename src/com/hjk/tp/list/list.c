@@ -90,11 +90,11 @@ void *list_search_data(list *lista, int (*search_function)(void *data, void *oth
         return NULL;
 
     node *itr_node = lista->head;
-    while (itr_node != NULL && itr_node->data != NULL && search_function(itr_node->data, other_data)) {
+    while (itr_node != NULL && itr_node->data != NULL && !search_function(itr_node->data, other_data)) {
         itr_node = itr_node->next;
     }
 
-    if (itr_node != NULL && itr_node->data != NULL && !search_function(itr_node->data, other_data))
+    if (itr_node != NULL && itr_node->data != NULL && search_function(itr_node->data, other_data))
         return itr_node->data;
 
     return NULL;

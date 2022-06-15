@@ -18,7 +18,7 @@ int cursada_length(cursada *lista_materias) {
 }
 
 int buscar_curso(void *pCurso, void *pMateria) {
-    return materia_equals((materia *) pMateria, ((curso *) pCurso)->pMateria);
+    return materia_equals(((curso *) pCurso)->pMateria, (materia *) pMateria);
 }
 
 curso *cursada_get_curso(cursada *lista_materias, materia *pMateria) {
