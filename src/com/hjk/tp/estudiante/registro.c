@@ -3,6 +3,7 @@
 #include "string.h"
 
 int comparar_edad(void *primer_estudiante, void *segundo_estudiante);
+
 int comparar_nombre(void *primer_estudiante, void *segundo_estudiante);
 
 int buscar_nombre(void *data, void *other_data) {
@@ -37,8 +38,7 @@ estudiante *registro_buscar_por_nombre(registro *listado_alumnos, char *nombre) 
     if (listado_alumnos == NULL || nombre == NULL)
         return NULL;
 
-    return (estudiante *) ordered_list_search_data(listado_alumnos->listado_por_nombre, &buscar_nombre,
-                                                   (void *) nombre);
+    return (estudiante *) ordered_list_search_data(listado_alumnos->listado_por_nombre, &buscar_nombre, (void *) nombre);
 }
 
 int comparar_nombre(void *primer_estudiante, void *segundo_estudiante) {
@@ -65,8 +65,16 @@ int registro_remover_estudiante(registro *listado_alumnos, estudiante *alumno) {
     return ordered_list_remove_data((ordered_list *) listado_alumnos->listado_por_nombre, alumno, sizeof(estudiante));
 }
 
-void listar_registro(registro *listado_alumnos, int number_records, registro_order_by orderBy)
-{
+void print_estudiante(void *alumno) {
+    printf("##############################################\n");
+    printf("Nombre: %s\n", ((estudiante *) alumno)->nombre);
+    printf("Apellido: %s\n", ((estudiante *) alumno)->apellido);
+    printf("Edad: %d\n", ((estudiante *) alumno)->edad);
+    printf("Legajo: %d\n", ((estudiante *) alumno)->legajo);
+    printf("______________________________________________\n");
+}
+
+void listar_registro(registro *listado_alumnos, int number_records, registro_order_by orderBy) {
     ordered_list *listado_a_imprimir = NULL;
     switch (orderBy) {
         case Order_By_Edad:
@@ -81,22 +89,15 @@ void listar_registro(registro *listado_alumnos, int number_records, registro_ord
     }
 
     if (listado_a_imprimir != NULL)
-        ordered_list_print(listado_a_imprimir, function_print_registro, number_records);
+        ordered_list_print(listado_a_imprimir, &print_estudiante, number_records);
 }
 
-void function_print_registro(void *data) {
-    estudiante *un_estudiante = data;
-    printf("############################################################\n");
-    printf("Nombre: %s\n", un_estudiante->nombre);
-    printf("Apellido: %s\n", un_estudiante->apellido);
-    printf("Edad: %d\n", un_estudiante->edad);
-    printf("Legajo: %d\n", un_estudiante->legajo);
-    printf("____________________________________________________________\n");
-//    curada_print(un_estudiante->lista_materias);
+void listado_destroy(listado *pListado) {
+    ordered_list_destroy(pListado);
 }
 
 void registro_destroy(registro *listado_alumnos) {
-    ordered_list_destroy(listado_alumnos->listado_por_nombre);
-    ordered_list_destroy(listado_alumnos->listado_por_edad);
+    listado_destroy(listado_alumnos->listado_por_nombre);
+    listado_destroy(listado_alumnos->listado_por_edad);
     free(listado_alumnos);
 }
