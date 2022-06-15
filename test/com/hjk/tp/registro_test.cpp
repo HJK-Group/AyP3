@@ -10,7 +10,7 @@ TEST(PruebasRegistro, crear_un_registro) {
 
     registro_agregar_alumno(un_registro, un_estudiante);
 
-    free(un_registro);
+    registro_destroy(un_registro);
 }
 
 TEST(PruebasRegistro, elementos_de_ambas_son_identicos) {
@@ -29,7 +29,7 @@ TEST(PruebasRegistro, elementos_de_ambas_son_identicos) {
 
     ASSERT_EQ(data_list_ordered_by_name, data_list_ordered_by_age);
 
-    free(un_registro);
+    registro_destroy(un_registro);
 }
 
 TEST(PruebasRegistro, dos_estudiantes_ordenados_bien_menor_a_mayor_en_ambas_listas) {
@@ -49,7 +49,7 @@ TEST(PruebasRegistro, dos_estudiantes_ordenados_bien_menor_a_mayor_en_ambas_list
     ASSERT_STREQ(data_list_ordered_by_age->nombre, "Kevin");
     ASSERT_EQ(data_list_ordered_by_age->edad, 25);
 
-    free(un_registro);
+    registro_destroy(un_registro);
 }
 
 TEST(PruebasRegistro, obtener_estudiante_registro_por_nombre) {
@@ -78,30 +78,38 @@ TEST(PruebasRegistro, obtener_estudiantes_registro_por_edad_20_a_30) {
     registro_agregar_alumno(pRegistro, pEstudiante_en_rango_2);
 
     listado *pLista_estudiantes_mayores_de_20 = registro_buscar_por_edad(pRegistro, 20, 30);
-    node *iterador =  pLista_estudiantes_mayores_de_20->generic_list->head;
+    node *iterador = pLista_estudiantes_mayores_de_20->generic_list->head;
 
     ASSERT_EQ(pLista_estudiantes_mayores_de_20->generic_list->length, 2);
-    ASSERT_STREQ(((estudiante*)iterador->data)->nombre, "Hernan");
+    ASSERT_STREQ(((estudiante *) iterador->data)->nombre, "Hernan");
     ASSERT_EQ(iterador->data, pEstudiante_en_rango_2);
 
     iterador = iterador->next;
-    ASSERT_STREQ(((estudiante*)iterador->data)->nombre, "Kevin");
+    ASSERT_STREQ(((estudiante *) iterador->data)->nombre, "Kevin");
     ASSERT_EQ(iterador->data, pEstudiante_en_rango_1);
+
+    registro_destroy(pRegistro);
+    estudiante_destroy(pEstudiante_en_rango_mayor);
+    estudiante_destroy(pEstudiante_en_rango_1);
+    estudiante_destroy(pEstudiante_en_rango_2);
+    listado_destroy(pLista_estudiantes_mayores_de_20);
 }
 
 TEST(PruebasRegistro, obtener_estudiantes_por_edad_solo_devuelve_lo_existente) {
     registro *pRegistro = new_registro();
     estudiante *pEstudiante_en_rango_mayor = new_estudiante(1, (char *) "Juan", (char *) "Calvino", 33);
-
     registro_agregar_alumno(pRegistro, pEstudiante_en_rango_mayor);
 
-    ordered_list *pLista_estudiantes_mayores_de_20 = registro_buscar_por_edad(pRegistro, 32, 33);
+    listado *pLista_estudiantes_mayores_de_20 = registro_buscar_por_edad(pRegistro, 32, 33);
     node *iterador = pLista_estudiantes_mayores_de_20->generic_list->head;
 
     ASSERT_EQ(pLista_estudiantes_mayores_de_20->generic_list->length, 1);
-    ASSERT_STREQ(((estudiante*)iterador->data)->nombre, "Juan");
+    ASSERT_STREQ(((estudiante *) iterador->data)->nombre, "Juan");
     ASSERT_EQ(iterador->data, pEstudiante_en_rango_mayor);
 
-    void* siguiente_data = iterador->next->data;
-    ASSERT_TRUE(siguiente_data == nullptr);
+    ASSERT_TRUE(iterador->next->data == nullptr);
+
+    registro_destroy(pRegistro);
+    estudiante_destroy(pEstudiante_en_rango_mayor);
+    listado_destroy(pLista_estudiantes_mayores_de_20);
 }
