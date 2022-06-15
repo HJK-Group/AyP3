@@ -14,12 +14,12 @@ typedef struct materia {
     lista_correlativas *pCorrelativas;
 } materia;
 
-materia* new_materia(unsigned short id, char *nombre);
+materia *new_materia(unsigned short id, char *nombre);
 
 void materia_add_correlativas(materia *pMateria, materia *pCorrelativa);
 
 int materia_equals(materia *pMateria, materia *pOtherMateria);
 
-void materia_destroy(materia* pMateria); // ToDo
+void materia_destroy(materia *pMateria);
 
 #endif //core_MATERIA_H
