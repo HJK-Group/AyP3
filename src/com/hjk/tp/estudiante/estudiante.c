@@ -54,3 +54,14 @@ void rendir_materia(estudiante *pEstudiante, materia *pMateria, char calificacio
 
     actual->calificacion = calificacion;
 }
+
+void estudiante_destroy(estudiante *pEstudiante) {
+    if (pEstudiante == NULL) {
+        return;
+    }
+
+    free(pEstudiante->nombre);
+    free(pEstudiante->apellido);
+    cursada_destroy(pEstudiante->lista_materias);
+    free(pEstudiante);
+}
