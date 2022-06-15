@@ -30,6 +30,6 @@ void listar_registro(registro *listado_alumnos, int number_records, registro_ord
 
 void function_print_registro(void *data);
 
-void registro_destroy(registro *registro);  // TODO Juan
+void registro_destroy(registro *registro);
 
 #endif //core_REGISTRO_H

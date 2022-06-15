@@ -77,7 +77,7 @@ TEST(PruebasRegistro, obtener_estudiantes_registro_por_edad_20_a_30) {
     registro_agregar_alumno(pRegistro, pEstudiante_en_rango_1);
     registro_agregar_alumno(pRegistro, pEstudiante_en_rango_2);
 
-    auto *pLista_estudiantes_mayores_de_20 = registro_buscar_por_edad(pRegistro, 20, 30);
+    listado *pLista_estudiantes_mayores_de_20 = registro_buscar_por_edad(pRegistro, 20, 30);
     node *iterador =  pLista_estudiantes_mayores_de_20->generic_list->head;
 
     ASSERT_EQ(pLista_estudiantes_mayores_de_20->generic_list->length, 2);

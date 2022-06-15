@@ -11,7 +11,6 @@ int buscar_nombre(void *data, void *other_data) {
     return strcmp(alumno->nombre, nombre);
 }
 
-
 listado *registro_buscar_por_edad(registro *listado_alumnos, short desde, short hasta) {
 
     if (listado_alumnos == NULL || listado_alumnos->listado_por_edad->generic_list->length == 0) {
@@ -22,20 +21,16 @@ listado *registro_buscar_por_edad(registro *listado_alumnos, short desde, short 
     }
 
     listado *listado_result = new_empty_ordered_list(&comparar_edad);
-    ordered_list *listado_ordenado_edad = listado_alumnos->listado_por_edad;
-    node *next_estudiante = listado_ordenado_edad->generic_list->head;
-
-
-    estudiante *estudiante_actual = (estudiante *)next_estudiante->data;
-
-    while (next_estudiante != NULL && estudiante_actual != NULL && estudiante_actual->edad <= hasta) {
-        if (estudiante_actual->edad >= desde) {
-            ordered_list_add(listado_result, estudiante_actual);
+    node *item = listado_alumnos->listado_por_edad->generic_list->head;
+    while (item != NULL && item->data != NULL) {
+        estudiante *alumno = (estudiante *) item->data;
+        if (alumno->edad >= desde && alumno->edad <= hasta) {
+            ordered_list_add(listado_result, alumno);
         }
-            next_estudiante = next_estudiante->next;
-            estudiante_actual = (estudiante *) next_estudiante->data;
+        item = item->next;
     }
-    return  listado_result;
+
+    return listado_result;
 }
 
 estudiante *registro_buscar_por_nombre(registro *listado_alumnos, char *nombre) {
@@ -91,11 +86,12 @@ void listar_registro(registro *listado_alumnos, int number_records, registro_ord
 
 void function_print_registro(void *data) {
     estudiante *un_estudiante = data;
-
-    printf("%s ", un_estudiante->nombre);
-    printf("%s\n", un_estudiante->apellido);
+    printf("############################################################\n");
+    printf("Nombre: %s\n", un_estudiante->nombre);
+    printf("Apellido: %s\n", un_estudiante->apellido);
     printf("Edad: %d\n", un_estudiante->edad);
-    printf("Legajo: %d\n\n", un_estudiante->legajo);
+    printf("Legajo: %d\n", un_estudiante->legajo);
+    printf("____________________________________________________________\n");
 //    curada_print(un_estudiante->lista_materias);
 }
 
