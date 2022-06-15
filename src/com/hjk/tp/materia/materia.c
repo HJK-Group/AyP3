@@ -20,6 +20,7 @@ lista_correlativas *new_empty_lista_correlativas() {
 }
 
 void materia_add_correlativas(materia *pMateria, materia *pCorrelativa) {
+    // TODO verificar que no se agregue una materia ya agregada
     list_add(pMateria->pCorrelativas, pCorrelativa);
 }
 
