@@ -9,7 +9,7 @@ void menu_print_welcome() {
 void menu_print_main_options() {
     printf("Elija una de las siguientes opciones para continuar:\n\n");
     printf("[1] Realizar consultas al sistema\n");
-    printf("[2] Agregar, borrar 0 registros del sistema\n");
+    printf("[2] Agregar, borrar o modificar registros del sistema\n");
     printf("[3] Salir\n");
 }
 
