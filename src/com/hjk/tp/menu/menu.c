@@ -2,8 +2,10 @@
 #include <stdio.h>
 
 void menu_print_welcome() {
+    printf("##############################################\n");
     printf("Bienvenida/o al Sistema de Gestion Estudiantil\n");
     menu_print_main_options();
+    printf("______________________________________________\n");
 }
 
 void menu_print_main_options() {
@@ -14,21 +16,23 @@ void menu_print_main_options() {
 }
 
 void menu_print_abm_options() {
-    printf("----- ABM Registros -----\n");
+    printf("############### ABM Registros ################\n");
     printf("Elija una de las siguientes opciones:\n\n");
     printf("[1] Agregar materia\n");
     printf("[2] Agregar alumno\n");
     printf("[3] Inscribir alumno en materia\n");
     printf("[4] Volver al menu principal\n");
+    printf("______________________________________________\n");
 }
 
 void menu_print_query_options() {
-    printf("----- Consultas del sistema -----\n");
+    printf("############ Consultas del sistema ###########\n");
     printf("Elija una de las siguientes opciones:\n\n");
     printf("[1] Consultar materias\n");
     printf("[2] Consultar estudiantes\n");
     printf("[3] Consultar cursadas\n");
     printf("[4] Volver al menu principal\n");
+    printf("______________________________________________\n");
 }
 
 //int consultar_estudiantes() {

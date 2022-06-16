@@ -45,7 +45,7 @@ int main() {
                 running = 0;
                 break;
             default:
-                printf("Ninguna opcion configurada para ese valor.");
+                printf("Ninguna opcion configurada para ese valor.\n\n");
                 break;
         }
     }
@@ -54,10 +54,11 @@ int main() {
 }
 
 int get_menu_option() {
-    printf("Tu opcion: ");
-    char *option_choose = malloc(sizeof(char));
-    scanf("%s", option_choose);
-    return strtol(option_choose, NULL, 10);
+    char *option = malloc(sizeof(char));
+    scanf("%s", option);
+    int chosen_option = strtol(option, NULL, 10);
+    free(option);
+    return chosen_option;
 }
 
 void realizar_consultas(registro *pRegistro, list *pLista_materias) {
@@ -78,7 +79,7 @@ void realizar_consultas(registro *pRegistro, list *pLista_materias) {
                 running = 0;
                 break;
             default:
-                printf("Ninguna opcion configurada para ese valor.");
+                printf("Ninguna opcion configurada para ese valor.\n\n");
         }
     }
 }
@@ -101,7 +102,7 @@ void abm_registros(registro *pRegistro, list *pLista_materias) {
                 running = 0;
                 break;
             default:
-                printf("Ninguna opcion configurada para ese valor.");
+                printf("Ninguna opcion configurada para ese valor.\n\n");
         }
     }
 }
@@ -111,8 +112,8 @@ int comparar_materia(void *item_lista, void *dato) {
 }
 
 void handle_crear_materia(list *pLista_materias) {
-    char codigo_materia[10]; // Chequear que no exista un duplicado
-    char nombre_materia[25];
+    char *codigo_materia; // Chequear que no exista un duplicado
+    char *nombre_materia;
 
     printf("Ahora indique un codigo unico para identificar la materia: ");
     scanf("%s", &codigo_materia);
@@ -138,7 +139,7 @@ void handle_crear_estudiante(registro *pRegistro) {
     unsigned char edad;
 
     printf("Indique el legajo del estudiante: ");
-    scanf("%lu", &legajo);
+    scanf("%s", &legajo);
 
     printf("Indique el nombre del estudiante: ");
     scanf("%s", &nombre);
@@ -147,7 +148,7 @@ void handle_crear_estudiante(registro *pRegistro) {
     scanf("%s", &apellido);
 
     printf("Indique la edad del estudiante: ");
-    scanf("%hhu", &edad);
+    scanf("%s", &edad);
 
     registro_agregar_alumno(pRegistro, new_estudiante(legajo, nombre, apellido, edad));
 }
