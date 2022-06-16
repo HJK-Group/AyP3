@@ -7,39 +7,37 @@
 
 int main() {
 
-// ToDo Lista de Materias unívocas.
-// Todo Método para añadir Materia a la Lista.
-
+    int continuar_ejecucion = 1;
     printf("Bienvenida/o al Sistema de Gestion Estudiantil SIGIL\n");
 
-    printf("Elija una de las siguientes opciones para continuar:\n\n");
-    printf("[1] Crear nueva Materia\n\n");
+    do {
+        printf("Elija una de las siguientes opciones para continuar:\n\n");
+        printf("[1] Crear nueva Materia\n");
+        printf("[2] Crear nuevo Estudiante\n");
 
-    printf("Tu opcion: ");
-    int option_choose = -1;
-    scanf("%i", &option_choose);
+        printf("Tu opcion: ");
+        int option_choose = -1;
+        scanf("%i", &option_choose);
 
-//    printf("%d", option_choose);
+        switch (option_choose) {
+            case 1:
+                printf("Indique el nombre de la materia: ");
+                char nombre_materia;
+                scanf("%s", &nombre_materia);
 
-    switch (option_choose) {
-        case 1:
-            printf("Indique el nombre de la materia: ");
-            char codigo_materia[10];
-            char nombre_materia[25];
+                printf("Ahora indique un codigo unico para identificar la materia: ");
+                unsigned short codigo_materia;
+                scanf("%i", &codigo_materia);
 
-            scanf("%s", &nombre_materia);
+                materia* una_materia = new_materia(codigo_materia, nombre_materia);
 
-            printf("Ahora indique un codigo unico para identificar la materia: ");
-            scanf("%s", &codigo_materia);
+                printf("Nombre: %s, Codigo: %i", una_materia->nombre, una_materia->id);
 
-            // *materia = new_materia(codigo_materia, nombre_materia);
-
-            //printf("Materia_Name: %s, Materia_Code: %s", materia->nombre, materia->id);
-
-            break;
-        default:
-            printf("Ninguna opcion configurada para ese valor.");
-    }
+                break;
+            default:
+                printf("Ninguna opcion configurada para ese valor.\n");
+        }
+    } while (continuar_ejecucion);
 
     return 0;
 }
