@@ -25,6 +25,19 @@ int add_edad(estudiante *dest, short edad) {
     return 0;
 }
 
+void estudiante_print(estudiante *alumno) {
+    if (alumno == NULL) {
+        return;
+    }
+
+    printf("##############################################\n");
+    printf("Nombre: %s\n", alumno->nombre);
+    printf("Apellido: %s\n", alumno->apellido);
+    printf("Edad: %d\n", alumno->edad);
+    printf("Legajo: %d\n", alumno->legajo);
+    printf("______________________________________________\n");
+}
+
 void anotarse_materia(estudiante *pEstudiante, materia *pMateria ) {
     if (pEstudiante == NULL || pEstudiante->lista_materias == NULL || pMateria == NULL) {
         return;

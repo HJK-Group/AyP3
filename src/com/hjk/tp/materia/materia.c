@@ -38,6 +38,35 @@ int materia_equals(materia *pMateria, materia *pOtherMateria) {
     return sameId && sameName;
 }
 
+char *print_correlativas(list *pCorrelativas) {
+    if (pCorrelativas == NULL) {
+        return "";
+    }
+
+    char *pCorrelativasString = new_string("");
+    node *iterador = pCorrelativas->head;
+    for (int i = 0; i < pCorrelativas->length; i++) {
+        strcat(pCorrelativasString, new_string("\n  - "));
+        strcat(pCorrelativasString, ((materia *)iterador->data)->nombre);
+        iterador = iterador->next;
+    }
+
+    strcat(pCorrelativasString, new_string("\n"));
+    return pCorrelativasString;
+}
+
+void materia_print(materia *pMateria) {
+    if (pMateria == NULL) {
+        return;
+    }
+
+    printf("##############################################\n");
+    printf("ID: %d\n", pMateria->id);
+    printf("Nombre: %s\n", pMateria->nombre);
+    printf("Correlativas: %s", print_correlativas(pMateria->pCorrelativas));
+    printf("______________________________________________\n");
+}
+
 void materia_destroy(materia *pMateria) {
     if (pMateria == NULL) {
         return;

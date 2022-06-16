@@ -25,7 +25,7 @@ unsigned char cursada_get_calificacion(cursada *lista_materias, materia *pMateri
 
 int cursada_remove(cursada *lista_materias, int index);
 
-void curada_print(cursada *lista_materias);
+void cursada_print(cursada *lista_materias);
 
 void cursada_destroy(cursada *lista_materias);
 

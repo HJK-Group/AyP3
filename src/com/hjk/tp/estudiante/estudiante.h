@@ -22,6 +22,8 @@ void anotarse_materia(estudiante *pEstudiante, materia *pMateria);
 
 void rendir_materia(estudiante *pEstudiante, materia *pMateria, char calificacion); // ToDo Recrear método.
 
+void estudiante_print(estudiante *alumno);
+
 void estudiante_destroy(estudiante *pEstudiante);
 
 #endif //core_ESTUDIANTE_H

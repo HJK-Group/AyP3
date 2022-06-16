@@ -40,11 +40,15 @@ int cursada_remove(cursada *lista_materias, int index) {
     return list_remove((list *) lista_materias, index);
 }
 
-void print_materia(void *data) {
-    // ToDo
+void print_materia(void *pCurso) {
+    if (pCurso == NULL) {
+        return;
+    }
+
+    materia_print(((curso *) pCurso)->pMateria);
 }
 
-void curada_print(cursada *lista_materias) {
+void cursada_print(cursada *lista_materias) {
     list_print((list *) lista_materias, &print_materia, 0);
 }
 

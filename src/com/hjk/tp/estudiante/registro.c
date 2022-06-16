@@ -66,12 +66,7 @@ int registro_remover_estudiante(registro *listado_alumnos, estudiante *alumno) {
 }
 
 void print_estudiante(void *alumno) {
-    printf("##############################################\n");
-    printf("Nombre: %s\n", ((estudiante *) alumno)->nombre);
-    printf("Apellido: %s\n", ((estudiante *) alumno)->apellido);
-    printf("Edad: %d\n", ((estudiante *) alumno)->edad);
-    printf("Legajo: %d\n", ((estudiante *) alumno)->legajo);
-    printf("______________________________________________\n");
+    estudiante_print((estudiante *) alumno);
 }
 
 void listar_registro(registro *listado_alumnos, int number_records, registro_order_by orderBy) {
