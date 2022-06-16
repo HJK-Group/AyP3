@@ -53,5 +53,12 @@ void cursada_print(cursada *lista_materias) {
 }
 
 void cursada_destroy(cursada *lista_materias) {
+
+    node *pNode = lista_materias->head;
+    for (int i = 0; i < lista_materias->length; i++) {
+        curso_destroy((curso *) pNode->data);
+        pNode = pNode->next;
+    }
+
     list_destroy((list *) lista_materias);
 }
