@@ -24,6 +24,7 @@ set(SOURCES
         com/hjk/tp/estudiante/estudiante.c
         com/hjk/tp/estudiante/registro.c
         com/hjk/tp/utils/utils.c
+        com/hjk/tp/main.c
 )
 
 add_library(${THIS} ${HEADERS} ${SOURCES})
