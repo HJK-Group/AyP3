@@ -7,8 +7,8 @@
 
 int main() {
 
-//
-//    ---------------------------
+// ToDo Lista de Materias unívocas.
+// Todo Método para añadir Materia a la Lista.
 
     printf("Bienvenida/o al Sistema de Gestion Estudiantil SIGIL\n");
 
