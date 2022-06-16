@@ -16,8 +16,7 @@ FetchContent_Declare(
 set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 FetchContent_MakeAvailable(googletest)
 
-add_executable(${THIS}
-        src/com/hjk/tp/print_tester.c)
+add_executable(${THIS} src/com/hjk/tp/main.c)
 
 add_subdirectory(src)
 add_subdirectory(test)

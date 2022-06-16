@@ -12,6 +12,7 @@ set(HEADERS
         com/hjk/tp/estudiante/estudiante.h
         com/hjk/tp/estudiante/registro.h
         com/hjk/tp/utils/utils.h
+        com/hjk/tp/menu/menu.h
 )
 
 set(SOURCES
@@ -24,6 +25,7 @@ set(SOURCES
         com/hjk/tp/estudiante/estudiante.c
         com/hjk/tp/estudiante/registro.c
         com/hjk/tp/utils/utils.c
+        com/hjk/tp/menu/menu.c
 )
 
 add_library(${THIS} ${HEADERS} ${SOURCES})
