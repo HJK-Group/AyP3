@@ -157,8 +157,8 @@ int list_remove_data(list *lista, void *data, size_t data_size) {
     return 0;
 }
 
-// ToDo Si el valor de number_records es 0, imprimir toda la lista (retrocompatibilidad).
-void list_print(list *lista, void (*print_function)(void *), int number_records) {
+void list_print(list *lista, void (*print_function)(void *), int number_records)
+{
     if (number_records == 0) {
         number_records = MAX_NUMBER_RECORDS;
     }

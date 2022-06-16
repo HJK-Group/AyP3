@@ -26,7 +26,7 @@ listado *registro_buscar_por_edad(registro *registro, short desde, short hasta);
 
 int registro_remover_estudiante(registro *registro, estudiante *alumno);
 
-void listar_registro(registro *listado_alumnos, int number_records, registro_order_by orderBy);  // ToDo Imprimir por Order_By_Nombre o por Order_By_Edad para paginado.
+void listar_registro(registro *listado_alumnos, int number_records, registro_order_by orderBy);
 
 void listado_destroy(listado *pListado);
 

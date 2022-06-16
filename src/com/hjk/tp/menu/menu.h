@@ -5,6 +5,8 @@ void menu_print_welcome();
 
 void menu_print_main_options();
 
-void menu_print_crear_materia_options();
+void menu_print_abm_options();
+
+void menu_print_query_options();
 
 #endif //core_MENU_H
