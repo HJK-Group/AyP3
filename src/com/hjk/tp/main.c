@@ -129,7 +129,7 @@ void handle_crear_materia(list *pLista_materias) {
     printf("Indique el nombre de la materia: ");
     char *nombre_materia = solicitar_dato(50);
 
-    materia *nueva_materia = new_materia(sequencia_id_materia, nombre_materia);
+    materia *nueva_materia = new_materia(secuencia_id_materia, nombre_materia);
     if (!list_contains(pLista_materias, &comparar_materia, nueva_materia)) {
         list_add(pLista_materias, nueva_materia);
         printf("Materia agregada con exito!\n");
