@@ -75,6 +75,29 @@ TEST(PruebasEstudiante, estudiante_se_anota_a_dos_materias) {
     materia_destroy(pOtraMateria);
 }
 
+TEST(PruebasEstudiante, correlatividad) {
+    estudiante *pEstudiante = new_estudiante(62, (char *) "Hernan", (char *) "Rubio", 21);
+    materia *algebra1 = new_materia(666, (char *) "Algebra I");
+    materia *algebra2 = new_materia(777, (char *) "Algebra II");
+    auto *pCurso = (curso *) pEstudiante->lista_materias->head->data;
+    materia_add_correlativas(algebra2, algebra1);
+
+    anotarse_materia(pEstudiante, algebra2);
+    ASSERT_EQ(pCurso, nullptr);
+
+    anotarse_materia(pEstudiante, algebra1);
+    pCurso = (curso *) pEstudiante->lista_materias->head->data;
+    ASSERT_EQ(pCurso->pMateria, algebra1);
+
+    anotarse_materia(pEstudiante, algebra2);
+    pCurso = (curso *) pEstudiante->lista_materias->head->next->data;
+    ASSERT_EQ(pCurso->pMateria, algebra2);
+
+    estudiante_destroy(pEstudiante);
+    materia_destroy(algebra1);
+    materia_destroy(algebra2);
+}
+
 void comparar_datos(unsigned long legajo, char *pNombre, char *pApellido, int edad, estudiante *estudiante) {
     ASSERT_EQ(estudiante->legajo, legajo);
     ASSERT_STREQ(estudiante->nombre, pNombre);

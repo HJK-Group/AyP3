@@ -30,12 +30,30 @@ void anotarse_materia(estudiante *pEstudiante, materia *pMateria ) {
         return;
     }
 
-    if (pMateria->pCorrelativas->length == 0 && !cursada_contains(pEstudiante->lista_materias, pMateria)) {
+    if (cursada_contains(pEstudiante->lista_materias, pMateria)) {
+        return;
+    }
+
+    if (pMateria->pCorrelativas->length == 0) {
         cursada_add(pEstudiante->lista_materias, pMateria);
         return;
     }
 
-    return;
+    node *iterador = pMateria->pCorrelativas->head;
+    int puede_anotarse = 1;
+    while(iterador->next != NULL) {
+        puede_anotarse = cursada_contains(pEstudiante->lista_materias, iterador->data);
+        if (!puede_anotarse) {
+            break;
+        }
+        iterador = iterador->next;
+    }
+
+    if (iterador->data != NULL && !puede_anotarse) {
+        return;
+    }
+
+    cursada_add(pEstudiante->lista_materias, pMateria);
 }
 
 void rendir_materia(estudiante *pEstudiante, materia *pMateria, char calificacion) {
