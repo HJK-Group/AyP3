@@ -3,6 +3,10 @@
 
 void menu_print_welcome();
 
+void menu_print_end();
+
+void lala();
+
 void menu_print_main_options();
 
 void menu_print_abm_options();

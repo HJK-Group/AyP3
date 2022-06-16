@@ -27,16 +27,18 @@ void realizar_consultas(registro *pRegistro, list *pLista_materias);
 void abm_registros(registro *pRegistro, list *pLista_materias);
 
 char *solicitar_dato(int longitud);
+long secuencia_id_materia = 0;
 
 int main() {
 
     registro *pRegistro = new_registro();
     list *pLista_materias = new_empty_list();
 
+    menu_print_welcome();
     int running = 1;
 
+
     while (running) {
-        menu_print_welcome();
         switch (get_menu_option()) {
             case 1:
                 realizar_consultas(pRegistro, pLista_materias);
@@ -51,15 +53,16 @@ int main() {
                 printf("Ninguna opcion configurada para ese valor.\n\n");
                 break;
         }
+        lala();
     }
-
+    menu_print_end();
     return 0;
 }
 
 int get_menu_option() {
     char *option = malloc(sizeof(char));
     scanf("%s", option);
-    int chosen_option = strtol(option, NULL, 10);
+    int chosen_option = (int) strtol(option, NULL, 10);
     free(option);
     return chosen_option;
 }
@@ -130,6 +133,7 @@ void handle_crear_materia(list *pLista_materias) {
     if (!list_contains(pLista_materias, &comparar_materia, nueva_materia)) {
         list_add(pLista_materias, nueva_materia);
         printf("Materia agregada con exito!\n");
+        secuencia_id_materia++;
         return;
     }
 
