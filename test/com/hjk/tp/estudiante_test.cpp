@@ -98,6 +98,49 @@ TEST(PruebasEstudiante, correlatividad) {
     materia_destroy(algebra2);
 }
 
+TEST(PruebasEstudiante, correlatividad_2) {
+    estudiante *pEstudiante = new_estudiante(62, (char *) "Hernan", (char *) "Rubio", 21);
+    materia *algo1 = new_materia(666, (char *) "AyP I");
+    materia *algo2 = new_materia(777, (char *) "AyP II");
+    materia *edd = new_materia(888, (char *) "EDD");
+    materia *algo3 = new_materia(999, (char *) "AyP III");
+    materia_add_correlativas(algo2, algo1);
+    materia_add_correlativas(edd, algo2);
+    materia_add_correlativas(algo3, edd);
+
+    anotarse_materia(pEstudiante, algo3);
+    anotarse_materia(pEstudiante, edd);
+    anotarse_materia(pEstudiante, algo2);
+    ASSERT_EQ(pEstudiante->lista_materias->length, 0);
+
+    anotarse_materia(pEstudiante, algo1);
+    ASSERT_EQ(cursada_get_curso(pEstudiante->lista_materias, algo1)->pMateria, algo1);
+
+    anotarse_materia(pEstudiante, algo3);
+    anotarse_materia(pEstudiante, edd);
+    ASSERT_EQ(pEstudiante->lista_materias->length, 1);
+
+    anotarse_materia(pEstudiante, algo2);
+    ASSERT_EQ(cursada_get_curso(pEstudiante->lista_materias, algo2)->pMateria, algo2);
+
+    anotarse_materia(pEstudiante, algo3);
+    ASSERT_EQ(pEstudiante->lista_materias->length, 2);
+
+    anotarse_materia(pEstudiante, edd);
+    ASSERT_EQ(cursada_get_curso(pEstudiante->lista_materias, edd)->pMateria, edd);
+    ASSERT_EQ(pEstudiante->lista_materias->length, 3);
+
+    anotarse_materia(pEstudiante, algo3);
+    ASSERT_EQ(cursada_get_curso(pEstudiante->lista_materias, algo3)->pMateria, algo3);
+    ASSERT_EQ(pEstudiante->lista_materias->length, 4);
+
+    estudiante_destroy(pEstudiante);
+    materia_destroy(algo1);
+    materia_destroy(algo2);
+    materia_destroy(edd);
+    materia_destroy(algo3);
+}
+
 void comparar_datos(unsigned long legajo, char *pNombre, char *pApellido, int edad, estudiante *estudiante) {
     ASSERT_EQ(estudiante->legajo, legajo);
     ASSERT_STREQ(estudiante->nombre, pNombre);
