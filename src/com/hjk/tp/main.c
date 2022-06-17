@@ -28,7 +28,6 @@ void abm_registros(registro *pRegistro, list *pLista_materias);
 
 char *solicitar_dato(int longitud);
 
-// Autoincrementales
 long siguiente_id_materia = 1;
 long siguiente_legajo = 1;
 
@@ -172,6 +171,18 @@ estudiante *solicitar_estudiante(registro *pRegistro) {
     return registro_buscar_por_nombre(pRegistro, nombre_estudiante);
 }
 
+int buscar_materia_por_nombre(void *data, void *other_data) {
+    materia *materia = data;
+    char *nombre = (char *) other_data;
+
+    return strcmp(materia->nombre, nombre) == 0;
+}
+
+materia *solicitar_materia(list *pLista_materias) {
+    printf("Indique el nombre de la materia: ");
+    char *nombre_materia = solicitar_dato(100);
+    return list_search_data(pLista_materias, &buscar_materia_por_nombre, nombre_materia);
+}
 
 void handle_estudiante_rendir(registro *pRegistro, list *pLista_materias) {
     // TODO: Rendir una materia a un estudiante
@@ -182,11 +193,23 @@ void handle_listar_registro(registro *pRegistro) {
 }
 
 void handle_consultar_materias(list *pLista_materias) {
-    // TODO: Consultar las materias
+    materia *materia = solicitar_materia(pLista_materias);
+    if (materia == NULL) {
+        printf("Materia no encontrada\n");
+        return;
+    }
+
+    materia_print(materia);
 }
 
 void handle_consultar_estudiantes(registro *pRegistro) {
-    // TODO: Consultar los estudiantes
+    estudiante *pEstudiante = solicitar_estudiante(pRegistro);
+    if (pEstudiante == NULL) {
+        printf("Estudiante no encontrado\n");
+        return;
+    }
+
+    estudiante_print(pEstudiante);
 }
 
 void handle_consultar_cursada(registro *pRegistro) {
