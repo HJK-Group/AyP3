@@ -141,6 +141,34 @@ TEST(PruebasEstudiante, correlatividad_2) {
     materia_destroy(algo3);
 }
 
+TEST(PruebasEstudiante, rendir_una_materia_con_nota_10) {
+    estudiante *un_estudiante = new_estudiante(62, (char *) "Hernan", (char *) "Rubio", 21);
+    materia *una_materia = new_materia(666, (char *) "AyP I");
+
+    anotarse_materia(un_estudiante, una_materia);
+    rendir_materia(un_estudiante, una_materia, 10);
+
+    curso *materia_calificada = (curso*) un_estudiante->lista_materias->head->data;
+
+    ASSERT_EQ(materia_calificada->calificacion, 10);
+}
+
+TEST(PruebasEstudiante, rendir_segunda_materia_con_nota_7) {
+    estudiante *un_estudiante = new_estudiante(62, (char *) "Hernan", (char *) "Rubio", 21);
+    materia *una_materia = new_materia(666, (char *) "AyP I");
+    materia *otra_materia = new_materia(777, (char *) "Analisis I");
+
+    anotarse_materia(un_estudiante, una_materia);
+    anotarse_materia(un_estudiante, otra_materia);
+
+    rendir_materia(un_estudiante, otra_materia, 7);
+
+    node *primer_elemento_lista = (node*) un_estudiante->lista_materias->head->next;
+    curso *materia_calificada = (curso*) primer_elemento_lista->data;
+
+    ASSERT_EQ(materia_calificada->calificacion, 7);
+}
+
 void comparar_datos(unsigned long legajo, char *pNombre, char *pApellido, int edad, estudiante *estudiante) {
     ASSERT_EQ(estudiante->legajo, legajo);
     ASSERT_STREQ(estudiante->nombre, pNombre);
