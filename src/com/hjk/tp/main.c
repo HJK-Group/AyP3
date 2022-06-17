@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
 #include "menu/menu.h"
 #include "com/hjk/tp/estudiante/registro.h"
 
@@ -24,6 +25,8 @@ void handle_consultar_cursada(registro *pRegistro);
 void realizar_consultas(registro *pRegistro, list *pLista_materias);
 
 void abm_registros(registro *pRegistro, list *pLista_materias);
+
+char *solicitar_dato(int longitud);
 
 int main() {
 
@@ -59,6 +62,14 @@ int get_menu_option() {
     int chosen_option = strtol(option, NULL, 10);
     free(option);
     return chosen_option;
+}
+
+char *solicitar_dato(int longitud) {
+    char *dato = malloc(longitud);
+    scanf("%s", dato);
+    char *dato_reducido = malloc(strlen(dato));
+    strcpy(dato_reducido, dato);
+    return dato_reducido;
 }
 
 void realizar_consultas(registro *pRegistro, list *pLista_materias) {
@@ -112,16 +123,10 @@ int comparar_materia(void *item_lista, void *dato) {
 }
 
 void handle_crear_materia(list *pLista_materias) {
-    char *codigo_materia; // Chequear que no exista un duplicado
-    char *nombre_materia;
-
-    printf("Ahora indique un codigo unico para identificar la materia: ");
-    scanf("%s", &codigo_materia);
-
     printf("Indique el nombre de la materia: ");
-    scanf("%s", &nombre_materia);
+    char *nombre_materia = solicitar_dato(50);
 
-    materia *nueva_materia = new_materia(strtol(codigo_materia, NULL, 10), nombre_materia);
+    materia *nueva_materia = new_materia(sequencia_id_materia, nombre_materia);
     if (!list_contains(pLista_materias, &comparar_materia, nueva_materia)) {
         list_add(pLista_materias, nueva_materia);
         printf("Materia agregada con exito!\n");
@@ -129,7 +134,6 @@ void handle_crear_materia(list *pLista_materias) {
     }
 
     printf("La Materia ya existia\n");
-    // TODO Terminar (Juan)
 }
 
 void handle_crear_estudiante(registro *pRegistro) {
