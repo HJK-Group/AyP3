@@ -70,7 +70,7 @@ void anotarse_materia(estudiante *pEstudiante, materia *pMateria ) {
 }
 
 void rendir_materia(estudiante *pEstudiante, materia *pMateria, char calificacion) {
-    curso *actual = (curso *) list_get_data(pEstudiante->lista_materias, pMateria, sizeof(materia));
+    curso *actual = (curso *) list_search_data(pEstudiante->lista_materias, buscar_curso, pMateria);
     if (actual == NULL) {
         return;
     }

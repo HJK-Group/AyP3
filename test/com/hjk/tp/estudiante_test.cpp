@@ -47,7 +47,6 @@ TEST(PruebasEstudiante, estudiante_se_anota_a_materia) {
     ASSERT_EQ(666, curso_almacenada_en_estudiante->pMateria->id);
     ASSERT_EQ(pMateria, curso_almacenada_en_estudiante->pMateria);
 
-    materia_destroy(pMateria);
     estudiante_destroy(pEstudiante);
 }
 
@@ -66,13 +65,10 @@ TEST(PruebasEstudiante, estudiante_se_anota_a_dos_materias) {
 
     ASSERT_STREQ("Algebra I", primer_curso_almacenado->pMateria->nombre);
     ASSERT_EQ(pMateria, primer_curso_almacenado->pMateria);
-
     ASSERT_STREQ("Programacion I", segundo_curso_almacenado->pMateria->nombre);
     ASSERT_EQ(pOtraMateria, segundo_curso_almacenado->pMateria);
 
     estudiante_destroy(pEstudiante);
-    materia_destroy(pMateria);
-    materia_destroy(pOtraMateria);
 }
 
 TEST(PruebasEstudiante, correlatividad) {
@@ -94,8 +90,6 @@ TEST(PruebasEstudiante, correlatividad) {
     ASSERT_EQ(pCurso->pMateria, algebra2);
 
     estudiante_destroy(pEstudiante);
-    materia_destroy(algebra1);
-    materia_destroy(algebra2);
 }
 
 TEST(PruebasEstudiante, correlatividad_2) {
@@ -135,10 +129,34 @@ TEST(PruebasEstudiante, correlatividad_2) {
     ASSERT_EQ(pEstudiante->lista_materias->length, 4);
 
     estudiante_destroy(pEstudiante);
-    materia_destroy(algo1);
-    materia_destroy(algo2);
-    materia_destroy(edd);
-    materia_destroy(algo3);
+}
+
+TEST(PruebasEstudiante, rendir_una_materia_con_nota_10) {
+    estudiante *un_estudiante = new_estudiante(62, (char *) "Hernan", (char *) "Rubio", 21);
+    materia *una_materia = new_materia(666, (char *) "AyP I");
+
+    anotarse_materia(un_estudiante, una_materia);
+    rendir_materia(un_estudiante, una_materia, 10);
+
+    curso *materia_calificada = (curso*) un_estudiante->lista_materias->head->data;
+
+    ASSERT_EQ(materia_calificada->calificacion, 10);
+}
+
+TEST(PruebasEstudiante, rendir_segunda_materia_con_nota_7) {
+    estudiante *un_estudiante = new_estudiante(62, (char *) "Hernan", (char *) "Rubio", 21);
+    materia *una_materia = new_materia(666, (char *) "AyP I");
+    materia *otra_materia = new_materia(777, (char *) "Analisis I");
+
+    anotarse_materia(un_estudiante, una_materia);
+    anotarse_materia(un_estudiante, otra_materia);
+
+    rendir_materia(un_estudiante, otra_materia, 7);
+
+    node *primer_elemento_lista = (node*) un_estudiante->lista_materias->head->next;
+    curso *materia_calificada = (curso*) primer_elemento_lista->data;
+
+    ASSERT_EQ(materia_calificada->calificacion, 7);
 }
 
 void comparar_datos(unsigned long legajo, char *pNombre, char *pApellido, int edad, estudiante *estudiante) {

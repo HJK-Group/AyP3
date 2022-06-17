@@ -28,6 +28,17 @@ void abm_registros(registro *pRegistro, list *pLista_materias);
 
 char *solicitar_dato(int longitud);
 
+int solicitar_confirmacion();
+
+estudiante *buscar_estudiante(registro *coleccion);
+
+materia *buscar_materia(list *pLista_materias);
+
+estudiante *solicitar_estudiante(registro *pRegistro);
+
+materia *solicitar_materia(list *pLista_materias);
+
+// Autoincrementales
 long siguiente_id_materia = 1;
 long siguiente_legajo = 1;
 
@@ -148,21 +159,73 @@ void handle_crear_estudiante(registro *pRegistro) {
     unsigned char edad;
 
     printf("Indique el nombre del estudiante: ");
-    scanf("%s", &nombre);
+    nombre = solicitar_dato(50);
 
     printf("Indique el apellido del estudiante: ");
-    scanf("%s", &apellido);
+    apellido = solicitar_dato(50);
 
     printf("Indique la edad del estudiante: ");
-    scanf("%s", &edad);
+    edad = strtoul(solicitar_dato(1), NULL, 10);
 
     registro_agregar_alumno(pRegistro, new_estudiante(legajo, nombre, apellido, edad));
     siguiente_legajo++;
 }
 
-estudiante *solicitar_estudiante(registro *pRegistro);
 void handle_anotar_estudiante(registro *pRegistro, list *pLista_materias) {
-    // TODO: Anotar un estudiante a una materia
+    if (pRegistro->listado_por_edad->generic_list->length == 0) {
+        printf("No hay estudiantes cargados\n");
+        return;
+    }
+    if (pLista_materias->length == 0) {
+        printf("No hay materias cargadas\n");
+        return;
+    }
+
+    estudiante *pEstudiante = buscar_estudiante(pRegistro);
+    materia *pMateria = buscar_materia(pLista_materias);
+    if (pEstudiante != NULL && pMateria != NULL) {
+        anotarse_materia(pEstudiante, pMateria);
+        printf("Anotacion realizada con exito!\n");
+    }
+}
+
+
+estudiante *buscar_estudiante(registro *coleccion) {
+    int salir = 0;
+    estudiante *pEstudiante = solicitar_estudiante(coleccion);
+    while (pEstudiante == NULL && salir != 1) {
+        printf("No se encontro el estudiante\n");
+        printf("Desea intentar de nuevo? (s/n): ");
+        salir = !solicitar_confirmacion();
+        if (salir == 0) {
+            pEstudiante = solicitar_estudiante(coleccion);
+        }
+    }
+    return pEstudiante;
+}
+
+
+materia *buscar_materia(list *pLista_materias) {
+    int salir = 0;
+    materia *pMateria = solicitar_materia(pLista_materias);
+    while (pMateria == NULL && salir != 1) {
+        printf("No se encontro la materia\n");
+        printf("Desea intentar de nuevo? (s/n): ");
+        salir = !solicitar_confirmacion();
+        if (salir == 0) {
+            pMateria = solicitar_materia(pLista_materias);
+        }
+    }
+    return pMateria;
+}
+
+
+int solicitar_confirmacion() {
+    char *option = malloc(sizeof(char));
+    scanf("%s", option);
+    int respuesta = strcmp(option, "s") == 0;
+    free(option);
+    return respuesta;
 }
 
 estudiante *solicitar_estudiante(registro *pRegistro) {
