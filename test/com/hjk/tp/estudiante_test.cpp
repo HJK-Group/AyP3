@@ -47,7 +47,6 @@ TEST(PruebasEstudiante, estudiante_se_anota_a_materia) {
     ASSERT_EQ(666, curso_almacenada_en_estudiante->pMateria->id);
     ASSERT_EQ(pMateria, curso_almacenada_en_estudiante->pMateria);
 
-    materia_destroy(pMateria);
     estudiante_destroy(pEstudiante);
 }
 
@@ -66,13 +65,10 @@ TEST(PruebasEstudiante, estudiante_se_anota_a_dos_materias) {
 
     ASSERT_STREQ("Algebra I", primer_curso_almacenado->pMateria->nombre);
     ASSERT_EQ(pMateria, primer_curso_almacenado->pMateria);
-
     ASSERT_STREQ("Programacion I", segundo_curso_almacenado->pMateria->nombre);
     ASSERT_EQ(pOtraMateria, segundo_curso_almacenado->pMateria);
 
     estudiante_destroy(pEstudiante);
-    materia_destroy(pMateria);
-    materia_destroy(pOtraMateria);
 }
 
 TEST(PruebasEstudiante, correlatividad) {
@@ -94,8 +90,6 @@ TEST(PruebasEstudiante, correlatividad) {
     ASSERT_EQ(pCurso->pMateria, algebra2);
 
     estudiante_destroy(pEstudiante);
-    materia_destroy(algebra1);
-    materia_destroy(algebra2);
 }
 
 TEST(PruebasEstudiante, correlatividad_2) {
@@ -135,10 +129,6 @@ TEST(PruebasEstudiante, correlatividad_2) {
     ASSERT_EQ(pEstudiante->lista_materias->length, 4);
 
     estudiante_destroy(pEstudiante);
-    materia_destroy(algo1);
-    materia_destroy(algo2);
-    materia_destroy(edd);
-    materia_destroy(algo3);
 }
 
 void comparar_datos(unsigned long legajo, char *pNombre, char *pApellido, int edad, estudiante *estudiante) {
