@@ -27,6 +27,7 @@ void realizar_consultas(registro *pRegistro, list *pLista_materias);
 void abm_registros(registro *pRegistro, list *pLista_materias);
 
 char *solicitar_dato(int longitud);
+
 long secuencia_id_materia = 0;
 
 int main() {
@@ -36,7 +37,6 @@ int main() {
 
     menu_print_welcome();
     int running = 1;
-
 
     while (running) {
         switch (get_menu_option()) {
@@ -53,7 +53,7 @@ int main() {
                 printf("Ninguna opcion configurada para ese valor.\n\n");
                 break;
         }
-        lala();
+        menu_print_main_options_boxed();
     }
     menu_print_end();
     return 0;

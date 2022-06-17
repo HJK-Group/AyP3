@@ -5,7 +5,7 @@ void menu_print_welcome();
 
 void menu_print_end();
 
-void lala();
+void menu_print_main_options_boxed();
 
 void menu_print_main_options();
 

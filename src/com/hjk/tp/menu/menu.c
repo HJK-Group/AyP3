@@ -8,7 +8,7 @@ void menu_print_welcome() {
     printf("______________________________________________\n");
 }
 
-void lala(){
+void menu_print_main_options_boxed() {
     printf("##############################################\n");
     menu_print_main_options();
     printf("______________________________________________\n");
