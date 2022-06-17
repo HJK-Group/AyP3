@@ -159,20 +159,28 @@ void handle_crear_estudiante(registro *pRegistro) {
     unsigned char edad;
 
     printf("Indique el nombre del estudiante: ");
-    scanf("%s", &nombre);
+    nombre = solicitar_dato(50);
 
     printf("Indique el apellido del estudiante: ");
-    scanf("%s", &apellido);
+    apellido = solicitar_dato(50);
 
     printf("Indique la edad del estudiante: ");
-    scanf("%s", &edad);
+    edad = strtoul(solicitar_dato(1), NULL, 10);
 
     registro_agregar_alumno(pRegistro, new_estudiante(legajo, nombre, apellido, edad));
     siguiente_legajo++;
 }
 
-
 void handle_anotar_estudiante(registro *pRegistro, list *pLista_materias) {
+    if (pRegistro->listado_por_edad->generic_list->length == 0) {
+        printf("No hay estudiantes cargados\n");
+        return;
+    }
+    if (pLista_materias->length == 0) {
+        printf("No hay materias cargadas\n");
+        return;
+    }
+
     estudiante *pEstudiante = buscar_estudiante(pRegistro);
     materia *pMateria = buscar_materia(pLista_materias);
     if (pEstudiante != NULL && pMateria != NULL) {
@@ -185,7 +193,7 @@ void handle_anotar_estudiante(registro *pRegistro, list *pLista_materias) {
 estudiante *buscar_estudiante(registro *coleccion) {
     int salir = 0;
     estudiante *pEstudiante = solicitar_estudiante(coleccion);
-    while (pEstudiante == NULL || salir == 1) {
+    while (pEstudiante == NULL && salir != 1) {
         printf("No se encontro el estudiante\n");
         printf("Desea intentar de nuevo? (s/n): ");
         salir = !solicitar_confirmacion();
@@ -200,7 +208,7 @@ estudiante *buscar_estudiante(registro *coleccion) {
 materia *buscar_materia(list *pLista_materias) {
     int salir = 0;
     materia *pMateria = solicitar_materia(pLista_materias);
-    while (pMateria == NULL || salir == 1) {
+    while (pMateria == NULL && salir != 1) {
         printf("No se encontro la materia\n");
         printf("Desea intentar de nuevo? (s/n): ");
         salir = !solicitar_confirmacion();
@@ -215,7 +223,7 @@ materia *buscar_materia(list *pLista_materias) {
 int solicitar_confirmacion() {
     char *option = malloc(sizeof(char));
     scanf("%s", option);
-    int respuesta = (strcmp(option, "s") == 0);
+    int respuesta = strcmp(option, "s") == 0;
     free(option);
     return respuesta;
 }
