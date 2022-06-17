@@ -28,7 +28,9 @@ void abm_registros(registro *pRegistro, list *pLista_materias);
 
 char *solicitar_dato(int longitud);
 
-long secuencia_id_materia = 0;
+// Autoincrementales
+long siguiente_id_materia = 1;
+long siguiente_legajo = 1;
 
 int main() {
 
@@ -77,7 +79,7 @@ char *solicitar_dato(int longitud) {
 
 void realizar_consultas(registro *pRegistro, list *pLista_materias) {
     int running = 1;
-    while(running) {
+    while (running) {
         menu_print_query_options();
         switch (get_menu_option()) {
             case 1:
@@ -100,7 +102,7 @@ void realizar_consultas(registro *pRegistro, list *pLista_materias) {
 
 void abm_registros(registro *pRegistro, list *pLista_materias) {
     int running = 1;
-    while(running) {
+    while (running) {
         menu_print_abm_options();
         switch (get_menu_option()) {
             case 1:
@@ -129,11 +131,11 @@ void handle_crear_materia(list *pLista_materias) {
     printf("Indique el nombre de la materia: ");
     char *nombre_materia = solicitar_dato(50);
 
-    materia *nueva_materia = new_materia(secuencia_id_materia, nombre_materia);
+    materia *nueva_materia = new_materia(siguiente_id_materia, nombre_materia);
     if (!list_contains(pLista_materias, &comparar_materia, nueva_materia)) {
         list_add(pLista_materias, nueva_materia);
         printf("Materia agregada con exito!\n");
-        secuencia_id_materia++;
+        siguiente_id_materia++;
         return;
     }
 
@@ -141,13 +143,10 @@ void handle_crear_materia(list *pLista_materias) {
 }
 
 void handle_crear_estudiante(registro *pRegistro) {
-    unsigned long legajo;
+    unsigned long legajo = siguiente_id_materia;
     char *nombre;
     char *apellido;
     unsigned char edad;
-
-    printf("Indique el legajo del estudiante: ");
-    scanf("%s", &legajo);
 
     printf("Indique el nombre del estudiante: ");
     scanf("%s", &nombre);
@@ -159,11 +158,20 @@ void handle_crear_estudiante(registro *pRegistro) {
     scanf("%s", &edad);
 
     registro_agregar_alumno(pRegistro, new_estudiante(legajo, nombre, apellido, edad));
+    siguiente_legajo++;
 }
 
+estudiante *solicitar_estudiante(registro *pRegistro);
 void handle_anotar_estudiante(registro *pRegistro, list *pLista_materias) {
     // TODO: Anotar un estudiante a una materia
 }
+
+estudiante *solicitar_estudiante(registro *pRegistro) {
+    printf("Indique el nombre del estudiante: ");
+    char *nombre_estudiante = solicitar_dato(100);
+    return registro_buscar_por_nombre(pRegistro, nombre_estudiante);
+}
+
 
 void handle_estudiante_rendir(registro *pRegistro, list *pLista_materias) {
     // TODO: Rendir una materia a un estudiante
