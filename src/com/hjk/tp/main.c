@@ -1,50 +1,217 @@
+#include <stdlib.h>
 #include <stdio.h>
-#include <com/hjk/tp/list/numerica.h>
+#include <string.h>
+#include "menu/menu.h"
+#include "com/hjk/tp/estudiante/registro.h"
 
-typedef enum { ORO, ESPADA, COPA, BASTO } palo;
+int get_menu_option();
 
-typedef struct carta {
-    int valor;
-    palo palo;
-} carta;
+void handle_crear_materia(list *pLista_materias);
 
-char *get_palo(carta *carta) {
-    switch(carta->palo) {
-        case ORO:
-            return "Oro";
-        case ESPADA:
-            return "Espada";
-        case COPA:
-            return "Copa";
-        case BASTO:
-            return "Basto";
-        default:
-            return "";
+void handle_crear_estudiante(registro *pRegistro);
+
+void handle_anotar_estudiante(registro *pRegistro, list *pLista_materias);
+
+void handle_estudiante_rendir(registro *pRegistro, list *pLista_materias);
+
+void handle_listar_registro(registro *pRegistro);
+
+void handle_consultar_materias(list *pLista_materias);
+
+void handle_consultar_estudiantes(registro *pRegistro);
+
+void handle_consultar_cursada(registro *pRegistro);
+
+void realizar_consultas(registro *pRegistro, list *pLista_materias);
+
+void abm_registros(registro *pRegistro, list *pLista_materias);
+
+char *solicitar_dato(int longitud);
+
+long siguiente_id_materia = 1;
+long siguiente_legajo = 1;
+
+int main() {
+
+    registro *pRegistro = new_registro();
+    list *pLista_materias = new_empty_list();
+
+    menu_print_welcome();
+    int running = 1;
+
+    while (running) {
+        switch (get_menu_option()) {
+            case 1:
+                realizar_consultas(pRegistro, pLista_materias);
+                break;
+            case 2:
+                abm_registros(pRegistro, pLista_materias);
+                break;
+            case 3:
+                running = 0;
+                break;
+            default:
+                printf("Ninguna opcion configurada para ese valor.\n\n");
+                break;
+        }
+        menu_print_main_options_boxed();
+    }
+    menu_print_end();
+    return 0;
+}
+
+int get_menu_option() {
+    char *option = malloc(sizeof(char));
+    scanf("%s", option);
+    int chosen_option = (int) strtol(option, NULL, 10);
+    free(option);
+    return chosen_option;
+}
+
+char *solicitar_dato(int longitud) {
+    char *dato = malloc(longitud);
+    scanf("%s", dato);
+    char *dato_reducido = malloc(strlen(dato));
+    strcpy(dato_reducido, dato);
+    return dato_reducido;
+}
+
+void realizar_consultas(registro *pRegistro, list *pLista_materias) {
+    int running = 1;
+    while (running) {
+        menu_print_query_options();
+        switch (get_menu_option()) {
+            case 1:
+                handle_consultar_materias(pLista_materias);
+                break;
+            case 2:
+                handle_consultar_estudiantes(pRegistro);
+                break;
+            case 3:
+                handle_consultar_cursada(pRegistro);
+                break;
+            case 4:
+                running = 0;
+                break;
+            default:
+                printf("Ninguna opcion configurada para ese valor.\n\n");
+        }
     }
 }
 
-void print_carta(void *data) {
-    carta *cart = (carta*) data;
-    printf("%d de %s\n", cart->valor, get_palo(cart));
+void abm_registros(registro *pRegistro, list *pLista_materias) {
+    int running = 1;
+    while (running) {
+        menu_print_abm_options();
+        switch (get_menu_option()) {
+            case 1:
+                handle_crear_materia(pLista_materias);
+                break;
+            case 2:
+                handle_crear_estudiante(pRegistro);
+                break;
+            case 3:
+                handle_anotar_estudiante(pRegistro, pLista_materias);
+                break;
+            case 4:
+                running = 0;
+                break;
+            default:
+                printf("Ninguna opcion configurada para ese valor.\n\n");
+        }
+    }
 }
 
-int main() {
-    list *lista = new_empty_list();
-    carta algo = {10, COPA};
-    carta otra = {1, ESPADA};
-    list_add(lista, &algo, sizeof(carta));
-    list_add(lista, &otra, sizeof(carta));
-    list_print(lista, &print_carta);
+int comparar_materia(void *item_lista, void *dato) {
+    return materia_equals((materia *) item_lista, (materia *) dato);
+}
 
-    numeric_list *listaNumerica = new_empty_numeric_list();
-    numeric_list_add(listaNumerica, -3);
-    numeric_list_add(listaNumerica, -2);
-    numeric_list_add(listaNumerica, -1);
-    numeric_list_add(listaNumerica, 0);
-    numeric_list_add(listaNumerica, 1);
-    numeric_list_add(listaNumerica, 2);
-    numeric_list_add(listaNumerica, 3);
+void handle_crear_materia(list *pLista_materias) {
+    printf("Indique el nombre de la materia: ");
+    char *nombre_materia = solicitar_dato(50);
 
-    numeric_list_print(listaNumerica);
-    return 0;
+    materia *nueva_materia = new_materia(siguiente_id_materia, nombre_materia);
+    if (!list_contains(pLista_materias, &comparar_materia, nueva_materia)) {
+        list_add(pLista_materias, nueva_materia);
+        printf("Materia agregada con exito!\n");
+        siguiente_id_materia++;
+        return;
+    }
+
+    printf("La Materia ya existia\n");
+}
+
+void handle_crear_estudiante(registro *pRegistro) {
+    unsigned long legajo = siguiente_id_materia;
+    char *nombre;
+    char *apellido;
+    unsigned char edad;
+
+    printf("Indique el nombre del estudiante: ");
+    scanf("%s", &nombre);
+
+    printf("Indique el apellido del estudiante: ");
+    scanf("%s", &apellido);
+
+    printf("Indique la edad del estudiante: ");
+    scanf("%s", &edad);
+
+    registro_agregar_alumno(pRegistro, new_estudiante(legajo, nombre, apellido, edad));
+    siguiente_legajo++;
+}
+
+estudiante *solicitar_estudiante(registro *pRegistro);
+void handle_anotar_estudiante(registro *pRegistro, list *pLista_materias) {
+    // TODO: Anotar un estudiante a una materia
+}
+
+estudiante *solicitar_estudiante(registro *pRegistro) {
+    printf("Indique el nombre del estudiante: ");
+    char *nombre_estudiante = solicitar_dato(100);
+    return registro_buscar_por_nombre(pRegistro, nombre_estudiante);
+}
+
+int buscar_materia_por_nombre(void *data, void *other_data) {
+    materia *materia = data;
+    char *nombre = (char *) other_data;
+
+    return strcmp(materia->nombre, nombre) == 0;
+}
+
+materia *solicitar_materia(list *pLista_materias) {
+    printf("Indique el nombre de la materia: ");
+    char *nombre_materia = solicitar_dato(100);
+    return list_search_data(pLista_materias, &buscar_materia_por_nombre, nombre_materia);
+}
+
+void handle_estudiante_rendir(registro *pRegistro, list *pLista_materias) {
+    // TODO: Rendir una materia a un estudiante
+}
+
+void handle_listar_registro(registro *pRegistro) {
+    // TODO: Listar todos los estudiantes
+}
+
+void handle_consultar_materias(list *pLista_materias) {
+    materia *materia = solicitar_materia(pLista_materias);
+    if (materia == NULL) {
+        printf("Materia no encontrada\n");
+        return;
+    }
+
+    materia_print(materia);
+}
+
+void handle_consultar_estudiantes(registro *pRegistro) {
+    estudiante *pEstudiante = solicitar_estudiante(pRegistro);
+    if (pEstudiante == NULL) {
+        printf("Estudiante no encontrado\n");
+        return;
+    }
+
+    estudiante_print(pEstudiante);
+}
+
+void handle_consultar_cursada(registro *pRegistro) {
+    // TODO: Consultar las cursadas de un estudiante
 }

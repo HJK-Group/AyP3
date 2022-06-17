@@ -1,13 +1,12 @@
 #include <stdlib.h>
 #include "numerica.h"
-
-void print_function(void *data);
+#include "com/hjk/tp/utils/utils.h"
 
 int number_comparator(void *number, void *other_number);
 
 numeric_list *new_empty_numeric_list() {
     numeric_list *lista = malloc(sizeof(numeric_list));
-    lista->generic_ordered_list = new_empty_ordered_list(number_comparator);
+    lista->generic_ordered_list = new_empty_ordered_list(&number_comparator);
     return lista;
 }
 
@@ -30,7 +29,7 @@ int number_comparator(void *number, void *other_number) {
 }
 
 void numeric_list_add(numeric_list *lista, int number) {
-    ordered_list_add(lista->generic_ordered_list, &number, sizeof(int));
+    ordered_list_add(lista->generic_ordered_list, new_integer(number));
 }
 
 int numeric_list_length(numeric_list *lista) {
@@ -51,7 +50,7 @@ void print_number(void *data) {
 
 void numeric_list_print(numeric_list *lista) {
     printf("%s", "{");
-    ordered_list_print(lista->generic_ordered_list, &print_number);
+    ordered_list_print(lista->generic_ordered_list, &print_number, 0);
     printf("\b %s", "}");
 }
 
