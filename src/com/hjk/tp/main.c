@@ -38,7 +38,6 @@ estudiante *solicitar_estudiante(registro *pRegistro);
 
 materia *solicitar_materia(list *pLista_materias);
 
-// Autoincrementales
 long siguiente_id_materia = 1;
 long siguiente_legajo = 1;
 
@@ -72,25 +71,26 @@ int main() {
 }
 
 int get_menu_option() {
-    char *option = malloc(sizeof(char));
-    scanf("%s", option);
+    fflush(stdin);
+    char option[2];
+    fgets(option, 2, stdin);
 
     printf("\n");
 
-    int chosen_option = (int) strtol(option, NULL, 10);
-    free(option);
-
-    return chosen_option;
+    return (int) strtol(option, NULL, 10);
 }
 
 char *solicitar_dato(int longitud) {
-    char *dato = malloc(longitud);
-    scanf("%s", dato);
+    if (longitud < 2) {
+        longitud = 2;
+    }
+
+    fflush(stdin);
+    char dato[longitud];
+    fgets(dato, longitud, stdin);
 
     char *dato_reducido = malloc(strlen(dato));
     strcpy(dato_reducido, dato);
-
-    free(dato);
 
     return dato_reducido;
 }
@@ -216,7 +216,6 @@ void handle_anotar_estudiante(registro *pRegistro, list *pLista_materias) {
     }
 }
 
-
 estudiante *buscar_estudiante(registro *coleccion) {
     int salir = 0;
     estudiante *pEstudiante = solicitar_estudiante(coleccion);
@@ -231,7 +230,6 @@ estudiante *buscar_estudiante(registro *coleccion) {
     }
     return pEstudiante;
 }
-
 
 materia *buscar_materia(list *pLista_materias) {
     int salir = 0;
@@ -248,12 +246,11 @@ materia *buscar_materia(list *pLista_materias) {
     return pMateria;
 }
 
-
 int solicitar_confirmacion() {
-    char *option = malloc(sizeof(char));
-    scanf("%s", option);
+    fflush(stdin);
+    char option[2];
+    fgets(option, 2, stdin);
     int respuesta = strcmp(option, "s") == 0;
-    free(option);
     return respuesta;
 }
 
