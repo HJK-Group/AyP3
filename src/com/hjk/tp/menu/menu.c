@@ -47,6 +47,7 @@ void menu_print_query_options() {
     printf("[1] Consultar materias\n");
     printf("[2] Consultar estudiantes\n");
     printf("[3] Consultar cursadas\n");
+    printf("[4] Listar registro\n");
     printf("[0] Volver al menu principal\n");
     printf("______________________________________________\n");
 }

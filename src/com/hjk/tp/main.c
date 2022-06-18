@@ -114,6 +114,9 @@ void realizar_consultas(registro *pRegistro, list *pLista_materias) {
                 break;
             case 3:
                 handle_consultar_cursada(pRegistro);
+                break;            // ToDo Retirar esta opcion de aquí.
+            case 4:
+                handle_listar_registro(pRegistro);
                 break;
             case 0:
                 running = 0;
@@ -188,7 +191,7 @@ void handle_crear_estudiante(registro *pRegistro) {
     registro_agregar_alumno(pRegistro, new_estudiante(legajo, nombre, apellido, edad));
     siguiente_legajo++;
 
-    printf(">>> Estudiante creado\n\n");
+    printf(">>> Estudiante creado\n");
 }
 
 void handle_anotar_estudiante(registro *pRegistro, list *pLista_materias) {
@@ -222,7 +225,6 @@ estudiante *buscar_estudiante(registro *coleccion) {
     while (pEstudiante == NULL && salir != 1) {
         printf(">>> No se encontro el estudiante\n\n");
         printf("Desea intentar de nuevo? (s/n):");
-        printf("______________________________________________\n");
         salir = !solicitar_confirmacion();
         if (salir == 0) {
             pEstudiante = solicitar_estudiante(coleccion);
@@ -312,14 +314,30 @@ void handle_estudiante_rendir(registro *pRegistro, list *pLista_materias) {
     estudiante *pEstudiante = buscar_estudiante(pRegistro);
     materia *pMateria = buscar_materia(pLista_materias);
     unsigned char nota = solicitar_nota();
-    if (pEstudiante != NULL && pMateria != NULL && nota != NULL) {
+    if (pEstudiante != NULL && pMateria != NULL && &nota != NULL) {
         rendir_materia(pEstudiante, pMateria, nota);
         printf(">>> Anotacion realizada con exito\n\n");
     }
 }
 
 void handle_listar_registro(registro *pRegistro) {
-    // TODO: Listar todos los estudiantes
+    printf("################ Estudiantes #################\n");
+
+    int salir = 0;
+    printf("Desea imprimir por Nombre [0] o Edad [1]:");
+    unsigned char modo_impresion = strtoul(solicitar_dato(1), NULL, 10);
+
+    switch (modo_impresion) {
+        case 0:
+            listar_registro(pRegistro, 0, 0);
+            break;
+        case 1:
+            listar_registro(pRegistro, 0, 1);
+            break;
+        default:
+            listar_registro(pRegistro, 0, modo_impresion);
+            break;
+    }
 }
 
 void handle_consultar_materias(list *pLista_materias) {

@@ -79,7 +79,7 @@ void listar_registro(registro *listado_alumnos, int number_records, registro_ord
             listado_a_imprimir = listado_alumnos->listado_por_edad;
             break;
         default:
-            printf("No existe listado ordenado por ese tipo para imprimir por pantalla.");
+            printf(">>> No existe listado ordenado para ese tipo\n\n");
             break;
     }
 
