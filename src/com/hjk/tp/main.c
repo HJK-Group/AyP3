@@ -58,7 +58,7 @@ int main() {
             case 2:
                 abm_registros(pRegistro, pLista_materias);
                 break;
-            case 3:
+            case 0:
                 running = 0;
                 break;
             default:
@@ -74,16 +74,24 @@ int main() {
 int get_menu_option() {
     char *option = malloc(sizeof(char));
     scanf("%s", option);
+
+    printf("\n");
+
     int chosen_option = (int) strtol(option, NULL, 10);
     free(option);
+
     return chosen_option;
 }
 
 char *solicitar_dato(int longitud) {
     char *dato = malloc(longitud);
     scanf("%s", dato);
+
     char *dato_reducido = malloc(strlen(dato));
     strcpy(dato_reducido, dato);
+
+    free(dato);
+
     return dato_reducido;
 }
 
@@ -101,7 +109,7 @@ void realizar_consultas(registro *pRegistro, list *pLista_materias) {
             case 3:
                 handle_consultar_cursada(pRegistro);
                 break;
-            case 4:
+            case 0:
                 running = 0;
                 break;
             default:
@@ -125,6 +133,9 @@ void abm_registros(registro *pRegistro, list *pLista_materias) {
                 handle_anotar_estudiante(pRegistro, pLista_materias);
                 break;
             case 4:
+                handle_estudiante_rendir(pRegistro, pLista_materias);
+                break;
+            case 0:
                 running = 0;
                 break;
             default:
@@ -138,18 +149,19 @@ int comparar_materia(void *item_lista, void *dato) {
 }
 
 void handle_crear_materia(list *pLista_materias) {
-    printf("Indique el nombre de la materia: ");
+    printf("Indique el nombre de la materia:");
     char *nombre_materia = solicitar_dato(50);
 
     materia *nueva_materia = new_materia(siguiente_id_materia, nombre_materia);
+    // ToDo Permite registrar materias repetidas.
     if (!list_contains(pLista_materias, &comparar_materia, nueva_materia)) {
         list_add(pLista_materias, nueva_materia);
-        printf("Materia agregada con exito!\n");
+        printf(">>> Materia agregada con exito\n\n");
         siguiente_id_materia++;
         return;
     }
 
-    printf("La Materia ya existia\n");
+    printf(">>> La materia ya existia\n\n");
 }
 
 void handle_crear_estudiante(registro *pRegistro) {
@@ -158,26 +170,34 @@ void handle_crear_estudiante(registro *pRegistro) {
     char *apellido;
     unsigned char edad;
 
-    printf("Indique el nombre del estudiante: ");
+    printf("Indique el nombre del estudiante:");
     nombre = solicitar_dato(50);
 
-    printf("Indique el apellido del estudiante: ");
+    printf("Indique el apellido del estudiante:");
     apellido = solicitar_dato(50);
 
-    printf("Indique la edad del estudiante: ");
+    printf("Indique la edad del estudiante:");
     edad = strtoul(solicitar_dato(1), NULL, 10);
 
     registro_agregar_alumno(pRegistro, new_estudiante(legajo, nombre, apellido, edad));
     siguiente_legajo++;
+
+    printf(">>> Estudiante creado\n");
 }
 
 void handle_anotar_estudiante(registro *pRegistro, list *pLista_materias) {
+    if (pRegistro->listado_por_edad->generic_list->length == 0
+        && pLista_materias->length == 0) {
+        printf(">>> No hay estudiantes ni materias cargadas\n\n");
+        return;
+    }
+
     if (pRegistro->listado_por_edad->generic_list->length == 0) {
-        printf("No hay estudiantes cargados\n");
+        printf(">>> No hay estudiantes cargados\n\n");
         return;
     }
     if (pLista_materias->length == 0) {
-        printf("No hay materias cargadas\n");
+        printf(">>> No hay materias cargadas\n\n");
         return;
     }
 
@@ -185,7 +205,7 @@ void handle_anotar_estudiante(registro *pRegistro, list *pLista_materias) {
     materia *pMateria = buscar_materia(pLista_materias);
     if (pEstudiante != NULL && pMateria != NULL) {
         anotarse_materia(pEstudiante, pMateria);
-        printf("Anotacion realizada con exito!\n");
+        printf(">>> Anotacion realizada con exito\n\n");
     }
 }
 
@@ -194,8 +214,9 @@ estudiante *buscar_estudiante(registro *coleccion) {
     int salir = 0;
     estudiante *pEstudiante = solicitar_estudiante(coleccion);
     while (pEstudiante == NULL && salir != 1) {
-        printf("No se encontro el estudiante\n");
-        printf("Desea intentar de nuevo? (s/n): ");
+        printf(">>> No se encontro el estudiante\n\n");
+        printf("Desea intentar de nuevo? (s/n):");
+        printf("______________________________________________\n");
         salir = !solicitar_confirmacion();
         if (salir == 0) {
             pEstudiante = solicitar_estudiante(coleccion);
@@ -209,8 +230,9 @@ materia *buscar_materia(list *pLista_materias) {
     int salir = 0;
     materia *pMateria = solicitar_materia(pLista_materias);
     while (pMateria == NULL && salir != 1) {
-        printf("No se encontro la materia\n");
-        printf("Desea intentar de nuevo? (s/n): ");
+        printf(">>> No se encontro la materia\n\n");
+        printf("Desea intentar de nuevo? (s/n):");
+        printf("______________________________________________\n");
         salir = !solicitar_confirmacion();
         if (salir == 0) {
             pMateria = solicitar_materia(pLista_materias);
@@ -229,7 +251,7 @@ int solicitar_confirmacion() {
 }
 
 estudiante *solicitar_estudiante(registro *pRegistro) {
-    printf("Indique el nombre del estudiante: ");
+    printf("Indique el nombre del estudiante:");
     char *nombre_estudiante = solicitar_dato(100);
     return registro_buscar_por_nombre(pRegistro, nombre_estudiante);
 }
@@ -242,7 +264,7 @@ int buscar_materia_por_nombre(void *data, void *other_data) {
 }
 
 materia *solicitar_materia(list *pLista_materias) {
-    printf("Indique el nombre de la materia: ");
+    printf("Indique el nombre de la materia:");
     char *nombre_materia = solicitar_dato(100);
     return list_search_data(pLista_materias, &buscar_materia_por_nombre, nombre_materia);
 }
@@ -258,7 +280,7 @@ void handle_listar_registro(registro *pRegistro) {
 void handle_consultar_materias(list *pLista_materias) {
     materia *materia = solicitar_materia(pLista_materias);
     if (materia == NULL) {
-        printf("Materia no encontrada\n");
+        printf(">>> Materia no encontrada\n\n");
         return;
     }
 

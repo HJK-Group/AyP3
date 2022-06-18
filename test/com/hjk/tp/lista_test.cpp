@@ -7,7 +7,7 @@ extern "C" {
 
 void assert_ultimo_nodo_es_nulo(node *nodo);
 
-TEST(PruebasLista, inicalmente_vacia) {
+TEST(PruebasLista, inicialmente_vacia) {
     list *lista = new_empty_list();
     ASSERT_NE(lista, nullptr);
     ASSERT_EQ(list_length(lista), 0);

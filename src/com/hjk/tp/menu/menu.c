@@ -9,7 +9,7 @@ void menu_print_welcome() {
 }
 
 void menu_print_main_options_boxed() {
-    printf("##############################################\n");
+    printf("############### Menu principal ###############\n");
     menu_print_main_options();
     printf("______________________________________________\n");
 }
@@ -26,7 +26,7 @@ void menu_print_main_options() {
     printf("Elija una de las siguientes opciones para continuar:\n\n");
     printf("[1] Realizar consultas al sistema\n");
     printf("[2] Agregar, borrar o modificar registros del sistema\n");
-    printf("[3] Salir\n");
+    printf("[0] Salir\n");
 }
 
 void menu_print_abm_options() {
@@ -35,7 +35,9 @@ void menu_print_abm_options() {
     printf("[1] Agregar materia\n");
     printf("[2] Agregar alumno\n");
     printf("[3] Inscribir alumno en materia\n");
-    printf("[4] Volver al menu principal\n");
+    printf("[4] Registrar nota");
+
+    printf("[0] Volver al menu principal\n");
     printf("______________________________________________\n");
 }
 
@@ -45,7 +47,7 @@ void menu_print_query_options() {
     printf("[1] Consultar materias\n");
     printf("[2] Consultar estudiantes\n");
     printf("[3] Consultar cursadas\n");
-    printf("[4] Volver al menu principal\n");
+    printf("[0] Volver al menu principal\n");
     printf("______________________________________________\n");
 }
 
