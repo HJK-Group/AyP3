@@ -20,7 +20,7 @@ estudiante *new_estudiante(unsigned long legajo, char *nombre, char* apellido, u
 
 void anotarse_materia(estudiante *pEstudiante, materia *pMateria);
 
-void rendir_materia(estudiante *pEstudiante, materia *pMateria, char calificacion);
+int rendir_materia(estudiante *pEstudiante, materia *pMateria, char calificacion);
 
 void estudiante_print(estudiante *alumno);
 

@@ -38,11 +38,15 @@ estudiante *solicitar_estudiante(registro *pRegistro);
 
 materia *solicitar_materia(list *pLista_materias);
 
+unsigned char solicitar_nota();
+
 // Autoincrementales
 long siguiente_id_materia = 1;
 long siguiente_legajo = 1;
 
 int main() {
+
+    setbuf(stdout, 0);
 
     registro *pRegistro = new_registro();
     list *pLista_materias = new_empty_list();
@@ -78,7 +82,8 @@ int get_menu_option() {
     printf("\n");
 
     int chosen_option = (int) strtol(option, NULL, 10);
-    free(option);
+    // ToDo Al debuggear no le gusta esta linea
+//    free(option);
 
     return chosen_option;
 }
@@ -90,7 +95,8 @@ char *solicitar_dato(int longitud) {
     char *dato_reducido = malloc(strlen(dato));
     strcpy(dato_reducido, dato);
 
-    free(dato);
+    // ToDo Esta linea no le gusta al debugger.
+//    free(dato);
 
     return dato_reducido;
 }
@@ -182,7 +188,7 @@ void handle_crear_estudiante(registro *pRegistro) {
     registro_agregar_alumno(pRegistro, new_estudiante(legajo, nombre, apellido, edad));
     siguiente_legajo++;
 
-    printf(">>> Estudiante creado\n");
+    printf(">>> Estudiante creado\n\n");
 }
 
 void handle_anotar_estudiante(registro *pRegistro, list *pLista_materias) {
@@ -246,7 +252,8 @@ int solicitar_confirmacion() {
     char *option = malloc(sizeof(char));
     scanf("%s", option);
     int respuesta = strcmp(option, "s") == 0;
-    free(option);
+    // ToDo Esta linea no le gusta al debugger.
+//    free(option);
     return respuesta;
 }
 
@@ -269,8 +276,46 @@ materia *solicitar_materia(list *pLista_materias) {
     return list_search_data(pLista_materias, &buscar_materia_por_nombre, nombre_materia);
 }
 
+unsigned char solicitar_nota() {
+    int salir = 0;
+    printf("Indique la nota:");
+    unsigned char nota = strtoul(solicitar_dato(1), NULL, 10);
+    while ((nota <= 0 || nota > 10) && salir != 1) {
+        printf(">>> La nota ingresada no es valida\n\n");
+        printf("Desea intentar de nuevo? (s/n):");
+        printf("______________________________________________\n");
+        salir = !solicitar_confirmacion();
+        if (salir == 0) {
+            nota = *solicitar_dato(2);
+        }
+    }
+
+    return nota;
+}
+
 void handle_estudiante_rendir(registro *pRegistro, list *pLista_materias) {
-    // TODO: Rendir una materia a un estudiante
+    if (pRegistro->listado_por_edad->generic_list->length == 0
+        && pLista_materias->length == 0) {
+        printf(">>> No hay estudiantes ni materias cargadas\n\n");
+        return;
+    }
+
+    if (pRegistro->listado_por_edad->generic_list->length == 0) {
+        printf(">>> No hay estudiantes cargados\n\n");
+        return;
+    }
+    if (pLista_materias->length == 0) {
+        printf(">>> No hay materias cargadas\n\n");
+        return;
+    }
+
+    estudiante *pEstudiante = buscar_estudiante(pRegistro);
+    materia *pMateria = buscar_materia(pLista_materias);
+    unsigned char nota = solicitar_nota();
+    if (pEstudiante != NULL && pMateria != NULL && nota != NULL) {
+        rendir_materia(pEstudiante, pMateria, nota);
+        printf(">>> Anotacion realizada con exito\n\n");
+    }
 }
 
 void handle_listar_registro(registro *pRegistro) {
