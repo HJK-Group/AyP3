@@ -145,7 +145,15 @@ void abm_registros(registro *pRegistro, list *pLista_materias) {
 }
 
 int comparar_materia(void *item_lista, void *dato) {
-    return materia_equals((materia *) item_lista, (materia *) dato);
+    if (item_lista == NULL || dato == NULL) {
+        return 0;
+    }
+
+    if (item_lista == dato) {
+        return 1;
+    }
+
+    return strcmp(((materia *) item_lista)->nombre, ((materia *) dato)->nombre) == 0;
 }
 
 void handle_crear_materia(list *pLista_materias) {
@@ -153,7 +161,6 @@ void handle_crear_materia(list *pLista_materias) {
     char *nombre_materia = solicitar_dato(50);
 
     materia *nueva_materia = new_materia(siguiente_id_materia, nombre_materia);
-    // ToDo Permite registrar materias repetidas.
     if (!list_contains(pLista_materias, &comparar_materia, nueva_materia)) {
         list_add(pLista_materias, nueva_materia);
         printf(">>> Materia agregada con exito\n\n");
