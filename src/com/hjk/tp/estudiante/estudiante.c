@@ -72,7 +72,7 @@ void anotarse_materia(estudiante *pEstudiante, materia *pMateria ) {
 int rendir_materia(estudiante *pEstudiante, materia *pMateria, char calificacion) {
     curso *actual = (curso *) list_search_data(pEstudiante->lista_materias, buscar_curso, pMateria);
     if (actual == NULL) {
-        printf(">>> La materia %s no esta registrada en este estudiante\n\n", pMateria->nombre);
+
         return 0;
     }
 
