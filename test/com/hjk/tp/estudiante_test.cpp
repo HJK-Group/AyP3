@@ -159,6 +159,82 @@ TEST(PruebasEstudiante, rendir_segunda_materia_con_nota_7) {
     ASSERT_EQ(materia_calificada->calificacion, 7);
 }
 
+
+TEST(PruebasEstudiante, calcular_promedio_materia_8) {
+    estudiante *un_estudiante = new_estudiante(62, (char *) "Johnny", (char *) "Allon", 81);
+    materia *una_materia = new_materia(666, (char *) "Show and TV");
+
+    anotarse_materia(un_estudiante, una_materia);
+
+    rendir_materia(un_estudiante, una_materia, 8);
+
+    double promedio = calcular_promedio_estudiante(un_estudiante);
+
+    ASSERT_EQ(promedio, 8);
+
+}
+
+TEST(PruebasEstudiante, calcular_promedio_con_dos_7) {
+    estudiante *un_estudiante = new_estudiante(62, (char *) "Johnny", (char *) "Allon", 81);
+    materia *una_materia = new_materia(666, (char *) "Show and TV");
+    materia *otra_materia = new_materia(777, (char *) "Musica popular");
+
+    anotarse_materia(un_estudiante, una_materia);
+    anotarse_materia(un_estudiante, otra_materia);
+
+    rendir_materia(un_estudiante, otra_materia, 7);
+    rendir_materia(un_estudiante, una_materia, 7);
+
+    double promedio = calcular_promedio_estudiante(un_estudiante);
+
+    ASSERT_EQ(promedio, 7);
+
+}
+
+
+TEST(PruebasEstudiante, calcular_promedio_materias_1_y_10) {
+    estudiante *un_estudiante = new_estudiante(62, (char *) "Johnny", (char *) "Allon", 81);
+    materia *una_materia = new_materia(666, (char *) "Show and TV");
+    materia *otra_materia = new_materia(777, (char *) "Musica popular");
+
+    anotarse_materia(un_estudiante, una_materia);
+    anotarse_materia(un_estudiante, otra_materia);
+
+    rendir_materia(un_estudiante, otra_materia, 1);
+    rendir_materia(un_estudiante, una_materia, 10);
+
+    double promedio = calcular_promedio_estudiante(un_estudiante);
+
+    ASSERT_EQ(promedio, 5.5);
+
+}
+
+
+TEST(PruebasEstudiante, calcular_promedio_sin_materias) {
+    estudiante *un_estudiante = new_estudiante(62, (char *) "Johnny", (char *) "Allon", 81);
+
+    double promedio = calcular_promedio_estudiante(un_estudiante);
+
+    ASSERT_EQ(promedio, -1);
+}
+
+TEST(PruebasEstudiante, calcular_promedio_con_materia_sin_rendir) {
+    estudiante *un_estudiante = new_estudiante(62, (char *) "Johnny", (char *) "Allon", 81);
+    materia *una_materia = new_materia(666, (char *) "Show and TV");
+    materia *otra_materia = new_materia(777, (char *) "Musica popular");
+
+    anotarse_materia(un_estudiante, una_materia);
+    anotarse_materia(un_estudiante, otra_materia);
+
+    rendir_materia(un_estudiante, una_materia, 8);
+
+    double promedio = calcular_promedio_estudiante(un_estudiante);
+
+    ASSERT_EQ(promedio, 8);
+}
+
+
+
 void comparar_datos(unsigned long legajo, char *pNombre, char *pApellido, int edad, estudiante *estudiante) {
     ASSERT_EQ(estudiante->legajo, legajo);
     ASSERT_STREQ(estudiante->nombre, pNombre);

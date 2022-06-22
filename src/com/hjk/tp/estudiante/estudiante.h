@@ -26,4 +26,8 @@ void estudiante_print(estudiante *alumno);
 
 void estudiante_destroy(estudiante *pEstudiante);
 
+double calcular_promedio(cursada *lsita_materias);
+
+double calcular_promedio_estudiante(estudiante *pEstudiante);
+
 #endif //core_ESTUDIANTE_H

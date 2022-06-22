@@ -91,3 +91,28 @@ void estudiante_destroy(estudiante *pEstudiante) {
     cursada_destroy(pEstudiante->lista_materias);
     free(pEstudiante);
 }
+
+double calcular_promedio(cursada *lista_materias){
+    int total = 0;
+    int cantidad_materias_rendidas = 0;
+    node *siguiente = lista_materias->head;
+
+    if(lista_materias->length < 1){
+        return -1;
+    }
+
+    while (siguiente->next !=NULL){
+        int siguiente_calificacion = ((curso *)siguiente->data)->calificacion;
+        if(siguiente_calificacion != NULL){
+            total += (int)siguiente_calificacion;
+            cantidad_materias_rendidas++;
+        }
+        siguiente = siguiente->next;
+    }
+
+    return (double)total / (double)cantidad_materias_rendidas;
+}
+
+double calcular_promedio_estudiante(estudiante *pEstudiante){
+    return calcular_promedio(pEstudiante->lista_materias);
+}
