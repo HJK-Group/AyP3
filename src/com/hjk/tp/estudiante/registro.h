@@ -32,4 +32,6 @@ void listado_destroy(listado *pListado);
 
 void registro_destroy(registro *registro);
 
+void print_estudiante(void *alumno);
+
 #endif //core_REGISTRO_H

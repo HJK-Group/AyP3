@@ -172,12 +172,13 @@ void list_print(list *lista, void (*print_function)(void *), int number_records)
 
         while (nodo->next != NULL && decrementer > 0) {
             print_function(nodo->data);
+            printf("\n");
             decrementer--;
             nodo = nodo->next;
         }
 
         // ToDo NO URGENTE: Mejorar este mensaje.
-        printf("Desea continuar con la siguiente pagina? Si (1), No (0)\n\n");
+        printf("Desea continuar con la siguiente pagina? Si (1), No (0):");
         scanf("%i", &volver_a_imprimir);
 
         switch (volver_a_imprimir) {
@@ -185,12 +186,12 @@ void list_print(list *lista, void (*print_function)(void *), int number_records)
                 break;
             case 1:
                 if (nodo->next == NULL) {
-                    printf("No hay mas datos.\n");
+                    printf(">>> No hay mas datos\n\n");
                     volver_a_imprimir = 0;
                 }
                 break;
             default:
-                printf("Ninguna opcion correcta elegida.");
+                printf(">>> Ninguna opcion correcta elegida\n\n");
                 volver_a_imprimir = 0;
                 break;
         }

@@ -38,10 +38,17 @@ estudiante *solicitar_estudiante(registro *pRegistro);
 
 materia *solicitar_materia(list *pLista_materias);
 
+unsigned char solicitar_nota();
+
+int chequear_lista_estudiantes_y_materias(registro *pRegistro, list *pLista_materias);
+
+// Autoincrementales
 long siguiente_id_materia = 1;
 long siguiente_legajo = 1;
 
 int main() {
+
+    setbuf(stdout, 0);
 
     registro *pRegistro = new_registro();
     list *pLista_materias = new_empty_list();
@@ -108,6 +115,9 @@ void realizar_consultas(registro *pRegistro, list *pLista_materias) {
                 break;
             case 3:
                 handle_consultar_cursada(pRegistro);
+                break;            // ToDo Retirar esta opcion de aquí.
+            case 4:
+                handle_listar_registro(pRegistro);
                 break;
             case 0:
                 running = 0;
@@ -189,22 +199,13 @@ void handle_crear_estudiante(registro *pRegistro) {
     registro_agregar_alumno(pRegistro, new_estudiante(legajo, nombre, apellido, edad));
     siguiente_legajo++;
 
-    printf(">>> Estudiante creado\n");
+    printf(">>> Estudiante creado\n\n");
 }
 
 void handle_anotar_estudiante(registro *pRegistro, list *pLista_materias) {
-    if (pRegistro->listado_por_edad->generic_list->length == 0
-        && pLista_materias->length == 0) {
-        printf(">>> No hay estudiantes ni materias cargadas\n\n");
-        return;
-    }
+    int resultado_chequeo = chequear_lista_estudiantes_y_materias(pRegistro, pLista_materias);
 
-    if (pRegistro->listado_por_edad->generic_list->length == 0) {
-        printf(">>> No hay estudiantes cargados\n\n");
-        return;
-    }
-    if (pLista_materias->length == 0) {
-        printf(">>> No hay materias cargadas\n\n");
+    if (resultado_chequeo == 0) {
         return;
     }
 
@@ -216,13 +217,32 @@ void handle_anotar_estudiante(registro *pRegistro, list *pLista_materias) {
     }
 }
 
+int chequear_lista_estudiantes_y_materias(registro *pRegistro, list *pLista_materias) {
+    if (pRegistro->listado_por_edad->generic_list->length == 0
+        && pLista_materias->length == 0) {
+        printf(">>> No hay estudiantes ni materias cargadas\n\n");
+        return 0;
+    }
+
+    if (pRegistro->listado_por_edad->generic_list->length == 0) {
+        printf(">>> No hay estudiantes cargados\n\n");
+        return 0;
+    }
+
+    if (pLista_materias->length == 0) {
+        printf(">>> No hay materias cargadas\n\n");
+        return 0;
+    }
+
+    return 1;
+}
+
 estudiante *buscar_estudiante(registro *coleccion) {
     int salir = 0;
     estudiante *pEstudiante = solicitar_estudiante(coleccion);
     while (pEstudiante == NULL && salir != 1) {
         printf(">>> No se encontro el estudiante\n\n");
         printf("Desea intentar de nuevo? (s/n):");
-        printf("______________________________________________\n");
         salir = !solicitar_confirmacion();
         if (salir == 0) {
             pEstudiante = solicitar_estudiante(coleccion);
@@ -237,7 +257,6 @@ materia *buscar_materia(list *pLista_materias) {
     while (pMateria == NULL && salir != 1) {
         printf(">>> No se encontro la materia\n\n");
         printf("Desea intentar de nuevo? (s/n):");
-        printf("______________________________________________\n");
         salir = !solicitar_confirmacion();
         if (salir == 0) {
             pMateria = solicitar_materia(pLista_materias);
@@ -251,6 +270,7 @@ int solicitar_confirmacion() {
     char option[2];
     fgets(option, 2, stdin);
     int respuesta = strcmp(option, "s") == 0;
+
     return respuesta;
 }
 
@@ -273,12 +293,80 @@ materia *solicitar_materia(list *pLista_materias) {
     return list_search_data(pLista_materias, &buscar_materia_por_nombre, nombre_materia);
 }
 
+unsigned char solicitar_nota() {
+    int salir = 0;
+    printf("Indique la nota:");
+    unsigned char nota = strtoul(solicitar_dato(1), NULL, 10);
+    while ((nota <= 0 || nota > 10) && salir != 1) {
+        printf(">>> La nota ingresada no es valida\n\n");
+        printf("Desea intentar de nuevo? (s/n):");
+        salir = !solicitar_confirmacion();
+        if (salir == 0) {
+            printf("Indique la nota:");
+            nota = strtoul(solicitar_dato(1), NULL, 10);
+        }
+    }
+
+    return nota;
+}
+
 void handle_estudiante_rendir(registro *pRegistro, list *pLista_materias) {
-    // TODO: Rendir una materia a un estudiante
+    int resultado_chequeo = chequear_lista_estudiantes_y_materias(pRegistro, pLista_materias);
+
+    if (resultado_chequeo == 0) {
+        return;
+    }
+
+    estudiante *pEstudiante = buscar_estudiante(pRegistro);
+    materia *pMateria = buscar_materia(pLista_materias);
+    unsigned char nota = solicitar_nota();
+
+    int inscripcion_completa = 0;
+    if (pEstudiante != NULL && pMateria != NULL && &nota != NULL) {
+        inscripcion_completa = rendir_materia(pEstudiante, pMateria, nota);
+    }
+
+    switch (inscripcion_completa) {
+        case 0:
+            printf(">>> La materia %s no esta registrada en este estudiante\n\n", pMateria->nombre);
+            break;
+        case 1:
+            printf(">>> Anotacion realizada con exito\n\n");
+            break;
+    }
 }
 
 void handle_listar_registro(registro *pRegistro) {
-    // TODO: Listar todos los estudiantes
+    printf("################ Estudiantes #################\n");
+
+    int salir = 0;
+    printf("Desea imprimir por Nombre [0] o Edad [1]:");
+    unsigned char modo_impresion = strtoul(solicitar_dato(1), NULL, 10);
+    printf("\n");
+
+    switch (modo_impresion) {
+        case 0:
+            listar_registro(pRegistro, 0, 0);
+            break;
+        case 1:
+            printf(">>> Indique por favor entre que edades quiere imprimir\n");
+            printf("Comenzando desde:");
+            short edad_desde = strtoul(solicitar_dato(2), NULL, 10);
+
+            printf("Hasta la edad de:");
+            short edad_hasta = strtoul(solicitar_dato(2), NULL, 10);
+
+            printf("La cantidad de registros de (indique 0 para ver todos):");
+            short cantidad_records = strtoul(solicitar_dato(2), NULL, 10);
+
+            ordered_list* lista_filtrada_por_edad = registro_buscar_por_edad(pRegistro, edad_desde, edad_hasta);
+
+            ordered_list_print(lista_filtrada_por_edad, &print_estudiante, cantidad_records);
+            break;
+        default:
+            listar_registro(pRegistro, 0, modo_impresion);
+            break;
+    }
 }
 
 void handle_consultar_materias(list *pLista_materias) {
@@ -294,7 +382,7 @@ void handle_consultar_materias(list *pLista_materias) {
 void handle_consultar_estudiantes(registro *pRegistro) {
     estudiante *pEstudiante = solicitar_estudiante(pRegistro);
     if (pEstudiante == NULL) {
-        printf("Estudiante no encontrado\n");
+        printf(">>> Estudiante no encontrado\n\n");
         return;
     }
 

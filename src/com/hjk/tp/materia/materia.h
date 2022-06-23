@@ -4,7 +4,7 @@
 #include <stdlib.h>
 #include <memory.h>
 
-typedef struct list lista_correlativas; // TODO Juan
+typedef struct list lista_correlativas;
 
 typedef struct materia {
     unsigned short id;

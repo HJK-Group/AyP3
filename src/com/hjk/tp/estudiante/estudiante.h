@@ -20,10 +20,14 @@ estudiante *new_estudiante(unsigned long legajo, char *nombre, char* apellido, u
 
 void anotarse_materia(estudiante *pEstudiante, materia *pMateria);
 
-void rendir_materia(estudiante *pEstudiante, materia *pMateria, char calificacion);
+int rendir_materia(estudiante *pEstudiante, materia *pMateria, char calificacion);
 
 void estudiante_print(estudiante *alumno);
 
 void estudiante_destroy(estudiante *pEstudiante);
+
+double calcular_promedio(cursada *lsita_materias);
+
+double calcular_promedio_estudiante(estudiante *pEstudiante);
 
 #endif //core_ESTUDIANTE_H
