@@ -36,6 +36,7 @@ void menu_print_abm_options() {
     printf("[2] Agregar estudiante\n");
     printf("[3] Inscribir estudiante en materia\n");
     printf("[4] Registrar nota\n");
+    printf("[5] Crear correlatividad\n");
     printf("[0] Volver al menu principal\n");
     printf("______________________________________________\n");
 }

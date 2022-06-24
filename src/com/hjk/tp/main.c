@@ -24,6 +24,8 @@ void handle_consultar_cursada(registro *pRegistro);
 
 void handle_consultar_promedio_estudiante(registro *pRegistro);
 
+void handle_crear_correlatividad(registro *pRegistro, list *pLista_materias);
+
 void realizar_consultas(registro *pRegistro, list *pLista_materias);
 
 void abm_registros(registro *pRegistro, list *pLista_materias);
@@ -41,6 +43,8 @@ estudiante *solicitar_estudiante(registro *pRegistro);
 materia *solicitar_materia(list *pLista_materias);
 
 unsigned char solicitar_nota();
+
+void estudiante_promedio_print(estudiante *pEstudiante);
 
 int chequear_correcto_lista_estudiantes_y_materias(registro *pRegistro, list *pLista_materias);
 
@@ -149,6 +153,9 @@ void abm_registros(registro *pRegistro, list *pLista_materias) {
                 break;
             case 4:
                 handle_estudiante_rendir(pRegistro, pLista_materias);
+                break;
+            case 5:
+                handle_crear_correlatividad(pRegistro, pLista_materias);
                 break;
             case 0:
                 running = 0;
@@ -400,8 +407,6 @@ void handle_consultar_estudiantes(registro *pRegistro) {
     estudiante_print(pEstudiante);
 }
 
-void estudiante_promedio_print(estudiante *pEstudiante);
-
 void handle_consultar_promedio_estudiante(registro *pRegistro) {
     estudiante *pEstudiante = solicitar_estudiante(pRegistro);
     if (pEstudiante == NULL) {
@@ -419,4 +424,21 @@ void estudiante_promedio_print(estudiante * pEstudiante){
 
 void handle_consultar_cursada(registro *pRegistro) {
     // TODO: Consultar las cursadas de un estudiante
+}
+
+void handle_crear_correlatividad(registro *pRegistro, list *pLista_materias) {
+    if (pLista_materias->length <= 1) {
+        printf(">>> No hay suficientes materias cargadas para crear correlatividad\n\n");
+        return;
+    }
+
+    printf("############## Correlatividad ################\n");
+    printf(">>> Principal\n");
+    materia *pMateria = buscar_materia(pLista_materias);
+    printf(">>> Correlativa\n");
+    materia *pCorrelativa = buscar_materia(pLista_materias);
+
+    materia_add_correlativas(pMateria, pCorrelativa);
+    
+    printf("\n");
 }
