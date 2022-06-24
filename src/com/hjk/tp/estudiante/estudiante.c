@@ -1,6 +1,6 @@
 #include <string.h>
 #include "estudiante.h"
-#include "config_estudiante.c"
+#include "com/hjk/tp/config.c"
 #include "com/hjk/tp/materia/cursada.h"
 #include "com/hjk/tp/materia/curso.h"
 #include "com/hjk/tp/utils/utils.h"
