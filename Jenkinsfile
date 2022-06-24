@@ -12,7 +12,10 @@ pipeline {
         }
         stage('Test') {
             steps {
+                echo 'Building Tests'
+                cmake arguments: '--build cmake-build-debug --target TEST -j 3', installation: 'InSearchPath'
                 echo 'Running Tests'
+                powershell 'cmake-build-debug\\test\\TEST.exe --gtest_output=xml --gtest_color=no'
             }
         }
     }
