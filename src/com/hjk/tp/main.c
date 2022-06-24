@@ -3,6 +3,7 @@
 #include <string.h>
 #include "menu/menu.h"
 #include "com/hjk/tp/estudiante/registro.h"
+
 // TODO agregar calcular_promedio JUAN;
 int get_menu_option();
 
@@ -21,6 +22,8 @@ void handle_consultar_materias(list *pLista_materias);
 void handle_consultar_estudiantes(registro *pRegistro);
 
 void handle_consultar_cursada(registro *pRegistro);
+
+void handle_consultar_promedio_estudiante(registro *pRegistro);
 
 void realizar_consultas(registro *pRegistro, list *pLista_materias);
 
@@ -114,9 +117,12 @@ void realizar_consultas(registro *pRegistro, list *pLista_materias) {
                 handle_consultar_estudiantes(pRegistro);
                 break;
             case 3:
+                handle_consultar_promedio_estudiante(pRegistro);
+                break;
+            case 4:
                 handle_consultar_cursada(pRegistro);
                 break;            // ToDo Retirar esta opcion de aquí.
-            case 4:
+            case 5:
                 handle_listar_registro(pRegistro, pLista_materias);
                 break;
             case 0:
@@ -274,7 +280,7 @@ int solicitar_confirmacion() {
     return respuesta;
 }
 
-estudiante *solicitar_estudiante(registro *pRegistro) {
+estudiante * solicitar_estudiante(registro *pRegistro) {
     printf("Indique el nombre del estudiante:");
     char *nombre_estudiante = solicitar_dato(100);
     return registro_buscar_por_nombre(pRegistro, nombre_estudiante);
@@ -365,7 +371,7 @@ void handle_listar_registro(registro *pRegistro, list *pLista_materias) {
             printf("La cantidad de registros de (indique 0 para ver todos):");
             short cantidad_records = strtoul(solicitar_dato(2), NULL, 10);
 
-            ordered_list* lista_filtrada_por_edad = registro_buscar_por_edad(pRegistro, edad_desde, edad_hasta);
+            ordered_list *lista_filtrada_por_edad = registro_buscar_por_edad(pRegistro, edad_desde, edad_hasta);
 
             ordered_list_print(lista_filtrada_por_edad, &print_estudiante, cantidad_records);
             break;
@@ -394,6 +400,23 @@ void handle_consultar_estudiantes(registro *pRegistro) {
 
     estudiante_print(pEstudiante);
 }
+
+void estudiante_promedio_print(estudiante *pEstudiante);
+
+void handle_consultar_promedio_estudiante(registro *pRegistro) {
+    estudiante *pEstudiante = solicitar_estudiante(pRegistro);
+    if (pEstudiante == NULL) {
+        printf(">>> Estudiante no encontrado\n\n");
+        return;
+    }
+
+    estudiante_promedio_print(pEstudiante);
+}
+
+void estudiante_promedio_print(estudiante * pEstudiante){
+    printf("El promedio de la cursada de %s es de %d pts",pEstudiante->nombre, calcular_promedio_estudiante(pEstudiante));
+}
+
 
 void handle_consultar_cursada(registro *pRegistro) {
     // TODO: Consultar las cursadas de un estudiante
