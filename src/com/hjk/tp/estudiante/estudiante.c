@@ -1,8 +1,10 @@
 #include <string.h>
 #include "estudiante.h"
+#include "config_estudiante.c"
 #include "com/hjk/tp/materia/cursada.h"
 #include "com/hjk/tp/materia/curso.h"
 #include "com/hjk/tp/utils/utils.h"
+
 
 int add_edad(estudiante *dest, short edad);
 

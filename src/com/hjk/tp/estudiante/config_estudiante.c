@@ -1,0 +1,3 @@
+#define EDAD_MINIMA 1
+#define EDAD_MAXIMA 130
+#define NOTA_APROBADA 4

@@ -1,10 +1,6 @@
 #ifndef core_ESTUDIANTE_H
 #define core_ESTUDIANTE_H
 
-#define EDAD_MINIMA 1
-#define EDAD_MAXIMA 130
-#define NOTA_APROBADA 4
-
 #include "../materia/cursada.h"
 #include "../materia/materia.h"
 
