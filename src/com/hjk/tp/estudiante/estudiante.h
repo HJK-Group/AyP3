@@ -3,6 +3,7 @@
 
 #define EDAD_MINIMA 1
 #define EDAD_MAXIMA 130
+#define NOTA_APROBADA 4
 
 #include "../materia/cursada.h"
 #include "../materia/materia.h"
@@ -26,8 +27,9 @@ void estudiante_print(estudiante *alumno);
 
 void estudiante_destroy(estudiante *pEstudiante);
 
-double calcular_promedio(cursada *lsita_materias);
-
 double calcular_promedio_estudiante(estudiante *pEstudiante);
+
+int aprobo_materia(estudiante *pEstudiante, materia *pMateria);
+
 
 #endif //core_ESTUDIANTE_H

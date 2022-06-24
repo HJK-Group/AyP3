@@ -4,7 +4,6 @@
 #include "menu/menu.h"
 #include "com/hjk/tp/estudiante/registro.h"
 
-// TODO agregar calcular_promedio JUAN;
 int get_menu_option();
 
 void handle_crear_materia(list *pLista_materias);

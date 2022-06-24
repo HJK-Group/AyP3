@@ -72,7 +72,6 @@ void anotarse_materia(estudiante *pEstudiante, materia *pMateria ) {
 int rendir_materia(estudiante *pEstudiante, materia *pMateria, char calificacion) {
     curso *actual = (curso *) list_search_data(pEstudiante->lista_materias, buscar_curso, pMateria);
     if (actual == NULL) {
-
         return 0;
     }
 
@@ -115,4 +114,16 @@ double calcular_promedio(cursada *lista_materias){
 
 double calcular_promedio_estudiante(estudiante *pEstudiante){
     return calcular_promedio(pEstudiante->lista_materias);
+}
+
+/* -1: Si no curso la materia
+    0: Si no aprobo la materia
+    1: Si aprobo la materia
+ */
+ int aprobo_materia(estudiante *pEstudiante, materia *pMateria){
+    curso * pCurso = (curso *)list_search_data(pEstudiante->lista_materias, buscar_curso, pMateria);
+     if (pCurso == NULL){
+        return -1;
+    }
+    return pCurso->calificacion >= NOTA_APROBADA;
 }

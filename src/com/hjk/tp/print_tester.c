@@ -19,5 +19,5 @@ int main() {
     //listar_registro(un_registro, 2, Order_By_Nombre);
 
     ordered_list* listado_filtrado = registro_buscar_por_edad(un_registro, 25, 29);
-    ordered_list_print(listado_filtrado, &print_estudiante, 0);
+    ordered_list_print(listado_filtrado, &print_estudiante, 0); //TODO Revisar
 }
