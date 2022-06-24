@@ -1,9 +1,8 @@
+#include "com/hjk/tp/config.c"
 #include "list.h"
 #include <stdlib.h>
 #include <stdio.h>
 #include <memory.h>
-
-#define MAX_NUMBER_RECORDS 25
 
 node *new_empty_node();
 
@@ -160,7 +159,7 @@ int list_remove_data(list *lista, void *data, size_t data_size) {
 void list_print(list *lista, void (*print_function)(void *), int number_records)
 {
     if (number_records == 0) {
-        number_records = MAX_NUMBER_RECORDS;
+        number_records = CANTIDAD_ELEMENTOS_PAGINADO;
     }
 
     int volver_a_imprimir = 0;

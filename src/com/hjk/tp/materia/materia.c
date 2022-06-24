@@ -25,7 +25,6 @@ int buscar_correlativa(void *pMateria, void *pCorrelativa) {
 
 /* permite ciclos se deberia implementar con BFS o DFS */
 void materia_add_correlativas(materia *pMateria, materia *pCorrelativa) {
-
     if (pMateria == pCorrelativa) {
         return;
     }
