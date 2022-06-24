@@ -17,7 +17,7 @@ int cantidad_de_materias(cursada *lista_materias);
 
 int cursada_length(cursada *lista_materias);
 
-int buscar_curso(void *pCurso, void *pMateria);
+int curso_materia_equals(void *pCurso, void *pMateria);
 
 int cursada_contains(cursada *lista_materias, materia *pMateria);
 

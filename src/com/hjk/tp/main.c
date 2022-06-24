@@ -1,3 +1,4 @@
+#include "config.c"
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
@@ -25,6 +26,8 @@ void handle_consultar_cursada(registro *pRegistro);
 void handle_consultar_promedio_estudiante(registro *pRegistro);
 
 void handle_crear_correlatividad(registro *pRegistro, list *pLista_materias);
+
+void handle_materia_aprobada(registro *pRegistro, list *pLista_materias);
 
 void realizar_consultas(registro *pRegistro, list *pLista_materias);
 
@@ -124,10 +127,12 @@ void realizar_consultas(registro *pRegistro, list *pLista_materias) {
                 break;
             case 4:
                 handle_consultar_cursada(pRegistro);
-                break;            // ToDo Retirar esta opcion de aquí.
+                break;
             case 5:
                 handle_listar_registro(pRegistro, pLista_materias);
                 break;
+            case 6:
+                handle_materia_aprobada(pRegistro, pLista_materias);
             case 0:
                 running = 0;
                 break;
@@ -423,7 +428,36 @@ void estudiante_promedio_print(estudiante * pEstudiante){
 
 
 void handle_consultar_cursada(registro *pRegistro) {
-    // TODO: Consultar las cursadas de un estudiante
+
+}
+
+void handle_materia_aprobada(registro *pRegistro, list *pLista_materias) {
+    int resultado_chequeo = chequear_correcto_lista_estudiantes_y_materias(pRegistro, pLista_materias);
+
+    if (resultado_chequeo == 0) {
+        return;
+    }
+
+    printf("############# Aprobacion materia #############\n");
+
+    estudiante *pEstudiante = buscar_estudiante(pRegistro);
+    materia *pMateria = buscar_materia(pLista_materias);
+
+    int estado_materia = aprobo_materia(pEstudiante, pMateria);
+
+//    curso *materia_encontrada = list_search_data(pEstudiante->lista_materias, &curso_materia_equals, pMateria);
+//
+    switch (estado_materia) {
+        case -1:
+            printf(">>> El estudiante no esta anotado en esa materia\n\n");
+            break;
+        case 0:
+            printf(">>> El estudiante no aprobo esta materia\n\n");
+            break;
+        case 1:
+            printf(">>> La materia fue aprobada con mas de %i\n\n", NOTA_APROBADA);
+            break;
+    }
 }
 
 void handle_crear_correlatividad(registro *pRegistro, list *pLista_materias) {
@@ -439,6 +473,6 @@ void handle_crear_correlatividad(registro *pRegistro, list *pLista_materias) {
     materia *pCorrelativa = buscar_materia(pLista_materias);
 
     materia_add_correlativas(pMateria, pCorrelativa);
-    
+
     printf("\n");
 }

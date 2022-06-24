@@ -176,7 +176,6 @@ void list_print(list *lista, void (*print_function)(void *), int number_records)
             nodo = nodo->next;
         }
 
-        // ToDo NO URGENTE: Mejorar este mensaje.
         printf("Desea continuar con la siguiente pagina? Si (1), No (0):");
         scanf("%i", &volver_a_imprimir);
 

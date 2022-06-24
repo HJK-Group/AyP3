@@ -18,6 +18,8 @@ void materia_add_correlativas(materia *pMateria, materia *pCorrelativa);
 
 int materia_equals(materia *pMateria, materia *pOtherMateria);
 
+int wrapper_materia_equals(void *pMateria, void *pCorrelativa);
+
 void materia_print(materia *pMateria);
 
 void materia_destroy(materia *pMateria);

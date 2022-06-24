@@ -17,16 +17,16 @@ int cursada_length(cursada *lista_materias) {
     return list_length((list *) lista_materias);
 }
 
-int buscar_curso(void *pCurso, void *pMateria) {
+int curso_materia_equals(void *pCurso, void *pMateria) {
     return materia_equals(((curso *) pCurso)->pMateria, (materia *) pMateria);
 }
 
 curso *cursada_get_curso(cursada *lista_materias, materia *pMateria) {
-    return (curso *) list_search_data((list *) lista_materias, &buscar_curso, pMateria);
+    return (curso *) list_search_data((list *) lista_materias, &curso_materia_equals, pMateria);
 }
 
 int cursada_contains(cursada *lista_materias, materia *pMateria) {
-    return list_contains((list *) lista_materias, &buscar_curso, pMateria);
+    return list_contains((list *) lista_materias, &curso_materia_equals, pMateria);
 }
 
 unsigned char cursada_get_calificacion(cursada *lista_materias, materia *pMateria) {

@@ -19,7 +19,7 @@ lista_correlativas *new_empty_lista_correlativas() {
     return (lista_correlativas *) new_empty_list();
 }
 
-int buscar_correlativa(void *pMateria, void *pCorrelativa) {
+int wrapper_materia_equals(void *pMateria, void *pCorrelativa) {
     return materia_equals((materia *) pMateria, (materia *) pCorrelativa);
 }
 
@@ -31,7 +31,7 @@ void materia_add_correlativas(materia *pMateria, materia *pCorrelativa) {
     if (materia_equals(pMateria, pCorrelativa)) {
         return;
     }
-    if (list_contains(pMateria->pCorrelativas, &buscar_correlativa, pCorrelativa)) {
+    if (list_contains(pMateria->pCorrelativas, &wrapper_materia_equals, pCorrelativa)) {
         return;
     }
     list_add(pMateria->pCorrelativas, pCorrelativa);
