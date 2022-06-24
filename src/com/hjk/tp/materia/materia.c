@@ -19,8 +19,22 @@ lista_correlativas *new_empty_lista_correlativas() {
     return (lista_correlativas *) new_empty_list();
 }
 
+int buscar_correlativa(void *pMateria, void *pCorrelativa) {
+    return materia_equals((materia *) pMateria, (materia *) pCorrelativa);
+}
+
+/* permite ciclos se deberia implementar con BFS o DFS */
 void materia_add_correlativas(materia *pMateria, materia *pCorrelativa) {
-    // TODO verificar que no se agregue una materia ya agregada
+
+    if (pMateria == pCorrelativa) {
+        return;
+    }
+    if (materia_equals(pMateria, pCorrelativa)) {
+        return;
+    }
+    if (list_contains(pMateria->pCorrelativas, &buscar_correlativa, pCorrelativa)) {
+        return;
+    }
     list_add(pMateria->pCorrelativas, pCorrelativa);
 }
 
@@ -47,7 +61,7 @@ char *print_correlativas(list *pCorrelativas) {
     node *iterador = pCorrelativas->head;
     for (int i = 0; i < pCorrelativas->length; i++) {
         strcat(pCorrelativasString, new_string("\n  - "));
-        strcat(pCorrelativasString, ((materia *)iterador->data)->nombre);
+        strcat(pCorrelativasString, ((materia *) iterador->data)->nombre);
         iterador = iterador->next;
     }
 
