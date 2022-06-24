@@ -123,3 +123,6 @@ _deps
 ### CMake Patch ###
 # External projects
 *-prefix/
+
+# Googletest
+test_detail.xml
