@@ -14,7 +14,7 @@ void handle_anotar_estudiante(registro *pRegistro, list *pLista_materias);
 
 void handle_estudiante_rendir(registro *pRegistro, list *pLista_materias);
 
-void handle_listar_registro(registro *pRegistro);
+void handle_listar_registro(registro *pRegistro, list *pLista_materias);
 
 void handle_consultar_materias(list *pLista_materias);
 
@@ -40,7 +40,7 @@ materia *solicitar_materia(list *pLista_materias);
 
 unsigned char solicitar_nota();
 
-int chequear_lista_estudiantes_y_materias(registro *pRegistro, list *pLista_materias);
+int chequear_correcto_lista_estudiantes_y_materias(registro *pRegistro, list *pLista_materias);
 
 // Autoincrementales
 long siguiente_id_materia = 1;
@@ -117,7 +117,7 @@ void realizar_consultas(registro *pRegistro, list *pLista_materias) {
                 handle_consultar_cursada(pRegistro);
                 break;            // ToDo Retirar esta opcion de aquí.
             case 4:
-                handle_listar_registro(pRegistro);
+                handle_listar_registro(pRegistro, pLista_materias);
                 break;
             case 0:
                 running = 0;
@@ -203,7 +203,7 @@ void handle_crear_estudiante(registro *pRegistro) {
 }
 
 void handle_anotar_estudiante(registro *pRegistro, list *pLista_materias) {
-    int resultado_chequeo = chequear_lista_estudiantes_y_materias(pRegistro, pLista_materias);
+    int resultado_chequeo = chequear_correcto_lista_estudiantes_y_materias(pRegistro, pLista_materias);
 
     if (resultado_chequeo == 0) {
         return;
@@ -217,7 +217,7 @@ void handle_anotar_estudiante(registro *pRegistro, list *pLista_materias) {
     }
 }
 
-int chequear_lista_estudiantes_y_materias(registro *pRegistro, list *pLista_materias) {
+int chequear_correcto_lista_estudiantes_y_materias(registro *pRegistro, list *pLista_materias) {
     if (pRegistro->listado_por_edad->generic_list->length == 0
         && pLista_materias->length == 0) {
         printf(">>> No hay estudiantes ni materias cargadas\n\n");
@@ -311,7 +311,7 @@ unsigned char solicitar_nota() {
 }
 
 void handle_estudiante_rendir(registro *pRegistro, list *pLista_materias) {
-    int resultado_chequeo = chequear_lista_estudiantes_y_materias(pRegistro, pLista_materias);
+    int resultado_chequeo = chequear_correcto_lista_estudiantes_y_materias(pRegistro, pLista_materias);
 
     if (resultado_chequeo == 0) {
         return;
@@ -336,7 +336,13 @@ void handle_estudiante_rendir(registro *pRegistro, list *pLista_materias) {
     }
 }
 
-void handle_listar_registro(registro *pRegistro) {
+void handle_listar_registro(registro *pRegistro, list *pLista_materias) {
+    int resultado_chequeo = chequear_correcto_lista_estudiantes_y_materias(pRegistro, pLista_materias);
+
+    if (resultado_chequeo == 0) {
+        return;
+    }
+
     printf("################ Estudiantes #################\n");
 
     int salir = 0;
