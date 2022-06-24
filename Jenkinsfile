@@ -6,7 +6,7 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building source code'
-                cmakeBuild buildDir: 'cmake-build-debug', buildType: 'Debug', cleanBuild: true, installation: 'InSearchPath', steps: [[withCmake: true]]
+                cmakeBuild buildDir: 'cmake-build-debug', buildType: 'Debug', cleanBuild: true, installation: 'InSearchPath'
                 echo 'Build complete'
             }
         }
