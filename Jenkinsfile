@@ -6,8 +6,13 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building source code'
-                cmakeBuild buildDir: 'cmake-build-debug', buildType: 'Debug', cleanBuild: true, generator: 'Ninja', installation: 'Cmake 3.22', steps: [[withCmake: true]]
+                cmakeBuild buildDir: 'cmake-build-debug', buildType: 'Debug', cleanBuild: true, installation: 'InSearchPath', steps: [[withCmake: true]]
                 echo 'Build complete'
+            }
+        }
+        stage('Test') {
+            steps {
+                echo 'Running Tests'
             }
         }
     }
