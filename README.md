@@ -50,7 +50,7 @@ Además cada estudiante puede anotarse en N materias.
   * [ ] Estadísticas de los estudiantes y materias, etc
   * [x] Árboles de correlatividad de materias (2pts). Qué pasa si una materia anterior está desaprobada? Puede anotarse?
   * [x] Cálculo de promedios
-  * [ ] Archivo de configuración general donde se especifican las variables del sistema
+  * [x] Archivo de configuración general donde se especifican las variables del sistema
   * [ ] Persistencia (2)
   * [x] Validaciones complejas
   * [x] Tests
