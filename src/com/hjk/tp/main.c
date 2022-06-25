@@ -163,7 +163,7 @@ void abm_registros(registro *pRegistro, list *pLista_materias) {
                 handle_crear_correlatividad(pLista_materias);
                 break;
             case 6:
-                handle_eliminar_materia(pRegistro);
+                handle_eliminar_materia(pLista_materias);
                 break;
             case 7:
                 handle_eliminar_estudiante(pRegistro);
@@ -206,8 +206,8 @@ void handle_crear_materia(list *pLista_materias) {
 
 void handle_crear_estudiante(registro *pRegistro) {
     unsigned long legajo = siguiente_legajo;
-    const char *nombre;
-    const char *apellido;
+    char *nombre;
+    char *apellido;
 
     printf("Indique el nombre del estudiante:");
     nombre = solicitar_dato(50);
@@ -216,7 +216,7 @@ void handle_crear_estudiante(registro *pRegistro) {
     apellido = solicitar_dato(50);
 
     printf("Indique la edad del estudiante:");
-    const char *dato = solicitar_dato(4);
+    char *dato = solicitar_dato(4);
     int edad = (int) strtoul(dato, NULL, 10);
 
     registro_agregar_alumno(pRegistro, new_estudiante(legajo, nombre, apellido, (unsigned char) edad));
@@ -494,7 +494,7 @@ void handle_eliminar_materia(list *pLista_materias) {
     materia *pMateria = buscar_materia(pLista_materias);
     list_remove_data(pLista_materias, pMateria, sizeof(materia));
     materia_destroy(pMateria);
-    printf("Materia eliminada");
+    printf(">>> Materia eliminada\n\n");
 }
 
 void handle_eliminar_estudiante(registro *pRegistro) {
@@ -502,5 +502,5 @@ void handle_eliminar_estudiante(registro *pRegistro) {
     ordered_list_remove_data(pRegistro->listado_por_edad, pEstudiante, sizeof(estudiante));
     ordered_list_remove_data(pRegistro->listado_por_nombre, pEstudiante, sizeof(estudiante));
     estudiante_destroy(pEstudiante);
-    printf("Estudiante eliminado");
+    printf(">>> Estudiante eliminado\n\n");
 }
