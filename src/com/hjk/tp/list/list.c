@@ -1,9 +1,8 @@
+#include "com/hjk/tp/config.c"
 #include "list.h"
 #include <stdlib.h>
 #include <stdio.h>
 #include <memory.h>
-
-#define MAX_NUMBER_RECORDS 25
 
 node *new_empty_node();
 
@@ -160,7 +159,7 @@ int list_remove_data(list *lista, void *data, size_t data_size) {
 void list_print(list *lista, void (*print_function)(void *), int number_records)
 {
     if (number_records == 0) {
-        number_records = MAX_NUMBER_RECORDS;
+        number_records = CANTIDAD_ELEMENTOS_PAGINADO;
     }
 
     int volver_a_imprimir = 0;
@@ -172,12 +171,12 @@ void list_print(list *lista, void (*print_function)(void *), int number_records)
 
         while (nodo->next != NULL && decrementer > 0) {
             print_function(nodo->data);
+            printf("\n");
             decrementer--;
             nodo = nodo->next;
         }
 
-        // ToDo NO URGENTE: Mejorar este mensaje.
-        printf("Desea continuar con la siguiente pagina? Si (1), No (0)\n\n");
+        printf("Desea continuar con la siguiente pagina? Si (1), No (0):");
         scanf("%i", &volver_a_imprimir);
 
         switch (volver_a_imprimir) {
@@ -185,12 +184,12 @@ void list_print(list *lista, void (*print_function)(void *), int number_records)
                 break;
             case 1:
                 if (nodo->next == NULL) {
-                    printf("No hay mas datos.\n");
+                    printf(">>> No hay mas datos\n\n");
                     volver_a_imprimir = 0;
                 }
                 break;
             default:
-                printf("Ninguna opcion correcta elegida.");
+                printf(">>> Ninguna opcion correcta elegida\n\n");
                 volver_a_imprimir = 0;
                 break;
         }

@@ -25,8 +25,8 @@ Cada elemento que agrego queda ordenado en la lista, de manera que al imprimirla
 Desarrollar un sistema de estudiantes en C. Debe permitir:
 
 * Crear y listar estudiantes
-* Buscar estudiantes por Order_By_Nombre
-* Buscar estudiantes por rango de Order_By_Edad
+* Buscar estudiantes por nombre
+* Buscar estudiantes por rango de edad
 
 Además cada estudiante puede anotarse en N materias.
 
@@ -44,17 +44,17 @@ Además cada estudiante puede anotarse en N materias.
 ### Puntos Extra
 
 * Ideas no-obligatorias de implementar pero que suman puntos: 
-  * [x] Utilizar paginado **ToDo Hernán**
+  * [x] Utilizar paginado
   * [ ] Poder elegir el estudiante/materia de un listado reducido
-  * [x] Generar estudiantes de prueba y materias aleatorias de forma masiva
+  * [ ] Generar estudiantes de prueba y materias aleatorias de forma masiva
   * [ ] Estadísticas de los estudiantes y materias, etc
-  * [x] Árboles de correlatividad de materias (2pts). Qué pasa si una materia anterior está desaprobada? Puede anotarse? **ToDo Kevin**
-  * [x] Cálculo de promedios **ToDo Juan**
-  * [ ] Archivo de configuración general donde se especifican las variables del sistema
+  * [x] Árboles de correlatividad de materias (2pts). Qué pasa si una materia anterior está desaprobada? Puede anotarse?
+  * [x] Cálculo de promedios
+  * [x] Archivo de configuración general donde se especifican las variables del sistema
   * [ ] Persistencia (2)
-  * [x] Validaciones complejas **ToDoing Todos**
-  * [x] Tests **ToDoing Todos**
-  * [x] Integración continua **ToDo Kevin**
+  * [x] Validaciones complejas
+  * [x] Tests
+  * [x] Integración continua
 
 > En el repositorio hacer un README con los integrantes, las consignas implementadas y los puntos extras que hayan desarrollado.
 

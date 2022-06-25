@@ -4,7 +4,7 @@
 #include <stdlib.h>
 #include <memory.h>
 
-typedef struct list lista_correlativas; // TODO Juan
+typedef struct list lista_correlativas;
 
 typedef struct materia {
     unsigned short id;
@@ -17,6 +17,8 @@ materia *new_materia(unsigned short id, char *nombre);
 void materia_add_correlativas(materia *pMateria, materia *pCorrelativa);
 
 int materia_equals(materia *pMateria, materia *pOtherMateria);
+
+int wrapper_materia_equals(void *pMateria, void *pCorrelativa);
 
 void materia_print(materia *pMateria);
 
