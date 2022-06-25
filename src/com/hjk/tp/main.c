@@ -88,8 +88,8 @@ int main() {
 
 int get_menu_option() {
     fflush(stdin);
-    char option[2];
-    fgets(option, 2, stdin);
+    char option[4];
+    fgets(option, 4, stdin);
 
     printf("\n");
 
@@ -284,8 +284,8 @@ materia *buscar_materia(list *pLista_materias) {
 
 int solicitar_confirmacion() {
     fflush(stdin);
-    char option[2];
-    fgets(option, 2, stdin);
+    char option[4];
+    fgets(option, 4, stdin);
     int respuesta = strcmp(option, "s") == 0;
 
     return respuesta;
