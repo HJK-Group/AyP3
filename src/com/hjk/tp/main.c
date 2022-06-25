@@ -90,6 +90,7 @@ int get_menu_option() {
     fflush(stdin);
     char option[4];
     fgets(option, 4, stdin);
+    fflush(stdin);
 
     printf("\n");
 
@@ -97,13 +98,14 @@ int get_menu_option() {
 }
 
 char *solicitar_dato(int longitud) {
-    if (longitud < 2) {
-        longitud = 2;
+    if (longitud < 4) {
+        longitud = 4;
     }
 
     fflush(stdin);
     char dato[longitud];
     fgets(dato, longitud, stdin);
+    fflush(stdin);
 
     char *dato_reducido = malloc(strlen(dato));
     strcpy(dato_reducido, dato);
@@ -286,6 +288,7 @@ int solicitar_confirmacion() {
     fflush(stdin);
     char option[4];
     fgets(option, 4, stdin);
+    fflush(stdin);
     int respuesta = strcmp(option, "s") == 0;
 
     return respuesta;

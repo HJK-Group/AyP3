@@ -37,8 +37,8 @@ void estudiante_print(estudiante *alumno) {
     }
 
 //    printf("##############################################\n");
-    printf("Nombre: %s\n", alumno->nombre);
-    printf("Apellido: %s\n", alumno->apellido);
+    printf("Nombre: %s", alumno->nombre);
+    printf("Apellido: %s", alumno->apellido);
     printf("Edad: %d\n", alumno->edad);
     printf("Legajo: %d\n", alumno->legajo);
 //    printf("______________________________________________\n");
