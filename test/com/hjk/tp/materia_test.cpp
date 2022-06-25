@@ -4,6 +4,7 @@ extern "C" {
 
 #include <com/hjk/tp/materia/materia.h>
 #include <com/hjk/tp/list/list.h>
+#include <com/hjk/tp/estudiante/estudiante.h>
 }
 
 TEST(PruebasMateria, crear_una_materia) {
@@ -38,12 +39,21 @@ TEST(PruebasMateria, anadir_dos_correlativas_de_manera_lineal) {
 }
 
 TEST(PruebasMateria, no_se_puede_anotar_a_una_materia_que_no_es_correlativa) {
-    materia *pMateria = new_materia(666, (char *) "Analisis I");
-    materia *pPrimerCorrelativa = new_materia(777, (char *) "Algebra II");
-    materia *pSegundaCorrelativa = new_materia(888, (char *) "Quimica I");
+    materia *pAnalisis1 = new_materia(666, (char *) "Analisis I");
+    materia *pAnalisis2 = new_materia(777, (char *) "Analisis II");
+    materia *pAnalisis3 = new_materia(888, (char *) "Analisis III");
 
-    materia_add_correlativas(pMateria, pPrimerCorrelativa);
-    materia_add_correlativas(pPrimerCorrelativa, pSegundaCorrelativa);
+    estudiante *pEstudiante = new_estudiante(123456789, (char *) "Juan", (char *) "Perez", 20);
+
+    materia_add_correlativas(pAnalisis3, pAnalisis2);
+    materia_add_correlativas(pAnalisis2, pAnalisis1);
+
+    anotarse_materia(pEstudiante, pAnalisis2);
+    anotarse_materia(pEstudiante, pAnalisis3);
+
+    curso *curso_almacenado = ((curso*) pEstudiante->lista_materias->head->data);
+
+    ASSERT_EQ(curso_almacenado, nullptr);
 }
 
 TEST(PruebasMateria, no_se_anade_correlativa_ya_anadida) {
