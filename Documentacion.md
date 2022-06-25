@@ -12,8 +12,9 @@
 
 - No se duplican los datos en memoria.
 - Se asegura de copiar todos los datos en memoria heap (evita SEGMENTATION_FAULT).
-- Pruebas unitarias para cada compenente del Sistema.
+- Pruebas unitarias para cada componente del Sistema.
 - Posibilidad de añadir correlatividad a las materias.
+- Integración continua con Jenkins.
 - Funciones destroy para todos los struct creados y utilizados.
 
 ### *Añadidos por fuera del Sistema:*

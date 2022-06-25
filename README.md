@@ -46,7 +46,7 @@ Además cada estudiante puede anotarse en N materias.
 * Ideas no-obligatorias de implementar pero que suman puntos: 
   * [x] Utilizar paginado
   * [ ] Poder elegir el estudiante/materia de un listado reducido
-  * [x] Generar estudiantes de prueba y materias aleatorias de forma masiva
+  * [ ] Generar estudiantes de prueba y materias aleatorias de forma masiva
   * [ ] Estadísticas de los estudiantes y materias, etc
   * [x] Árboles de correlatividad de materias (2pts). Qué pasa si una materia anterior está desaprobada? Puede anotarse?
   * [x] Cálculo de promedios
