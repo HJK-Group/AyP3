@@ -99,16 +99,18 @@ int get_menu_option() {
 }
 
 char *solicitar_dato(int longitud) {
-    if (longitud < 4) {
-        longitud = 4;
+    if (longitud < 2) {
+        longitud = 2;
     }
 
     fflush(stdin);
     char dato[longitud];
     fgets(dato, longitud, stdin);
     fflush(stdin);
+
     char *dato_reducido = malloc(strlen(dato) + 1);
     strcpy(dato_reducido, dato);
+
     return dato_reducido;
 }
 
@@ -237,7 +239,13 @@ void handle_anotar_estudiante(registro *pRegistro, list *pLista_materias) {
     }
 
     estudiante *pEstudiante = buscar_estudiante(pRegistro);
+    if (pEstudiante == NULL){
+        return;
+    }
     materia *pMateria = buscar_materia(pLista_materias);
+    if(pMateria == NULL){
+        return;
+    }
     if (pEstudiante != NULL && pMateria != NULL) {
         anotarse_materia(pEstudiante, pMateria);
         printf(">>> Anotacion realizada con exito\n\n");
@@ -264,41 +272,28 @@ int chequear_correcto_lista_estudiantes_y_materias(const registro *pRegistro, co
 }
 
 estudiante *buscar_estudiante(registro *coleccion) {
-    int salir = 0;
     estudiante *pEstudiante = solicitar_estudiante(coleccion);
-    while (pEstudiante == NULL && salir != 1) {
+    if (pEstudiante == NULL){
         printf(">>> No se encontro el estudiante\n\n");
-        printf("Desea intentar de nuevo? (s/n):");
-        salir = !solicitar_confirmacion();
-        if (salir == 0) {
-            pEstudiante = solicitar_estudiante(coleccion);
-        }
     }
     return pEstudiante;
 }
 
 materia *buscar_materia(list *pLista_materias) {
-    int salir = 0;
     materia *pMateria = solicitar_materia(pLista_materias);
-    while (pMateria == NULL && salir != 1) {
+    if (pMateria == NULL){
         printf(">>> No se encontro la materia\n\n");
-        printf("Desea intentar de nuevo? (s/n):");
-        salir = !solicitar_confirmacion();
-        if (salir == 0) {
-            pMateria = solicitar_materia(pLista_materias);
-        }
     }
     return pMateria;
 }
 
 int solicitar_confirmacion() {
     fflush(stdin);
-    char option[4];
-    fgets(option, 4, stdin);
+    char option[2];
+    fgets(option, 2, stdin);
     fflush(stdin);
-    int respuesta = strcmp(option, "s") == 0;
 
-    return respuesta;
+    return strcmp(option, "s") == 0;
 }
 
 estudiante *solicitar_estudiante(registro *pRegistro) {
@@ -340,7 +335,7 @@ unsigned char solicitar_nota() {
         }
     }
     free(dato);
-    return (nota <= 0 || nota > 10) ? (unsigned char) nota : 0;
+    return (nota <= 0 || nota > 10) ? 0 : (unsigned char) nota;
 }
 
 void handle_estudiante_rendir(registro *pRegistro, list *pLista_materias) {
@@ -441,8 +436,9 @@ void handle_consultar_promedio_estudiante(registro *pRegistro) {
     estudiante_promedio_print(pEstudiante);
 }
 
-void estudiante_promedio_print(estudiante * pEstudiante){
-    printf("El promedio de la cursada de %s es de %d pts",pEstudiante->nombre, calcular_promedio_estudiante(pEstudiante));
+void estudiante_promedio_print(estudiante *pEstudiante) {
+    double promedio = calcular_promedio_estudiante(pEstudiante);
+    printf("El promedio de la cursada de %s es de %f pts", pEstudiante->nombre, promedio);
 }
 
 void handle_materia_aprobada(registro *pRegistro, list *pLista_materias) {
@@ -464,7 +460,7 @@ void handle_materia_aprobada(registro *pRegistro, list *pLista_materias) {
             printf(">>> El estudiante no aprobo esta materia\n\n");
             break;
         case 1:
-            printf(">>> La materia fue aprobada con mas de %i\n\n", NOTA_APROBADA);
+            printf(">>> La materia fue aprobada \n\n");
             break;
         default:
             printf(">>> El estudiante no esta anotado en esa materia\n\n");
