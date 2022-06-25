@@ -14,6 +14,11 @@ estudiante *new_estudiante(unsigned long legajo, char *nombre, char *apellido, u
     entidad->apellido = new_string(apellido);
     add_edad(entidad, edad);
     entidad->lista_materias = new_empty_cursada();
+
+    if(entidad->nombre == NULL|| entidad->apellido == NULL || entidad->edad  == NULL){
+        return NULL;
+    }
+
     return entidad;
 }
 
