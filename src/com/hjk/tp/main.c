@@ -59,6 +59,7 @@ long siguiente_legajo = 1;
 
 int main() {
 
+
     setbuf(stdout, 0);
 
     registro *pRegistro = new_registro();
