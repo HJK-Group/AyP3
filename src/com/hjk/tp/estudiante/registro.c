@@ -7,8 +7,8 @@ int comparar_edad(void *primer_estudiante, void *segundo_estudiante);
 int comparar_nombre(void *primer_estudiante, void *segundo_estudiante);
 
 int buscar_nombre(void *data, void *other_data) {
-    estudiante *alumno = (estudiante *) data;
-    char *nombre = (char *) other_data;
+    estudiante const *alumno = (estudiante *) data;
+    char const *nombre = (char *) other_data;
     return strcmp(alumno->nombre, nombre) == 0;
 }
 
@@ -57,12 +57,12 @@ registro *new_registro() {
 }
 
 void registro_agregar_alumno(registro *listado_alumnos, estudiante *alumno) {
-    ordered_list_add((ordered_list *) listado_alumnos->listado_por_nombre, alumno);
-    ordered_list_add((ordered_list *) listado_alumnos->listado_por_edad, alumno);
+    ordered_list_add(listado_alumnos->listado_por_nombre, alumno);
+    ordered_list_add(listado_alumnos->listado_por_edad, alumno);
 }
 
 int registro_remover_estudiante(registro *listado_alumnos, estudiante *alumno) {
-    return ordered_list_remove_data((ordered_list *) listado_alumnos->listado_por_nombre, alumno, sizeof(estudiante));
+    return ordered_list_remove_data(listado_alumnos->listado_por_nombre, alumno, sizeof(estudiante));
 }
 
 void print_estudiante(void *alumno) {

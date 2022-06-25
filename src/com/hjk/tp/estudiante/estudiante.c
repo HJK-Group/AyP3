@@ -5,30 +5,23 @@
 #include "com/hjk/tp/materia/curso.h"
 #include "com/hjk/tp/utils/utils.h"
 
-int add_edad(estudiante *dest, short edad);
+estudiante *new_estudiante(unsigned long legajo, const char *nombre, const char *apellido, unsigned char edad) {
+    if (edad < EDAD_MINIMA || edad > EDAD_MAXIMA) {
+        return NULL;
+    }
 
-estudiante *new_estudiante(unsigned long legajo, char *nombre, char *apellido, unsigned char edad) {
     estudiante *entidad = malloc(sizeof(estudiante));
     entidad->legajo = legajo;
     entidad->nombre = new_string(nombre);
     entidad->apellido = new_string(apellido);
-    add_edad(entidad, edad);
+    entidad->edad = edad;
     entidad->lista_materias = new_empty_cursada();
 
-    if(entidad->nombre == NULL|| entidad->apellido == NULL || entidad->edad  == NULL){
+    if (entidad->nombre == NULL || entidad->apellido == NULL) {
         return NULL;
     }
 
     return entidad;
-}
-
-int add_edad(estudiante *dest, short edad) {
-    if (edad < EDAD_MINIMA || edad > EDAD_MAXIMA) {
-        return -1;
-    }
-
-    dest->edad = edad;
-    return 0;
 }
 
 void estudiante_print(estudiante *alumno) {
@@ -36,12 +29,10 @@ void estudiante_print(estudiante *alumno) {
         return;
     }
 
-//    printf("##############################################\n");
-    printf("Nombre: %s\n", alumno->nombre);
-    printf("Apellido: %s\n", alumno->apellido);
+    printf("Nombre: %s", alumno->nombre);
+    printf("Apellido: %s", alumno->apellido);
     printf("Edad: %d\n", alumno->edad);
-    printf("Legajo: %d\n", alumno->legajo);
-//    printf("______________________________________________\n");
+    printf("Legajo: %d\n\n", alumno->legajo);
 }
 
 void anotarse_materia(estudiante *pEstudiante, materia *pMateria) {
@@ -75,14 +66,13 @@ void anotarse_materia(estudiante *pEstudiante, materia *pMateria) {
     cursada_add(pEstudiante->lista_materias, pMateria);
 }
 
-int rendir_materia(estudiante *pEstudiante, materia *pMateria, char calificacion) {
+int rendir_materia(estudiante *pEstudiante, materia *pMateria, unsigned char calificacion) {
     curso *actual = (curso *) list_search_data(pEstudiante->lista_materias, curso_materia_equals, pMateria);
     if (actual == NULL) {
         return 0;
     }
 
     actual->calificacion = calificacion;
-
     return 1;
 }
 
@@ -98,36 +88,39 @@ void estudiante_destroy(estudiante *pEstudiante) {
 }
 
 double calcular_promedio(cursada *lista_materias) {
-    int total = 0;
-    int cantidad_materias_rendidas = 0;
-    node *siguiente = lista_materias->head;
+    double total = 0;
+    double cantidad_materias_rendidas = 0;
+    curso const *pCurso = NULL;
+    node *iterador = lista_materias->head;
 
-    if (lista_materias->length < 1) {
+    if (lista_materias->length <= 0) {
         return -1;
     }
 
-    while (siguiente->next != NULL) {
-        int siguiente_calificacion = ((curso *) siguiente->data)->calificacion;
-        if (siguiente_calificacion != NULL) {
-            total += (int) siguiente_calificacion;
+    while (iterador->next != NULL) {
+        pCurso = (curso *) iterador->data;
+        if (pCurso != NULL && pCurso->calificacion != 0) {
+            total += (double) pCurso->calificacion;
             cantidad_materias_rendidas++;
         }
-        siguiente = siguiente->next;
+        iterador = iterador->next;
     }
 
-    return (double) total / (double) cantidad_materias_rendidas;
+    return total / cantidad_materias_rendidas;
 }
 
 double calcular_promedio_estudiante(estudiante *pEstudiante) {
     return calcular_promedio(pEstudiante->lista_materias);
 }
 
-/* -1: Si no curso la materia
-    0: Si no aprobo la materia
-    1: Si aprobo la materia
+/**
+ * -1: Si no curso la materia
+ *  0: Si no aprobo la materia
+ *  1: Si aprobo la materia
+ * @return int
  */
 int aprobo_materia(estudiante *pEstudiante, materia *pMateria) {
-    curso *pCurso = (curso *) list_search_data(pEstudiante->lista_materias, curso_materia_equals, pMateria);
+    curso const *pCurso = (curso *) list_search_data(pEstudiante->lista_materias, curso_materia_equals, pMateria);
     if (pCurso == NULL) {
         return -1;
     }

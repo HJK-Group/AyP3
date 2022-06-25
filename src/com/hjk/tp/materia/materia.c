@@ -16,7 +16,7 @@ materia *new_materia(unsigned short id, char *nombre) {
 }
 
 lista_correlativas *new_empty_lista_correlativas() {
-    return (lista_correlativas *) new_empty_list();
+    return new_empty_list();
 }
 
 int wrapper_materia_equals(void *pMateria, void *pCorrelativa) {

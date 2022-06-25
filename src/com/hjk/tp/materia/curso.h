@@ -11,8 +11,6 @@ typedef struct curso {
 
 curso *new_curso(materia *pMateria, unsigned char calificacion);
 
-//int curso_material_equals(curso *pCurso, materia *pMateria);
-
 void curso_destroy(curso *pCurso);
 
 #endif //core_CURSO_H

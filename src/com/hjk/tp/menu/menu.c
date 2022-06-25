@@ -37,6 +37,8 @@ void menu_print_abm_options() {
     printf("[3] Inscribir estudiante en materia\n");
     printf("[4] Registrar nota\n");
     printf("[5] Crear correlatividad\n");
+    printf("[6] Eliminar materia\n");
+    printf("[7] Eliminar estudiante\n");
     printf("[0] Volver al menu principal\n");
     printf("______________________________________________\n");
 }
@@ -47,13 +49,8 @@ void menu_print_query_options() {
     printf("[1] Consultar materias\n");
     printf("[2] Consultar estudiantes\n");
     printf("[3] Consultar promedio de estudiante\n");
-    printf("[4] Consultar cursadas (prox.)\n");
-    printf("[5] Listar registro\n");
-    printf("[6] Consultar aprobacion de estudiante\n");
+    printf("[4] Listar registro\n");
+    printf("[5] Consultar aprobacion de estudiante\n");
     printf("[0] Volver al menu principal\n");
     printf("______________________________________________\n");
 }
-
-//printf("[2] Consultar estudiantes por edad\n");
-//printf("[4] Estudiante rendir Materia\n");
-//printf("[5] Imprimir Registro\n");

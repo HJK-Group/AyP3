@@ -138,9 +138,11 @@ TEST(PruebasEstudiante, rendir_una_materia_con_nota_10) {
     anotarse_materia(un_estudiante, una_materia);
     rendir_materia(un_estudiante, una_materia, 10);
 
-    curso *materia_calificada = (curso*) un_estudiante->lista_materias->head->data;
+    auto *materia_calificada = (curso *) un_estudiante->lista_materias->head->data;
 
     ASSERT_EQ(materia_calificada->calificacion, 10);
+
+    estudiante_destroy(un_estudiante);
 }
 
 TEST(PruebasEstudiante, rendir_segunda_materia_con_nota_7) {
@@ -153,10 +155,12 @@ TEST(PruebasEstudiante, rendir_segunda_materia_con_nota_7) {
 
     rendir_materia(un_estudiante, otra_materia, 7);
 
-    node *primer_elemento_lista = (node*) un_estudiante->lista_materias->head->next;
-    curso *materia_calificada = (curso*) primer_elemento_lista->data;
+    auto *segundo_elemento_lista = (node *) un_estudiante->lista_materias->head->next;
+    auto *materia_calificada = (curso *) segundo_elemento_lista->data;
 
     ASSERT_EQ(materia_calificada->calificacion, 7);
+
+    estudiante_destroy(un_estudiante);
 }
 
 
@@ -172,6 +176,7 @@ TEST(PruebasEstudiante, calcular_promedio_materia_8) {
 
     ASSERT_EQ(promedio, 8);
 
+    estudiante_destroy(un_estudiante);
 }
 
 TEST(PruebasEstudiante, calcular_promedio_con_dos_7) {
@@ -189,8 +194,8 @@ TEST(PruebasEstudiante, calcular_promedio_con_dos_7) {
 
     ASSERT_EQ(promedio, 7);
 
+    estudiante_destroy(un_estudiante);
 }
-
 
 TEST(PruebasEstudiante, calcular_promedio_materias_1_y_10) {
     estudiante *un_estudiante = new_estudiante(62, (char *) "Johnny", (char *) "Allon", 81);
@@ -207,8 +212,8 @@ TEST(PruebasEstudiante, calcular_promedio_materias_1_y_10) {
 
     ASSERT_EQ(promedio, 5.5);
 
+    estudiante_destroy(un_estudiante);
 }
-
 
 TEST(PruebasEstudiante, calcular_promedio_sin_materias) {
     estudiante *un_estudiante = new_estudiante(62, (char *) "Johnny", (char *) "Allon", 81);
@@ -216,6 +221,8 @@ TEST(PruebasEstudiante, calcular_promedio_sin_materias) {
     double promedio = calcular_promedio_estudiante(un_estudiante);
 
     ASSERT_EQ(promedio, -1);
+
+    estudiante_destroy(un_estudiante);
 }
 
 TEST(PruebasEstudiante, calcular_promedio_con_materia_sin_rendir) {
@@ -231,9 +238,9 @@ TEST(PruebasEstudiante, calcular_promedio_con_materia_sin_rendir) {
     double promedio = calcular_promedio_estudiante(un_estudiante);
 
     ASSERT_EQ(promedio, 8);
+
+    estudiante_destroy(un_estudiante);
 }
-
-
 
 void comparar_datos(unsigned long legajo, char *pNombre, char *pApellido, int edad, estudiante *estudiante) {
     ASSERT_EQ(estudiante->legajo, legajo);
