@@ -5,11 +5,9 @@
 #include "com/hjk/tp/materia/curso.h"
 #include "com/hjk/tp/utils/utils.h"
 
-
 int add_edad(estudiante *dest, short edad);
 
-estudiante *new_estudiante(unsigned long legajo, char *nombre, char *apellido, unsigned char edad)
-{
+estudiante *new_estudiante(unsigned long legajo, char *nombre, char *apellido, unsigned char edad) {
     estudiante *entidad = malloc(sizeof(estudiante));
     entidad->legajo = legajo;
     entidad->nombre = new_string(nombre);
@@ -19,8 +17,7 @@ estudiante *new_estudiante(unsigned long legajo, char *nombre, char *apellido, u
     return entidad;
 }
 
-int add_edad(estudiante *dest, short edad)
-{
+int add_edad(estudiante *dest, short edad) {
     if (edad < EDAD_MINIMA || edad > EDAD_MAXIMA) {
         return -1;
     }
@@ -29,8 +26,7 @@ int add_edad(estudiante *dest, short edad)
     return 0;
 }
 
-void estudiante_print(estudiante *alumno)
-{
+void estudiante_print(estudiante *alumno) {
     if (alumno == NULL) {
         return;
     }
@@ -43,8 +39,7 @@ void estudiante_print(estudiante *alumno)
 //    printf("______________________________________________\n");
 }
 
-void anotarse_materia(estudiante *pEstudiante, materia *pMateria)
-{
+void anotarse_materia(estudiante *pEstudiante, materia *pMateria) {
     if (pEstudiante == NULL || pEstudiante->lista_materias == NULL || pMateria == NULL) {
         return;
     }
@@ -75,8 +70,7 @@ void anotarse_materia(estudiante *pEstudiante, materia *pMateria)
     cursada_add(pEstudiante->lista_materias, pMateria);
 }
 
-int rendir_materia(estudiante *pEstudiante, materia *pMateria, char calificacion)
-{
+int rendir_materia(estudiante *pEstudiante, materia *pMateria, char calificacion) {
     curso *actual = (curso *) list_search_data(pEstudiante->lista_materias, curso_materia_equals, pMateria);
     if (actual == NULL) {
         return 0;
@@ -87,8 +81,7 @@ int rendir_materia(estudiante *pEstudiante, materia *pMateria, char calificacion
     return 1;
 }
 
-void estudiante_destroy(estudiante *pEstudiante)
-{
+void estudiante_destroy(estudiante *pEstudiante) {
     if (pEstudiante == NULL) {
         return;
     }
@@ -99,8 +92,7 @@ void estudiante_destroy(estudiante *pEstudiante)
     free(pEstudiante);
 }
 
-double calcular_promedio(cursada *lista_materias)
-{
+double calcular_promedio(cursada *lista_materias) {
     int total = 0;
     int cantidad_materias_rendidas = 0;
     node *siguiente = lista_materias->head;
@@ -121,8 +113,7 @@ double calcular_promedio(cursada *lista_materias)
     return (double) total / (double) cantidad_materias_rendidas;
 }
 
-double calcular_promedio_estudiante(estudiante *pEstudiante)
-{
+double calcular_promedio_estudiante(estudiante *pEstudiante) {
     return calcular_promedio(pEstudiante->lista_materias);
 }
 
@@ -130,8 +121,7 @@ double calcular_promedio_estudiante(estudiante *pEstudiante)
     0: Si no aprobo la materia
     1: Si aprobo la materia
  */
-int aprobo_materia(estudiante *pEstudiante, materia *pMateria)
-{
+int aprobo_materia(estudiante *pEstudiante, materia *pMateria) {
     curso *pCurso = (curso *) list_search_data(pEstudiante->lista_materias, curso_materia_equals, pMateria);
     if (pCurso == NULL) {
         return -1;
