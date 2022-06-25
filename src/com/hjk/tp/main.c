@@ -90,9 +90,9 @@ int main() {
 
 int get_menu_option() {
     fflush(stdin);
-    char option[2];
-    fgets(option, 2, stdin);
-
+    char option[4];
+    fgets(option, 4, stdin);
+    fflush(stdin);
     printf("\n");
 
     return (int) strtol(option, NULL, 10);
@@ -106,7 +106,7 @@ char *solicitar_dato(int longitud) {
     fflush(stdin);
     char dato[longitud];
     fgets(dato, longitud, stdin);
-
+    fflush(stdin);
     char *dato_reducido = malloc(strlen(dato) + 1);
     strcpy(dato_reducido, dato);
     return dato_reducido;
@@ -293,8 +293,9 @@ materia *buscar_materia(list *pLista_materias) {
 
 int solicitar_confirmacion() {
     fflush(stdin);
-    char option[2];
-    fgets(option, 2, stdin);
+    char option[4];
+    fgets(option, 4, stdin);
+    fflush(stdin);
     int respuesta = strcmp(option, "s") == 0;
 
     return respuesta;
