@@ -28,13 +28,11 @@ Desarrollar un sistema de estudiantes en C. Debe permitir:
 * Buscar estudiantes por nombre
 * Buscar estudiantes por rango de edad
 
-
 Además cada estudiante puede anotarse en N materias.
 
 * Crear y listar materias
 * Anotarse en una materia
 * Rendir una materia
-
 
 > El sistema debe poder soportar un gran listado de estudiantes y materias. \
   Utilizar estructuras de datos para almacenar los listados. \
@@ -43,18 +41,20 @@ Además cada estudiante puede anotarse en N materias.
   Utilizar la creatividad para que el manejo del sistema sea lo más práctico posible. \
   Si los requerimientos planteados son cumplidos, el ejercicio está aprobado. Puede pasar que en situaciones en la que la cantidad de datos sea muy grande, el sistema sea inmanejable. En ese caso, detallar las limitaciones de la solución propuesta (si las limitaciones son reconocidas no se considera desaprobado el punto).
 
+### Puntos Extra
+
 * Ideas no-obligatorias de implementar pero que suman puntos: 
-  * [ ] Utilizar paginado 
+  * [x] Utilizar paginado
   * [ ] Poder elegir el estudiante/materia de un listado reducido
   * [ ] Generar estudiantes de prueba y materias aleatorias de forma masiva
   * [ ] Estadísticas de los estudiantes y materias, etc
-  * [ ] Árboles de correlatividad de materias (2pts). Qué pasa si una materia anterior está desaprobada? Puede anotarse? 
-  * [ ] Cálculo de promedios 
-  * [ ] Archivo de configuración general donde se especifican las variables del sistema
+  * [x] Árboles de correlatividad de materias (2pts). Qué pasa si una materia anterior está desaprobada? Puede anotarse?
+  * [x] Cálculo de promedios
+  * [x] Archivo de configuración general donde se especifican las variables del sistema
   * [ ] Persistencia (2)
-  * [ ] Validaciones complejas
-  * [ ] Tests
-  * [ ] Integración continua
+  * [x] Validaciones complejas
+  * [x] Tests
+  * [x] Integración continua
 
 > En el repositorio hacer un README con los integrantes, las consignas implementadas y los puntos extras que hayan desarrollado.
 
